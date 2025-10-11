@@ -1,0 +1,3584 @@
+[
+  {
+    "name": "Abbey Wood",
+    "lines": [
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Acton Central Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Acton Main Line Rail Station",
+    "lines": [
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Acton Town",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Addiscombe Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Aldgate",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Aldgate East",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Amersham",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "9"
+  },
+  {
+    "name": "Ampere Way Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Arena Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Arnos Grove",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Arsenal",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Avenue Road Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Baker Street",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Bank",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "DLR",
+        "colour": ""
+      },
+      {
+        "line": "Waterloo & City",
+        "colour": ""
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Barbican",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Barking",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Barking Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Barking Riverside",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Barons Court",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Battersea Power Station",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Bayswater",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Beckenham Junction Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Beckenham Road Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Becontree",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Beddington Lane Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Belgrave Walk Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Belsize Park",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Bermondsey",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Bethnal Green",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Bethnal Green Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Birkbeck Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Blackfriars",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Blackhorse Lane Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Blackhorse Road",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Blackhorse Road Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Bond Street",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      },
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Boston Manor",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Bounds Green",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "3/4"
+  },
+  {
+    "name": "Bow Road",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Brent Cross",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Brixton",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Bromley-by-Bow",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Brondesbury Park Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Brondesbury Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Buckhurst Hill",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Burnt Oak",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Bushey Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "8"
+  },
+  {
+    "name": "Caledonian Road",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Caledonian Road & Barnsbury Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Cambridge Heath (London) Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Camden Road Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Camden Town",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Canada Water",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Canary Wharf",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      },
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Canning Town",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Cannon Street",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Canonbury Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      },
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Canons Park",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Carpenders Park Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "7"
+  },
+  {
+    "name": "Chalfont & Latimer",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "8"
+  },
+  {
+    "name": "Chalk Farm",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Chancery Lane",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Charing Cross",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Chingford Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Chiswick Park",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Chorleywood",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "7"
+  },
+  {
+    "name": "Church Street Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Clapton Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Cockfosters",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Colindale",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Covent Garden",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Crossharbour",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Crouch Hill Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Custom House",
+    "lines": [
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Cutty Sark (for Maritime Greenwich)",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Dagenham East",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Dagenham Heathway",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Dalston Junction Rail Station",
+    "lines": [
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Dalston Kingsland Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Debden",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Deptford Bridge",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Dollis Hill",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Dundonald Road Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Ealing Broadway",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Ealing Common",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Earl's Court",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1/2"
+  },
+  {
+    "name": "East Acton",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "East Croydon Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "East Ham",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "3/4"
+  },
+  {
+    "name": "Edgware",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Edgware Road",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Elephant & Castle",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Elm Park",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Elverson Road",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Embankment",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Emerson Park Rail Station",
+    "lines": [
+      {
+        "line": "Liberty",
+        "colour": ""
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Epping",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Euston",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      },
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Euston Square",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Farringdon",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Finchley Road",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Finchley Road & Frognal Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Finsbury Park",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      },
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "George Street Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Gloucester Road",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Golders Green",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Goldhawk Road",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Goodge Street",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Gospel Oak Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      },
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Great Portland Street",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Green Park",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      },
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Greenwich",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Gunnersbury Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Hackney Central Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Hackney Downs Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Hackney Wick Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Haggerston Rail Station",
+    "lines": [
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Hammersmith",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      },
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Hampstead",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Hampstead Heath Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Hanwell Rail Station",
+    "lines": [
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Harlesden",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Harringay Green Lanes Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Harrington Road Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Harrow & Wealdstone",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Harrow-on-the-Hill",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Hatch End Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Hatton Cross",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "5/6"
+  },
+  {
+    "name": "Hayes & Harlington Rail Station",
+    "lines": [
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Headstone Lane Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Heathrow Terminal 4",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Heathrow Terminals 2 & 3",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Hendon Central",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "3/4"
+  },
+  {
+    "name": "Heron Quays",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "High Street Kensington",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Highams Park Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Highbury & Islington",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      },
+      {
+        "line": "Mildmay",
+        "colour": ""
+      },
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Holborn",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Holland Park",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Holloway Road",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Homerton Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Hornchurch",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Hounslow Central",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Hounslow East",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Hounslow West",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Hoxton Rail Station",
+    "lines": [
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "1/2"
+  },
+  {
+    "name": "Hyde Park Corner",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Island Gardens",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Kennington",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "1/2"
+  },
+  {
+    "name": "Kensal Green",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Kensal Rise Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Kentish Town West Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Kenton",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Kew Gardens Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "3/4"
+  },
+  {
+    "name": "Kilburn",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Kilburn High Road Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Kilburn Park",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "King's Cross St. Pancras",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      },
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Kingsbury",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Knightsbridge",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Ladbroke Grove",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Lambeth North",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Lancaster Gate",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Latimer Road",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Lebanon Road Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Leicester Square",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Lewisham",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Leyton",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Leyton Midland Road Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Leytonstone",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "3/4"
+  },
+  {
+    "name": "Leytonstone High Road Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Limehouse",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Liverpool Street",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "London Bridge",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "London Euston Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "London Fields Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "London Liverpool Street Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Loughton",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Maida Vale",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Manor House",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Mansion House",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Marble Arch",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Marylebone",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Merton Park Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Mile End",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Mitcham Junction Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Mitcham Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Monument",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Moor Park",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "6/7"
+  },
+  {
+    "name": "Moorgate",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Morden Road Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Mornington Crescent",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Mudchute",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Neasden",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "New Cross Gate Rail Station",
+    "lines": [
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Nine Elms",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "North Acton",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "North Greenwich",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "North Harrow",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "North Wembley",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Northfields",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Northwick Park",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Northwood",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Northwood Hills",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Notting Hill Gate",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      }
+    ],
+    "zone": "1/2"
+  },
+  {
+    "name": "Oakwood",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Osterley",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Oxford Circus",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Paddington",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Phipps Bridge Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Piccadilly Circus",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Pimlico",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Pinner",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Plaistow",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Preston Road",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Queen's Park",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Queensbury",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Queensway",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Ravenscourt Park",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Regent's Park",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Richmond (London) Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Rickmansworth",
+    "lines": [
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "7"
+  },
+  {
+    "name": "Romford Rail Station",
+    "lines": [
+      {
+        "line": "Liberty",
+        "colour": ""
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Rotherhithe Rail Station",
+    "lines": [
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Royal Oak",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Russell Square",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Sandilands Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Seven Sisters",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Shadwell",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      },
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Shepherd's Bush (Central)",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Shepherd's Bush Market",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Shoreditch High Street Rail Station",
+    "lines": [
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Sloane Square",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Snaresbrook",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "South Acton Rail Station",
+    "lines": [
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "South Ealing",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "South Hampstead Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "South Kensington",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "South Kenton",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "South Quays",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "South Tottenham Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "South Woodford",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Southall Rail Station",
+    "lines": [
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Southgate",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Southwark",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "St James Street (London) Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "St. James's Park",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "St. John's Wood",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "St. Paul's",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Stamford Brook",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Stanmore",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "5"
+  },
+  {
+    "name": "Stepney Green",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Stockwell",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Stonebridge Park",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Stratford",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Surrey Quays Rail Station",
+    "lines": [
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Swiss Cottage",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Temple",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Therapia Lane Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Theydon Bois",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Tottenham Court Road",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      },
+      {
+        "line": "Northern",
+        "colour": "Black"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Tottenham Hale",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Tower Hill",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Turnham Green",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Turnpike Lane",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Upminster",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Upminster Bridge",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Upminster Rail Station",
+    "lines": [
+      {
+        "line": "Liberty",
+        "colour": ""
+      }
+    ],
+    "zone": "6"
+  },
+  {
+    "name": "Upney",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Upper Holloway Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Upton Park",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Vauxhall",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "1/2"
+  },
+  {
+    "name": "Victoria",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Waddon Marsh Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Walthamstow Central",
+    "lines": [
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      },
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Walthamstow Queens Road Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Wandle Park Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Wanstead Park Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Wapping Rail Station",
+    "lines": [
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Warren Street",
+    "lines": [
+      {
+        "line": "Northern",
+        "colour": "Black"
+      },
+      {
+        "line": "Victoria",
+        "colour": "Blue (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Warwick Avenue",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Waterloo",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Northern",
+        "colour": "Black"
+      },
+      {
+        "line": "Waterloo & City",
+        "colour": ""
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "Watford High Street Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "8"
+  },
+  {
+    "name": "Watford Junction Rail Station",
+    "lines": [
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Wembley Central",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Wembley Park",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "West Acton",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "West Ealing Rail Station",
+    "lines": [
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "West Ham",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "West Hampstead",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "West Kensington",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Westbourne Park",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Westferry",
+    "lines": [
+      {
+        "line": "DLR",
+        "colour": ""
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Westminster",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      }
+    ],
+    "zone": "1"
+  },
+  {
+    "name": "White City",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Whitechapel",
+    "lines": [
+      {
+        "line": "District",
+        "colour": "Green"
+      },
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      },
+      {
+        "line": "Windrush",
+        "colour": "Brown (Backup)"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Willesden Green",
+    "lines": [
+      {
+        "line": "Jubilee",
+        "colour": "Black (Backup)"
+      },
+      {
+        "line": "Metropolitan",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Willesden Junction",
+    "lines": [
+      {
+        "line": "Bakerloo",
+        "colour": "Brown"
+      },
+      {
+        "line": "Lioness",
+        "colour": "Yellow (Backup)"
+      },
+      {
+        "line": "Mildmay",
+        "colour": ""
+      }
+    ],
+    "zone": "2/3"
+  },
+  {
+    "name": "Wimbledon Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Wood Green",
+    "lines": [
+      {
+        "line": "Piccadilly",
+        "colour": "Blue"
+      }
+    ],
+    "zone": "3"
+  },
+  {
+    "name": "Wood Lane",
+    "lines": [
+      {
+        "line": "Circle",
+        "colour": "Yellow"
+      },
+      {
+        "line": "Hammersmith & City",
+        "colour": "Pink"
+      }
+    ],
+    "zone": "2"
+  },
+  {
+    "name": "Wood Street Rail Station",
+    "lines": [
+      {
+        "line": "Weaver",
+        "colour": "Red (Backup)"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Woodford",
+    "lines": [
+      {
+        "line": "Central",
+        "colour": "Red"
+      }
+    ],
+    "zone": "4"
+  },
+  {
+    "name": "Woodgrange Park Rail Station",
+    "lines": [
+      {
+        "line": "Suffragette",
+        "colour": "Green (Backup)"
+      }
+    ],
+    "zone": "3/4"
+  },
+  {
+    "name": "Woodside Tram Stop",
+    "lines": [
+      {
+        "line": "Tram",
+        "colour": ""
+      }
+    ],
+    "zone": "Out Of Range"
+  },
+  {
+    "name": "Woolwich",
+    "lines": [
+      {
+        "line": "Elizabeth",
+        "colour": "Pink (Backup)"
+      }
+    ],
+    "zone": "4"
+  }
+]

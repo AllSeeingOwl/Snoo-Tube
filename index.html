@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snooker Tubey Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a73e8">
+</head>
+<body>
+    <div class="container">
+        <h1>Snooker Tubey Tracker</h1>
+        <div class="controls">
+            <div class="control-group">
+                <label for="tier">Game Tier:</label>
+                <select id="tier">
+                    <option value="Advanced">Advanced (1 Use)</option>
+                    <option value="Intermediate">Intermediate (2 Uses)</option>
+                    <option value="Casual">Casual (Unlimited)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="ball-colour">Potted Ball:</label>
+                <select id="ball-colour">
+                    <option value="Red">Red</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Green">Green</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Black">Black</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="station-input">Station Name:</label>
+                <input type="text" id="station-input" placeholder="Enter station name...">
+            </div>
+            <button id="submit-btn">Submit</button>
+            <button id="wildcard-btn">Use Overground Wildcard</button>
+            <button id="reset-btn">Reset Game</button>
+        </div>
+        <div id="message-area"></div>
+        <div class="station-list">
+            <input type="text" id="search-bar" placeholder="Search for a station...">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Station Name</th>
+                        <th>Lines Served</th>
+                        <th>Valid Colours</th>
+                        <th>Zone</th>
+                        <th>Times Used</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="station-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
