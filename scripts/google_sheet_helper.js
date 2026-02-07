@@ -71,15 +71,25 @@ function updateStationLocks(tier) {
 
   if (tier === TIER_CASUAL) {
     ui.alert('Casual Tier Selected', 'In Casual Tier, stations are always reusable. No locking applied by this script.', ui.ButtonSet.OK);
-    // Optionally, you could set all to "No" if you want a visual cue
+
+    const lockStatusValues = [];
+    let stationsUpdated = 0;
+
     for (let i = HEADER_ROW_COUNT; i < values.length; i++) {
+      let isLocked = values[i][CURRENTLY_LOCKED_COL];
       if (values[i][STATION_NAME_COL] !== "") { // Process only if station name exists
-        // Check if the current value is different before setting to avoid unnecessary writes
-        if (sheet.getRange(i + 1, CURRENTLY_LOCKED_COL + 1).getValue() !== "No") {
-          sheet.getRange(i + 1, CURRENTLY_LOCKED_COL + 1).setValue("No");
+        if (isLocked !== "No") {
+          isLocked = "No";
+          stationsUpdated++;
         }
       }
+      lockStatusValues.push([isLocked]);
     }
+
+    if (lockStatusValues.length > 0) {
+      sheet.getRange(HEADER_ROW_COUNT + 1, CURRENTLY_LOCKED_COL + 1, lockStatusValues.length, 1).setValues(lockStatusValues);
+    }
+
     SpreadsheetApp.flush(); // Apply changes
     return;
   }
@@ -95,26 +105,30 @@ function updateStationLocks(tier) {
   }
 
   let stationsUpdated = 0;
+  const lockStatusValues = [];
 
   // Start from row after header to skip header
   for (let i = HEADER_ROW_COUNT; i < values.length; i++) {
     const stationName = values[i][STATION_NAME_COL];
-    if (stationName === "" || stationName == null) continue; // Skip empty rows or rows without station names
+    let isLocked = values[i][CURRENTLY_LOCKED_COL];
 
-    const timesUsedRaw = values[i][TIMES_USED_COL];
-    // Ensure timesUsed is treated as a number. If it's blank or not a number, treat as 0.
-    const timesUsed = (timesUsedRaw === "" || timesUsedRaw == null || isNaN(parseInt(timesUsedRaw, 10))) ? 0 : parseInt(timesUsedRaw, 10);
+    if (stationName !== "" && stationName != null) { // Skip empty rows or rows without station names
+      const timesUsedRaw = values[i][TIMES_USED_COL];
+      // Ensure timesUsed is treated as a number. If it's blank or not a number, treat as 0.
+      const timesUsed = (timesUsedRaw === "" || timesUsedRaw == null || isNaN(parseInt(timesUsedRaw, 10))) ? 0 : parseInt(timesUsedRaw, 10);
 
-    let isLocked = "No"; // Default to not locked
-    if (timesUsed >= lockThreshold) {
-      isLocked = "Yes";
+      const targetLockStatus = (timesUsed >= lockThreshold) ? "Yes" : "No";
+
+      if (isLocked !== targetLockStatus) {
+        isLocked = targetLockStatus;
+        stationsUpdated++;
+      }
     }
+    lockStatusValues.push([isLocked]);
+  }
 
-    // Only write if the value needs to change to avoid unnecessary writes
-    if (values[i][CURRENTLY_LOCKED_COL] !== isLocked) {
-      sheet.getRange(i + 1, CURRENTLY_LOCKED_COL + 1).setValue(isLocked);
-      stationsUpdated++;
-    }
+  if (lockStatusValues.length > 0) {
+    sheet.getRange(HEADER_ROW_COUNT + 1, CURRENTLY_LOCKED_COL + 1, lockStatusValues.length, 1).setValues(lockStatusValues);
   }
 
   SpreadsheetApp.flush(); // Apply all pending changes
@@ -162,12 +176,9 @@ function unlockStationByName(stationName) {
   for (let i = HEADER_ROW_COUNT; i < values.length; i++) {
     // Ensure comparison is case-insensitive and trims whitespace
     if (values[i][STATION_NAME_COL] && values[i][STATION_NAME_COL].toString().trim().toLowerCase() === stationName.toLowerCase()) {
-      // Set Times Used to 0
-      sheet.getRange(i + 1, TIMES_USED_COL + 1).setValue(0);
-      // Set Currently Locked to No
-      sheet.getRange(i + 1, CURRENTLY_LOCKED_COL + 1).setValue("No");
-      // Add a note
-      sheet.getRange(i + 1, NOTES_COL + 1).setValue("Unlocked by Wildcard " + new Date().toLocaleDateString());
+      // Set Times Used to 0, Currently Locked to No, and add a note
+      // These three columns (E, F, G) are contiguous
+      sheet.getRange(i + 1, TIMES_USED_COL + 1, 1, 3).setValues([[0, "No", "Unlocked by Wildcard " + new Date().toLocaleDateString()]]);
       stationFound = true;
       break;
     }
