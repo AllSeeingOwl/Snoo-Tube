@@ -27,6 +27,11 @@
     padding: 0;
 }
 
+:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
@@ -254,6 +259,10 @@ tbody tr.locked {
     font-size: 1.5rem;
     cursor: pointer;
     color: var(--text-muted);
+    background: none;
+    padding: 0;
+    border: none;
+    line-height: 1;
 }
 
 #locked-stations-list {

@@ -188,6 +188,10 @@ function renderTable() {
             });
         }
 
+        tr.tabIndex = 0;
+        tr.setAttribute('role', 'button');
+        tr.setAttribute('aria-label', `Record use for ${station.name}`);
+
         tr.innerHTML = `
             <td>
                 <div class="station-name">${station.name} ${locked ? '<span class="locked-icon" title="Locked">🔒</span>' : ''}</div>
@@ -202,6 +206,12 @@ function renderTable() {
         `;
 
         tr.addEventListener('click', () => handleStationClick(station.name));
+        tr.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleStationClick(station.name);
+            }
+        });
         fragment.appendChild(tr);
     });
 
@@ -278,7 +288,16 @@ function renderWildcardList(stations) {
     stations.forEach(station => {
         const li = document.createElement('li');
         li.textContent = `${station.name} (${station.lines})`;
+        li.tabIndex = 0;
+        li.setAttribute('role', 'button');
+        li.setAttribute('aria-label', `Unlock ${station.name}`);
         li.addEventListener('click', () => unlockStation(station.name));
+        li.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                unlockStation(station.name);
+            }
+        });
         lockedStationsList.appendChild(li);
     });
 }
@@ -296,6 +315,7 @@ function unlockStation(stationName) {
 
 function closeModal() {
     wildcardModal.classList.add('hidden');
+    wildcardBtn.focus();
 }
 
 // Utilities
@@ -333,8 +353,12 @@ function setupEventListeners() {
     // Filter Buttons
     filterBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            filterBtns.forEach(b => b.classList.remove('active'));
+            filterBtns.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
             e.target.classList.add('active');
+            e.target.setAttribute('aria-pressed', 'true');
             applyFilters();
         });
     });
@@ -361,6 +385,13 @@ function setupEventListeners() {
             isStationLocked(s.name) && s.name.toLowerCase().includes(query)
         );
         renderWildcardList(lockedStations);
+    });
+
+    // Escape key to close modal
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !wildcardModal.classList.contains('hidden')) {
+            closeModal();
+        }
     });
 }
 
