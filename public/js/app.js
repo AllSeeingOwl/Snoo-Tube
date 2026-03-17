@@ -8,6 +8,7 @@ const stationsBody = document.getElementById('stations-body');
 const wildcardBtn = document.getElementById('wildcard-btn');
 const resetBtn = document.getElementById('reset-btn');
 const toast = document.getElementById('toast');
+let toastTimeout;
 
 // Modal Elements
 const wildcardModal = document.getElementById('wildcard-modal');
@@ -320,10 +321,11 @@ function closeModal() {
 
 // Utilities
 function showToast(message) {
+    clearTimeout(toastTimeout);
     toast.textContent = message;
     toast.classList.remove('hidden');
 
-    setTimeout(() => {
+    toastTimeout = setTimeout(() => {
         toast.classList.add('hidden');
     }, 3000);
 }
