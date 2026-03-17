@@ -191,6 +191,7 @@ function renderTable() {
         tr.tabIndex = 0;
         tr.setAttribute('role', 'button');
         tr.setAttribute('aria-label', `Record use for ${station.name}`);
+        tr.dataset.stationName = station.name;
 
         tr.innerHTML = `
             <td>
@@ -205,13 +206,6 @@ function renderTable() {
             <td class="use-count">${uses}</td>
         `;
 
-        tr.addEventListener('click', () => handleStationClick(station.name));
-        tr.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleStationClick(station.name);
-            }
-        });
         fragment.appendChild(tr);
     });
 
@@ -291,13 +285,7 @@ function renderWildcardList(stations) {
         li.tabIndex = 0;
         li.setAttribute('role', 'button');
         li.setAttribute('aria-label', `Unlock ${station.name}`);
-        li.addEventListener('click', () => unlockStation(station.name));
-        li.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                unlockStation(station.name);
-            }
-        });
+        li.dataset.stationName = station.name;
         lockedStationsList.appendChild(li);
     });
 }
@@ -365,6 +353,42 @@ function setupEventListeners() {
 
     // Reset Game
     resetBtn.addEventListener('click', resetGame);
+
+    // Table Row Click/Keydown (Event Delegation)
+    stationsBody.addEventListener('click', (e) => {
+        const tr = e.target.closest('tr');
+        if (tr && tr.dataset.stationName) {
+            handleStationClick(tr.dataset.stationName);
+        }
+    });
+
+    stationsBody.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const tr = e.target.closest('tr');
+            if (tr && tr.dataset.stationName) {
+                e.preventDefault();
+                handleStationClick(tr.dataset.stationName);
+            }
+        }
+    });
+
+    // Wildcard List Click/Keydown (Event Delegation)
+    lockedStationsList.addEventListener('click', (e) => {
+        const li = e.target.closest('li');
+        if (li && li.dataset.stationName) {
+            unlockStation(li.dataset.stationName);
+        }
+    });
+
+    lockedStationsList.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const li = e.target.closest('li');
+            if (li && li.dataset.stationName) {
+                e.preventDefault();
+                unlockStation(li.dataset.stationName);
+            }
+        }
+    });
 
     // Wildcard
     wildcardBtn.addEventListener('click', openWildcardModal);
