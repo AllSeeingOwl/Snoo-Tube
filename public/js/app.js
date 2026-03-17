@@ -1,25 +1,21 @@
 // Snooker Tubey Tracker App Logic
 
 // DOM Elements
-let tierSelect, searchInput, filterBtns, stationsBody, wildcardBtn, resetBtn, toast;
-let wildcardModal, closeBtn, cancelWildcardBtn, wildcardSearch, lockedStationsList;
+const tierSelect = document.getElementById('game-tier');
+const searchInput = document.getElementById('search-input');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const stationsBody = document.getElementById('stations-body');
+const wildcardBtn = document.getElementById('wildcard-btn');
+const resetBtn = document.getElementById('reset-btn');
+const toast = document.getElementById('toast');
+let toastTimeout;
 
-function initDOMElements() {
-    tierSelect = document.getElementById('game-tier');
-    searchInput = document.getElementById('search-input');
-    filterBtns = document.querySelectorAll('.filter-btn');
-    stationsBody = document.getElementById('stations-body');
-    wildcardBtn = document.getElementById('wildcard-btn');
-    resetBtn = document.getElementById('reset-btn');
-    toast = document.getElementById('toast');
-
-    // Modal Elements
-    wildcardModal = document.getElementById('wildcard-modal');
-    closeBtn = document.querySelector('.close-btn');
-    cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
-    wildcardSearch = document.getElementById('wildcard-search');
-    lockedStationsList = document.getElementById('locked-stations-list');
-}
+// Modal Elements
+const wildcardModal = document.getElementById('wildcard-modal');
+const closeBtn = document.querySelector('.close-btn');
+const cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
+const wildcardSearch = document.getElementById('wildcard-search');
+const lockedStationsList = document.getElementById('locked-stations-list');
 
 // State
 let allStations = []; // Original data from CSV
@@ -355,14 +351,11 @@ function closeModal() {
 
 // Utilities
 function showToast(message) {
-    if (!toast) {
-        console.log('Toast:', message);
-        return;
-    }
+    clearTimeout(toastTimeout);
     toast.textContent = message;
     toast.classList.remove('hidden');
 
-    setTimeout(() => {
+    toastTimeout = setTimeout(() => {
         toast.classList.add('hidden');
     }, 3000);
 }
