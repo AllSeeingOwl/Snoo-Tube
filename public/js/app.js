@@ -38,6 +38,7 @@ const colourMap = {
 
 // Initialization
 async function init() {
+    initDOMElements();
     loadGameState();
 
     try {
@@ -53,7 +54,9 @@ async function init() {
         }
     } catch (error) {
         console.error('Error initializing app:', error);
-        stationsBody.innerHTML = `<tr><td colspan="5" style="color: red; text-align:center;">Failed to load station data. Are you running a local server?</td></tr>`;
+        if (stationsBody) {
+            stationsBody.innerHTML = `<tr><td colspan="5" style="color: red; text-align:center;">Failed to load station data. Are you running a local server?</td></tr>`;
+        }
     }
 }
 
@@ -133,11 +136,12 @@ function parseCSV(str) {
 
 // State Management
 function loadGameState() {
+    if (typeof localStorage === 'undefined') return;
     const saved = localStorage.getItem('snookerTubeyState');
     if (saved) {
         try {
             gameState = JSON.parse(saved);
-            tierSelect.value = gameState.tier;
+            if (tierSelect) tierSelect.value = gameState.tier;
         } catch(e) {
             console.error('Failed to parse saved state');
         }
@@ -145,6 +149,7 @@ function loadGameState() {
 }
 
 function saveGameState() {
+    if (typeof localStorage === 'undefined') return;
     localStorage.setItem('snookerTubeyState', JSON.stringify(gameState));
 }
 
@@ -161,6 +166,7 @@ function isStationLocked(stationName) {
 
 // UI Rendering
 function renderTable() {
+    if (!stationsBody) return;
     stationsBody.innerHTML = '';
 
     if (displayStations.length === 0) {
@@ -178,13 +184,17 @@ function renderTable() {
         if (locked) tr.classList.add('locked');
 
         // Create colour badges
-        let colourBadgesHtml = '';
+        const colourBadgesContainer = document.createDocumentFragment();
         if (station.colours) {
             const coloursList = station.colours.toLowerCase().match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
             // Remove duplicates
             [...new Set(coloursList)].forEach(c => {
                 if (colourMap[c]) {
-                    colourBadgesHtml += `<span class="colour-badge" style="background-color: ${colourMap[c]}" title="${c}"></span>`;
+                    const badge = document.createElement('span');
+                    badge.className = 'colour-badge';
+                    badge.style.backgroundColor = colourMap[c];
+                    badge.title = c;
+                    colourBadgesContainer.appendChild(badge);
                 }
             });
         }
@@ -192,27 +202,48 @@ function renderTable() {
         tr.tabIndex = 0;
         tr.setAttribute('role', 'button');
         tr.setAttribute('aria-label', `Record use for ${station.name}`);
+        tr.dataset.stationName = station.name;
 
-        tr.innerHTML = `
-            <td>
-                <div class="station-name">${station.name} ${locked ? '<span class="locked-icon" title="Locked">🔒</span>' : ''}</div>
-            </td>
-            <td><div class="station-lines">${station.lines}</div></td>
-            <td class="station-colours">
-                ${colourBadgesHtml}
-                <span>${station.colours}</span>
-            </td>
-            <td>${station.zone}</td>
-            <td class="use-count">${uses}</td>
-        `;
+        // Create table cells safely
+        const nameTd = document.createElement('td');
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'station-name';
+        nameDiv.textContent = station.name + ' ';
+        if (locked) {
+            const lockedSpan = document.createElement('span');
+            lockedSpan.className = 'locked-icon';
+            lockedSpan.title = 'Locked';
+            lockedSpan.textContent = '🔒';
+            nameDiv.appendChild(lockedSpan);
+        }
+        nameTd.appendChild(nameDiv);
 
-        tr.addEventListener('click', () => handleStationClick(station.name));
-        tr.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleStationClick(station.name);
-            }
-        });
+        const linesTd = document.createElement('td');
+        const linesDiv = document.createElement('div');
+        linesDiv.className = 'station-lines';
+        linesDiv.textContent = station.lines;
+        linesTd.appendChild(linesDiv);
+
+        const coloursTd = document.createElement('td');
+        coloursTd.className = 'station-colours';
+        coloursTd.appendChild(colourBadgesContainer);
+        const coloursSpan = document.createElement('span');
+        coloursSpan.textContent = station.colours;
+        coloursTd.appendChild(coloursSpan);
+
+        const zoneTd = document.createElement('td');
+        zoneTd.textContent = station.zone;
+
+        const usesTd = document.createElement('td');
+        usesTd.className = 'use-count';
+        usesTd.textContent = uses;
+
+        tr.appendChild(nameTd);
+        tr.appendChild(linesTd);
+        tr.appendChild(coloursTd);
+        tr.appendChild(zoneTd);
+        tr.appendChild(usesTd);
+
         fragment.appendChild(tr);
     });
 
@@ -245,7 +276,7 @@ function handleStationClick(stationName) {
 
 // Filtering and Searching
 function applyFilters() {
-    const query = searchInput.value.toLowerCase().trim();
+    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
     const activeFilterBtn = document.querySelector('.filter-btn.active');
     const filterType = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
 
@@ -279,12 +310,15 @@ function openWildcardModal() {
     }
 
     renderWildcardList(lockedStations);
-    wildcardSearch.value = '';
-    wildcardModal.classList.remove('hidden');
-    wildcardSearch.focus();
+    if (wildcardSearch) wildcardSearch.value = '';
+    if (wildcardModal) {
+        wildcardModal.classList.remove('hidden');
+        if (wildcardSearch) wildcardSearch.focus();
+    }
 }
 
 function renderWildcardList(stations) {
+    if (!lockedStationsList) return;
     lockedStationsList.innerHTML = '';
     stations.forEach(station => {
         const li = document.createElement('li');
@@ -292,13 +326,7 @@ function renderWildcardList(stations) {
         li.tabIndex = 0;
         li.setAttribute('role', 'button');
         li.setAttribute('aria-label', `Unlock ${station.name}`);
-        li.addEventListener('click', () => unlockStation(station.name));
-        li.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                unlockStation(station.name);
-            }
-        });
+        li.dataset.stationName = station.name;
         lockedStationsList.appendChild(li);
     });
 }
@@ -315,8 +343,10 @@ function unlockStation(stationName) {
 }
 
 function closeModal() {
-    wildcardModal.classList.add('hidden');
-    wildcardBtn.focus();
+    if (wildcardModal) {
+        wildcardModal.classList.add('hidden');
+        if (wildcardBtn) wildcardBtn.focus();
+    }
 }
 
 // Utilities
@@ -342,36 +372,80 @@ function resetGame() {
 // Event Listeners Setup
 function setupEventListeners() {
     // Tier Selection
-    tierSelect.addEventListener('change', (e) => {
-        gameState.tier = e.target.value;
-        saveGameState();
-        applyFilters(); // Re-evaluate locks based on new tier
-        showToast(`Tier changed to ${e.target.value}`);
-    });
+    if (tierSelect) {
+        tierSelect.addEventListener('change', (e) => {
+            gameState.tier = e.target.value;
+            saveGameState();
+            applyFilters(); // Re-evaluate locks based on new tier
+            showToast(`Tier changed to ${e.target.value}`);
+        });
+    }
 
     // Search Input
-    searchInput.addEventListener('input', applyFilters);
+    if (searchInput) {
+        searchInput.addEventListener('input', applyFilters);
+    }
 
     // Filter Buttons
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            filterBtns.forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-pressed', 'false');
+    if (filterBtns) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                e.target.classList.add('active');
+                e.target.setAttribute('aria-pressed', 'true');
+                applyFilters();
             });
-            e.target.classList.add('active');
-            e.target.setAttribute('aria-pressed', 'true');
-            applyFilters();
         });
-    });
+    }
 
     // Reset Game
-    resetBtn.addEventListener('click', resetGame);
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetGame);
+    }
+
+    // Table Row Click/Keydown (Event Delegation)
+    stationsBody.addEventListener('click', (e) => {
+        const tr = e.target.closest('tr');
+        if (tr && tr.dataset.stationName) {
+            handleStationClick(tr.dataset.stationName);
+        }
+    });
+
+    stationsBody.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const tr = e.target.closest('tr');
+            if (tr && tr.dataset.stationName) {
+                e.preventDefault();
+                handleStationClick(tr.dataset.stationName);
+            }
+        }
+    });
+
+    // Wildcard List Click/Keydown (Event Delegation)
+    lockedStationsList.addEventListener('click', (e) => {
+        const li = e.target.closest('li');
+        if (li && li.dataset.stationName) {
+            unlockStation(li.dataset.stationName);
+        }
+    });
+
+    lockedStationsList.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const li = e.target.closest('li');
+            if (li && li.dataset.stationName) {
+                e.preventDefault();
+                unlockStation(li.dataset.stationName);
+            }
+        }
+    });
 
     // Wildcard
-    wildcardBtn.addEventListener('click', openWildcardModal);
-    closeBtn.addEventListener('click', closeModal);
-    cancelWildcardBtn.addEventListener('click', closeModal);
+    if (wildcardBtn) wildcardBtn.addEventListener('click', openWildcardModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelWildcardBtn) cancelWildcardBtn.addEventListener('click', closeModal);
 
     // Close modal on outside click
     window.addEventListener('click', (e) => {
@@ -381,21 +455,34 @@ function setupEventListeners() {
     });
 
     // Wildcard search filter
-    wildcardSearch.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
-        const lockedStations = allStations.filter(s =>
-            isStationLocked(s.name) && s.name.toLowerCase().includes(query)
-        );
-        renderWildcardList(lockedStations);
-    });
+    if (wildcardSearch) {
+        wildcardSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const lockedStations = allStations.filter(s =>
+                isStationLocked(s.name) && s.name.toLowerCase().includes(query)
+            );
+            renderWildcardList(lockedStations);
+        });
+    }
 
     // Escape key to close modal
     window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !wildcardModal.classList.contains('hidden')) {
+        if (e.key === 'Escape' && wildcardModal && !wildcardModal.classList.contains('hidden')) {
             closeModal();
         }
     });
 }
 
 // Boot
-init();
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    init();
+}
+
+// Exports for testing
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        gameState,
+        getLockThreshold,
+        isStationLocked
+    };
+}

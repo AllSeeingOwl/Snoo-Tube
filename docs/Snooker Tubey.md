@@ -366,16 +366,14 @@ function unlockStationByName(stationName) {
   const values \= dataRange.getValues();  
   const ui \= SpreadsheetApp.getUi();  
   let stationFound \= false;
+  const targetStationName = stationName.toLowerCase();
 
   for (let i \= HEADER\_ROW\_COUNT; i \< values.length; i++) {  
     // Ensure comparison is case-insensitive and trims whitespace  
-    if (values\[i\]\[STATION\_NAME\_COL\] && values\[i\]\[STATION\_NAME\_COL\].toString().trim().toLowerCase() \=== stationName.toLowerCase()) {  
-      // Set Times Used to 0  
-      sheet.getRange(i \+ 1, TIMES\_USED\_COL \+ 1).setValue(0);  
-      // Set Currently Locked to No  
-      sheet.getRange(i \+ 1, CURRENTLY\_LOCKED\_COL \+ 1).setValue("No");  
-      // Add a note  
-      sheet.getRange(i \+ 1, NOTES\_COL \+ 1).setValue("Unlocked by Wildcard " \+ new Date().toLocaleDateString());  
+    if (values\[i\]\[STATION\_NAME\_COL\] && values\[i\]\[STATION\_NAME\_COL\].toString().trim().toLowerCase() \=== targetStationName) {
+      // Set Times Used to 0, Currently Locked to No, and add a note
+      // These three columns (E, F, G) are contiguous
+      sheet.getRange(i \+ 1, TIMES\_USED\_COL \+ 1, 1, 3).setValues(\[\[0, "No", "Unlocked by Wildcard " \+ new Date().toLocaleDateString()\]\]);
       stationFound \= true;  
       break;   
     }  
