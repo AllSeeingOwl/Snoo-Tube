@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snooker Tubey Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="description" content="A station tracker for the Snooker Tubey game.">
+    <!-- iOS meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Snooker Tubey">
+</head>
+<body>
+    <header>
+        <h1>Snooker Tubey</h1>
+        <div class="header-controls">
+            <div class="tier-selector">
+                <label for="game-tier">Tier:</label>
+                <select id="game-tier">
+                    <option value="Advanced">Advanced (1 use)</option>
+                    <option value="Intermediate">Intermediate (2 uses)</option>
+                    <option value="Casual">Casual (Unlimited)</option>
+                </select>
+            </div>
+            <button id="wildcard-btn" class="wildcard-btn">🚇 Overground Wildcard</button>
+            <button id="reset-btn" class="reset-btn">🔄 Reset Game</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <input type="text" id="search-input" placeholder="Search station, line, or colour..." aria-label="Search stations">
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="unlocked">Unlocked</button>
+                <button class="filter-btn" data-filter="locked">Locked</button>
+            </div>
+        </section>
+
+        <section class="table-container">
+            <table id="stations-table">
+                <thead>
+                    <tr>
+                        <th>Station</th>
+                        <th>Lines</th>
+                        <th>Colours</th>
+                        <th>Zone</th>
+                        <th>Used</th>
+                    </tr>
+                </thead>
+                <tbody id="stations-body">
+                    <!-- Stations will be populated here by JavaScript -->
+                    <tr><td colspan="5" class="loading-message">Loading stations...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Modal for Wildcard Selection -->
+    <div id="wildcard-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Overground Wildcard</h2>
+            <p>Select a previously used station to unlock:</p>
+            <input type="text" id="wildcard-search" placeholder="Search locked stations...">
+            <ul id="locked-stations-list">
+                <!-- Locked stations will populate here -->
+            </ul>
+            <button id="cancel-wildcard-btn" class="secondary-btn">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
