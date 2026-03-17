@@ -177,13 +177,17 @@ function renderTable() {
         if (locked) tr.classList.add('locked');
 
         // Create colour badges
-        let colourBadgesHtml = '';
+        const colourBadgesContainer = document.createDocumentFragment();
         if (station.colours) {
             const coloursList = station.colours.toLowerCase().match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
             // Remove duplicates
             [...new Set(coloursList)].forEach(c => {
                 if (colourMap[c]) {
-                    colourBadgesHtml += `<span class="colour-badge" style="background-color: ${colourMap[c]}" title="${c}"></span>`;
+                    const badge = document.createElement('span');
+                    badge.className = 'colour-badge';
+                    badge.style.backgroundColor = colourMap[c];
+                    badge.title = c;
+                    colourBadgesContainer.appendChild(badge);
                 }
             });
         }
@@ -192,18 +196,45 @@ function renderTable() {
         tr.setAttribute('role', 'button');
         tr.setAttribute('aria-label', `Record use for ${station.name}`);
 
-        tr.innerHTML = `
-            <td>
-                <div class="station-name">${station.name} ${locked ? '<span class="locked-icon" title="Locked">🔒</span>' : ''}</div>
-            </td>
-            <td><div class="station-lines">${station.lines}</div></td>
-            <td class="station-colours">
-                ${colourBadgesHtml}
-                <span>${station.colours}</span>
-            </td>
-            <td>${station.zone}</td>
-            <td class="use-count">${uses}</td>
-        `;
+        // Create table cells safely
+        const nameTd = document.createElement('td');
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'station-name';
+        nameDiv.textContent = station.name + ' ';
+        if (locked) {
+            const lockedSpan = document.createElement('span');
+            lockedSpan.className = 'locked-icon';
+            lockedSpan.title = 'Locked';
+            lockedSpan.textContent = '🔒';
+            nameDiv.appendChild(lockedSpan);
+        }
+        nameTd.appendChild(nameDiv);
+
+        const linesTd = document.createElement('td');
+        const linesDiv = document.createElement('div');
+        linesDiv.className = 'station-lines';
+        linesDiv.textContent = station.lines;
+        linesTd.appendChild(linesDiv);
+
+        const coloursTd = document.createElement('td');
+        coloursTd.className = 'station-colours';
+        coloursTd.appendChild(colourBadgesContainer);
+        const coloursSpan = document.createElement('span');
+        coloursSpan.textContent = station.colours;
+        coloursTd.appendChild(coloursSpan);
+
+        const zoneTd = document.createElement('td');
+        zoneTd.textContent = station.zone;
+
+        const usesTd = document.createElement('td');
+        usesTd.className = 'use-count';
+        usesTd.textContent = uses;
+
+        tr.appendChild(nameTd);
+        tr.appendChild(linesTd);
+        tr.appendChild(coloursTd);
+        tr.appendChild(zoneTd);
+        tr.appendChild(usesTd);
 
         tr.addEventListener('click', () => handleStationClick(station.name));
         tr.addEventListener('keydown', (e) => {
