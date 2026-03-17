@@ -308,9 +308,15 @@ tbody tr.locked {
 @media (max-width: 600px) {
     th, td {
         padding: 0.5rem;
+        font-size: 0.9rem;
     }
 
-    .station-colours {
+    .station-colours, .col-colours {
         display: none; /* Hide colours on very small screens to save space */
+    }
+
+    .station-name {
+        word-break: break-word;
+        min-width: 120px;
     }
 }
