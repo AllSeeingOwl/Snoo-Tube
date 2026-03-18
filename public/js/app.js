@@ -373,6 +373,14 @@ function closeModal() {
 }
 
 // Utilities
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
 function showToast(message) {
     clearTimeout(toastTimeout);
     toast.textContent = message;
@@ -406,7 +414,7 @@ function setupEventListeners() {
 
     // Search Input
     if (searchInput) {
-        searchInput.addEventListener('input', applyFilters);
+        searchInput.addEventListener('input', debounce(applyFilters, 200));
     }
 
     // Filter Buttons
@@ -479,13 +487,13 @@ function setupEventListeners() {
 
     // Wildcard search filter
     if (wildcardSearch) {
-        wildcardSearch.addEventListener('input', (e) => {
+        wildcardSearch.addEventListener('input', debounce((e) => {
             const query = e.target.value.toLowerCase();
             const lockedStations = allStations.filter(s =>
                 isStationLocked(s.name) && s.name.toLowerCase().includes(query)
             );
             renderWildcardList(lockedStations);
-        });
+        }, 200));
     }
 
     // Escape key to close modal
