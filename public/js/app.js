@@ -1,10 +1,23 @@
 // Snooker Tubey Tracker App Logic
 
 // DOM Elements
-let tierSelect, searchInput, filterBtns, stationsBody, wildcardBtn, resetBtn, toast, toastTimeout;
-let wildcardModal, closeBtn, cancelWildcardBtn, wildcardSearch, lockedStationsList;
+let tierSelect;
+let searchInput;
+let filterBtns;
+let stationsBody;
+let wildcardBtn;
+let resetBtn;
+let toast;
+let toastTimeout;
 
-if (typeof document !== 'undefined') {
+// Modal Elements
+let wildcardModal;
+let closeBtn;
+let cancelWildcardBtn;
+let wildcardSearch;
+let lockedStationsList;
+
+function initDOMElements() {
     tierSelect = document.getElementById('game-tier');
     searchInput = document.getElementById('search-input');
     filterBtns = document.querySelectorAll('.filter-btn');
@@ -13,7 +26,6 @@ if (typeof document !== 'undefined') {
     resetBtn = document.getElementById('reset-btn');
     toast = document.getElementById('toast');
 
-    // Modal Elements
     wildcardModal = document.getElementById('wildcard-modal');
     closeBtn = document.querySelector('.close-btn');
     cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
@@ -134,6 +146,16 @@ function parseCSV(str) {
         }
     }
 
+    // Pre-parse and deduplicate colours for performance
+    stations.forEach(station => {
+        if (station.colours) {
+            const coloursList = station.colours.toLowerCase().match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
+            station.parsedColours = [...new Set(coloursList)];
+        } else {
+            station.parsedColours = [];
+        }
+    });
+
     return stations;
 }
 
@@ -188,10 +210,8 @@ function renderTable() {
 
         // Create colour badges
         const colourBadgesContainer = document.createDocumentFragment();
-        if (station.colours) {
-            const coloursList = station.colours.toLowerCase().match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
-            // Remove duplicates
-            [...new Set(coloursList)].forEach(c => {
+        if (station.parsedColours && station.parsedColours.length > 0) {
+            station.parsedColours.forEach(c => {
                 if (colourMap[c]) {
                     const badge = document.createElement('span');
                     badge.className = 'colour-badge';
@@ -486,6 +506,7 @@ function setupEventListeners() {
 
 // Boot
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    // document.addEventListener('DOMContentLoaded', init); // Assuming wait is not needed since the script is at the bottom, but just in case:
     init();
 }
 
