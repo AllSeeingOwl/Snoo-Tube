@@ -1,21 +1,37 @@
 // Snooker Tubey Tracker App Logic
 
 // DOM Elements
-const tierSelect = document.getElementById('game-tier');
-const searchInput = document.getElementById('search-input');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const stationsBody = document.getElementById('stations-body');
-const wildcardBtn = document.getElementById('wildcard-btn');
-const resetBtn = document.getElementById('reset-btn');
-const toast = document.getElementById('toast');
+let tierSelect;
+let searchInput;
+let filterBtns;
+let stationsBody;
+let wildcardBtn;
+let resetBtn;
+let toast;
 let toastTimeout;
 
 // Modal Elements
-const wildcardModal = document.getElementById('wildcard-modal');
-const closeBtn = document.querySelector('.close-btn');
-const cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
-const wildcardSearch = document.getElementById('wildcard-search');
-const lockedStationsList = document.getElementById('locked-stations-list');
+let wildcardModal;
+let closeBtn;
+let cancelWildcardBtn;
+let wildcardSearch;
+let lockedStationsList;
+
+function initDOMElements() {
+    tierSelect = document.getElementById('game-tier');
+    searchInput = document.getElementById('search-input');
+    filterBtns = document.querySelectorAll('.filter-btn');
+    stationsBody = document.getElementById('stations-body');
+    wildcardBtn = document.getElementById('wildcard-btn');
+    resetBtn = document.getElementById('reset-btn');
+    toast = document.getElementById('toast');
+
+    wildcardModal = document.getElementById('wildcard-modal');
+    closeBtn = document.querySelector('.close-btn');
+    cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
+    wildcardSearch = document.getElementById('wildcard-search');
+    lockedStationsList = document.getElementById('locked-stations-list');
+}
 
 // State
 let allStations = []; // Original data from CSV
@@ -130,6 +146,16 @@ function parseCSV(str) {
         }
     }
 
+    // Pre-parse and deduplicate colours for performance
+    stations.forEach(station => {
+        if (station.colours) {
+            const coloursList = station.colours.toLowerCase().match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
+            station.parsedColours = [...new Set(coloursList)];
+        } else {
+            station.parsedColours = [];
+        }
+    });
+
     return stations;
 }
 
@@ -184,10 +210,8 @@ function renderTable() {
 
         // Create colour badges
         const colourBadgesContainer = document.createDocumentFragment();
-        if (station.colours) {
-            const coloursList = station.colours.toLowerCase().match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
-            // Remove duplicates
-            [...new Set(coloursList)].forEach(c => {
+        if (station.parsedColours && station.parsedColours.length > 0) {
+            station.parsedColours.forEach(c => {
                 if (colourMap[c]) {
                     const badge = document.createElement('span');
                     badge.className = 'colour-badge';
@@ -474,6 +498,7 @@ function setupEventListeners() {
 
 // Boot
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    // document.addEventListener('DOMContentLoaded', init); // Assuming wait is not needed since the script is at the bottom, but just in case:
     init();
 }
 
