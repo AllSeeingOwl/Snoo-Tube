@@ -89,7 +89,6 @@ function parseCSV(str) {
     for (let i = 1; i < lines.length; i++) {
         // Regex to split by comma, ignoring commas inside quotes
         const row = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-        const cols = lines[i].split(',');
 
         // Basic split fallback if complex regex fails or for empty columns
         let parsedCols = [];
