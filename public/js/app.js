@@ -1,21 +1,25 @@
 // Snooker Tubey Tracker App Logic
 
 // DOM Elements
-const tierSelect = document.getElementById('game-tier');
-const searchInput = document.getElementById('search-input');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const stationsBody = document.getElementById('stations-body');
-const wildcardBtn = document.getElementById('wildcard-btn');
-const resetBtn = document.getElementById('reset-btn');
-const toast = document.getElementById('toast');
-let toastTimeout;
+let tierSelect, searchInput, filterBtns, stationsBody, wildcardBtn, resetBtn, toast, toastTimeout;
+let wildcardModal, closeBtn, cancelWildcardBtn, wildcardSearch, lockedStationsList;
 
-// Modal Elements
-const wildcardModal = document.getElementById('wildcard-modal');
-const closeBtn = document.querySelector('.close-btn');
-const cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
-const wildcardSearch = document.getElementById('wildcard-search');
-const lockedStationsList = document.getElementById('locked-stations-list');
+if (typeof document !== 'undefined') {
+    tierSelect = document.getElementById('game-tier');
+    searchInput = document.getElementById('search-input');
+    filterBtns = document.querySelectorAll('.filter-btn');
+    stationsBody = document.getElementById('stations-body');
+    wildcardBtn = document.getElementById('wildcard-btn');
+    resetBtn = document.getElementById('reset-btn');
+    toast = document.getElementById('toast');
+
+    // Modal Elements
+    wildcardModal = document.getElementById('wildcard-modal');
+    closeBtn = document.querySelector('.close-btn');
+    cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
+    wildcardSearch = document.getElementById('wildcard-search');
+    lockedStationsList = document.getElementById('locked-stations-list');
+}
 
 // State
 let allStations = []; // Original data from CSV
@@ -349,6 +353,14 @@ function closeModal() {
 }
 
 // Utilities
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
 function showToast(message) {
     clearTimeout(toastTimeout);
     toast.textContent = message;
@@ -382,7 +394,7 @@ function setupEventListeners() {
 
     // Search Input
     if (searchInput) {
-        searchInput.addEventListener('input', applyFilters);
+        searchInput.addEventListener('input', debounce(applyFilters, 200));
     }
 
     // Filter Buttons
@@ -455,13 +467,13 @@ function setupEventListeners() {
 
     // Wildcard search filter
     if (wildcardSearch) {
-        wildcardSearch.addEventListener('input', (e) => {
+        wildcardSearch.addEventListener('input', debounce((e) => {
             const query = e.target.value.toLowerCase();
             const lockedStations = allStations.filter(s =>
                 isStationLocked(s.name) && s.name.toLowerCase().includes(query)
             );
             renderWildcardList(lockedStations);
-        });
+        }, 200));
     }
 
     // Escape key to close modal
