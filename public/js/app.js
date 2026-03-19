@@ -147,9 +147,14 @@ function parseCSV(str) {
     }
 
     // Pre-parse and deduplicate colours for performance
+    // Also pre-compute lowercase strings for faster searching later
     stations.forEach(station => {
+        station.searchName = station.name.toLowerCase();
+        station.searchLines = station.lines.toLowerCase();
+        station.searchColours = station.colours.toLowerCase();
+
         if (station.colours) {
-            const coloursList = station.colours.toLowerCase().match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
+            const coloursList = station.searchColours.match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
             station.parsedColours = [...new Set(coloursList)];
         } else {
             station.parsedColours = [];
@@ -305,9 +310,9 @@ function applyFilters() {
 
     displayStations = allStations.filter(station => {
         // 1. Text Search
-        const matchesSearch = station.name.toLowerCase().includes(query) ||
-                              station.lines.toLowerCase().includes(query) ||
-                              station.colours.toLowerCase().includes(query);
+        const matchesSearch = station.searchName.includes(query) ||
+                              station.searchLines.includes(query) ||
+                              station.searchColours.includes(query);
 
         if (!matchesSearch) return false;
 
