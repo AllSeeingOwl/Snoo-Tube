@@ -155,9 +155,14 @@ function parseCSV(str) {
     }
 
     // Pre-parse and deduplicate colours for performance
+    // Also pre-compute lowercase strings for faster searching later
     stations.forEach(station => {
+        station.searchName = station.name.toLowerCase();
+        station.searchLines = station.lines.toLowerCase();
+        station.searchColours = station.colours.toLowerCase();
+
         if (station.colours) {
-            const coloursList = station.colours.toLowerCase().match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
+            const coloursList = station.searchColours.match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
             station.parsedColours = [...new Set(coloursList)];
         } else {
             station.parsedColours = [];
@@ -238,7 +243,12 @@ function renderTable() {
 
         tr.tabIndex = 0;
         tr.setAttribute('role', 'button');
-        tr.setAttribute('aria-label', `Record use for ${station.name}`);
+        if (locked) {
+            tr.setAttribute('aria-disabled', 'true');
+            tr.setAttribute('aria-label', `Station locked. Record use for ${station.name}`);
+        } else {
+            tr.setAttribute('aria-label', `Record use for ${station.name}`);
+        }
         tr.dataset.stationName = station.name;
 
         // Create table cells safely
@@ -319,9 +329,9 @@ function applyFilters() {
 
     displayStations = allStations.filter(station => {
         // 1. Text Search
-        const matchesSearch = station.name.toLowerCase().includes(query) ||
-                              station.lines.toLowerCase().includes(query) ||
-                              station.colours.toLowerCase().includes(query);
+        const matchesSearch = station.searchName.includes(query) ||
+                              station.searchLines.includes(query) ||
+                              station.searchColours.includes(query);
 
         if (!matchesSearch) return false;
 
@@ -357,6 +367,17 @@ function openWildcardModal() {
 function renderWildcardList(stations) {
     if (!lockedStationsList) return;
     lockedStationsList.textContent = '';
+    lockedStationsList.innerHTML = '';
+
+    if (stations.length === 0) {
+        const emptyLi = document.createElement('li');
+        emptyLi.textContent = "No matching locked stations.";
+        emptyLi.style.cursor = "default";
+        emptyLi.style.color = "var(--text-muted)";
+        lockedStationsList.appendChild(emptyLi);
+        return;
+    }
+
     stations.forEach(station => {
         const li = document.createElement('li');
         li.textContent = `${station.name} (${station.lines})`;
