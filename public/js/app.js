@@ -71,7 +71,15 @@ async function init() {
     } catch (error) {
         console.error('Error initializing app:', error);
         if (stationsBody) {
-            stationsBody.innerHTML = `<tr><td colspan="5" style="color: red; text-align:center;">Failed to load station data. Are you running a local server?</td></tr>`;
+            stationsBody.textContent = '';
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
+            td.colSpan = 5;
+            td.style.color = 'red';
+            td.style.textAlign = 'center';
+            td.textContent = 'Failed to load station data. Are you running a local server?';
+            tr.appendChild(td);
+            stationsBody.appendChild(tr);
         }
     }
 }
@@ -192,10 +200,16 @@ function isStationLocked(stationName) {
 // UI Rendering
 function renderTable() {
     if (!stationsBody) return;
-    stationsBody.innerHTML = '';
+    stationsBody.textContent = '';
 
     if (displayStations.length === 0) {
-        stationsBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No stations found.</td></tr>`;
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 5;
+        td.style.textAlign = 'center';
+        td.textContent = 'No stations found.';
+        tr.appendChild(td);
+        stationsBody.appendChild(tr);
         return;
     }
 
@@ -342,7 +356,7 @@ function openWildcardModal() {
 
 function renderWildcardList(stations) {
     if (!lockedStationsList) return;
-    lockedStationsList.innerHTML = '';
+    lockedStationsList.textContent = '';
     stations.forEach(station => {
         const li = document.createElement('li');
         li.textContent = `${station.name} (${station.lines})`;
