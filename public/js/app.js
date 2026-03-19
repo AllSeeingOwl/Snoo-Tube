@@ -224,7 +224,12 @@ function renderTable() {
 
         tr.tabIndex = 0;
         tr.setAttribute('role', 'button');
-        tr.setAttribute('aria-label', `Record use for ${station.name}`);
+        if (locked) {
+            tr.setAttribute('aria-disabled', 'true');
+            tr.setAttribute('aria-label', `Station locked. Record use for ${station.name}`);
+        } else {
+            tr.setAttribute('aria-label', `Record use for ${station.name}`);
+        }
         tr.dataset.stationName = station.name;
 
         // Create table cells safely
@@ -343,6 +348,16 @@ function openWildcardModal() {
 function renderWildcardList(stations) {
     if (!lockedStationsList) return;
     lockedStationsList.innerHTML = '';
+
+    if (stations.length === 0) {
+        const emptyLi = document.createElement('li');
+        emptyLi.textContent = "No matching locked stations.";
+        emptyLi.style.cursor = "default";
+        emptyLi.style.color = "var(--text-muted)";
+        lockedStationsList.appendChild(emptyLi);
+        return;
+    }
+
     stations.forEach(station => {
         const li = document.createElement('li');
         li.textContent = `${station.name} (${station.lines})`;
