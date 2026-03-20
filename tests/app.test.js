@@ -13,6 +13,20 @@ test('getLockThreshold returns correct values for each tier', (t) => {
     assert.strictEqual(app.getLockThreshold(), Infinity);
 });
 
+test('getLockThreshold returns Infinity for unknown or missing tiers (defaults to Casual logic)', (t) => {
+    app.gameState.tier = 'Unknown';
+    assert.strictEqual(app.getLockThreshold(), Infinity);
+
+    app.gameState.tier = '';
+    assert.strictEqual(app.getLockThreshold(), Infinity);
+
+    app.gameState.tier = undefined;
+    assert.strictEqual(app.getLockThreshold(), Infinity);
+
+    app.gameState.tier = null;
+    assert.strictEqual(app.getLockThreshold(), Infinity);
+});
+
 test('isStationLocked correctly identifies locked stations', (t) => {
     const station = 'Baker Street';
 
