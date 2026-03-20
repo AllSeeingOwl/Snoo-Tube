@@ -111,9 +111,6 @@ function parseCSV(str) {
     // Let's use a slightly more robust regex parser for rows.
 
     for (let i = 1; i < lines.length; i++) {
-        // Regex to split by comma, ignoring commas inside quotes
-        const row = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-
         // Basic split fallback if complex regex fails or for empty columns
         let parsedCols = [];
         let inQuotes = false;
@@ -327,18 +324,25 @@ function applyFilters() {
     const activeFilterBtn = document.querySelector('.filter-btn.active');
     const filterType = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
 
+    const hasQuery = query !== '';
+    const isLockedFilter = filterType === 'locked';
+    const isUnlockedFilter = filterType === 'unlocked';
+
     displayStations = allStations.filter(station => {
-        // 1. Text Search
-        const matchesSearch = station.searchName.includes(query) ||
-                              station.searchLines.includes(query) ||
-                              station.searchColours.includes(query);
-
-        if (!matchesSearch) return false;
-
-        // 2. Status Filter
+        // ⚡ Performance optimization: Run status filter (fast map lookup) before text search
+        // 1. Status Filter
         const locked = isStationLocked(station.name);
-        if (filterType === 'unlocked' && locked) return false;
-        if (filterType === 'locked' && !locked) return false;
+        if (isUnlockedFilter && locked) return false;
+        if (isLockedFilter && !locked) return false;
+
+        // 2. Text Search
+        if (hasQuery) {
+            const matchesSearch = station.searchName.includes(query) ||
+                                  station.searchLines.includes(query) ||
+                                  station.searchColours.includes(query);
+
+            if (!matchesSearch) return false;
+        }
 
         return true;
     });
