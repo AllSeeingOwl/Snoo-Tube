@@ -133,7 +133,7 @@ function parseCSV(str) {
 
         if (parsedCols.length >= 4) {
             const name = parsedCols[nameIdx];
-            if (!name) continue; // Skip empty rows (like second lines for interchanges in the raw CSV, though ideally we merge them)
+            if (name === undefined) continue; // Skip empty rows (like second lines for interchanges in the raw CSV, though ideally we merge them)
 
             // Note: The raw CSV has empty names for secondary lines of interchanges (e.g., Acton Town).
             // We should merge these or handle them. Let's merge them into the previous station if name is empty.
@@ -550,6 +550,7 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         gameState,
         getLockThreshold,
-        isStationLocked
+        isStationLocked,
+        parseCSV
     };
 }
