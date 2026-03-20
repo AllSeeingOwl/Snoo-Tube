@@ -34,7 +34,7 @@ async function runBenchmark() {
 
     // Create actual mock elements needed for renderTable
     const mockStationsBody = {
-        innerHTML: '',
+        textContent: '',
         appendChild: () => {}
     };
     global.stationsBody = mockStationsBody;

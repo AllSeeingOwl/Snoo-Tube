@@ -406,7 +406,6 @@ function openWildcardModal() {
 function renderWildcardList(stations) {
     if (!lockedStationsList) return;
     lockedStationsList.textContent = '';
-    lockedStationsList.innerHTML = '';
 
     if (stations.length === 0) {
         const emptyLi = document.createElement('li');
