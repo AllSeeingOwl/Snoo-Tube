@@ -49,3 +49,34 @@ test('isStationLocked handles missing station entries', (t) => {
     app.gameState.usedCounts = {};
     assert.strictEqual(app.isStationLocked('Non-existent Station'), false);
 });
+
+test('isStationLocked handles edge cases and invalid values', (t) => {
+    const station = 'Waterloo';
+
+    // Usage count strictly exceeding threshold
+    app.gameState.tier = 'Advanced';
+    app.gameState.usedCounts = { [station]: 5 };
+    assert.strictEqual(app.isStationLocked(station), true, '5 uses in Advanced should be locked');
+
+    app.gameState.tier = 'Intermediate';
+    app.gameState.usedCounts = { [station]: 3 };
+    assert.strictEqual(app.isStationLocked(station), true, '3 uses in Intermediate should be locked');
+
+    // Invalid tier defaults to Casual (Infinity)
+    app.gameState.tier = 'UnknownTier';
+    app.gameState.usedCounts = { [station]: 10 };
+    assert.strictEqual(app.isStationLocked(station), false, 'Unknown tier should default to Casual (unlocked)');
+
+    // Negative usage counts
+    app.gameState.tier = 'Advanced';
+    app.gameState.usedCounts = { [station]: -1 };
+    assert.strictEqual(app.isStationLocked(station), false, 'Negative uses should be unlocked in Advanced');
+
+    // Non-numeric usage counts (e.g. string "2" might be coerced, but NaN should be handled by falsiness or arithmetic)
+    app.gameState.tier = 'Intermediate';
+    app.gameState.usedCounts = { [station]: '2' };
+    assert.strictEqual(app.isStationLocked(station), true, 'String "2" should be coerced to true for Intermediate');
+
+    app.gameState.usedCounts = { [station]: NaN };
+    assert.strictEqual(app.isStationLocked(station), false, 'NaN uses should be unlocked');
+});
