@@ -1,3 +1,7 @@
 ## 2023-10-27 - Custom Table Row Interactive Elements Missing ARIA States
 **Learning:** This app extensively uses custom interactive elements, such as table rows (`<tr>`), as buttons (via `role="button"` and `tabIndex="0"`). A critical accessibility gap was discovered where "locked" rows simply displayed a visual padlock icon but still announced themselves as actionable (e.g., "Record use for [Station]") and lacked any `aria-disabled` state. Consequently, screen reader users would attempt to activate them, only to hit an unexpected error state.
 **Action:** When implementing or reviewing custom pseudo-buttons (like interactive table rows), ensure that disabled or locked states are explicitly communicated via `aria-disabled="true"` and an updated, context-aware `aria-label` (e.g., "Station locked. Record use for [Station]"). Do not rely solely on visual styling or icons to communicate state changes on custom interactables.
+
+## 2024-05-24 - Dead-end Empty States vs Actionable Empty States
+**Learning:** When users encounter empty states resulting from search queries or filters, a simple "No items found" message creates a friction point, forcing them to manually delete their query character by character or navigate away to reset filters.
+**Action:** Always provide an actionable empty state (e.g., a "Clear Search" button) for any user-driven filtering mechanism to quickly return them to a productive state. Empty states should guide recovery, not just report failure.

@@ -209,7 +209,42 @@ function renderTable() {
         const td = document.createElement('td');
         td.colSpan = 5;
         td.style.textAlign = 'center';
-        td.textContent = 'No stations found.';
+        td.style.padding = '2rem';
+
+        const activeFilterBtn = document.querySelector('.filter-btn.active');
+        const filterType = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+        const query = searchInput ? searchInput.value.trim() : '';
+
+        if (query || filterType !== 'all') {
+            td.innerHTML = `
+                <div style="margin-bottom: 1rem; color: var(--text-muted);">
+                    No stations found matching your search or filters.
+                </div>
+            `;
+            const clearBtn = document.createElement('button');
+            clearBtn.textContent = 'Clear Search & Filters';
+            clearBtn.className = 'secondary-btn';
+            clearBtn.style.width = 'auto';
+            clearBtn.addEventListener('click', () => {
+                if (searchInput) searchInput.value = '';
+                if (filterBtns) {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-pressed', 'false');
+                    });
+                    const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                    if (allBtn) {
+                        allBtn.classList.add('active');
+                        allBtn.setAttribute('aria-pressed', 'true');
+                    }
+                }
+                applyFilters();
+            });
+            td.appendChild(clearBtn);
+        } else {
+            td.textContent = 'No stations found.';
+        }
+
         tr.appendChild(td);
         stationsBody.appendChild(tr);
         return;
@@ -375,9 +410,36 @@ function renderWildcardList(stations) {
 
     if (stations.length === 0) {
         const emptyLi = document.createElement('li');
-        emptyLi.textContent = "No matching locked stations.";
         emptyLi.style.cursor = "default";
         emptyLi.style.color = "var(--text-muted)";
+        emptyLi.style.textAlign = "center";
+        emptyLi.style.padding = "2rem 1rem";
+
+        const query = wildcardSearch ? wildcardSearch.value.trim() : '';
+
+        if (query) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.marginBottom = '1rem';
+            messageDiv.textContent = `No locked stations match "${query}".`;
+            emptyLi.appendChild(messageDiv);
+
+            const clearBtn = document.createElement('button');
+            clearBtn.textContent = 'Clear Search';
+            clearBtn.className = 'secondary-btn';
+            clearBtn.style.width = 'auto';
+            clearBtn.style.marginTop = '0';
+            clearBtn.addEventListener('click', () => {
+                if (wildcardSearch) {
+                    wildcardSearch.value = '';
+                    // Trigger input event to re-render list
+                    wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
+            emptyLi.appendChild(clearBtn);
+        } else {
+            emptyLi.textContent = "No locked stations available.";
+        }
+
         lockedStationsList.appendChild(emptyLi);
         return;
     }

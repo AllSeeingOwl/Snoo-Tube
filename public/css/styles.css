@@ -71,7 +71,7 @@ h1 {
     gap: 0.5rem;
 }
 
-select, input[type="text"] {
+select, input[type="text"], input[type="search"] {
     padding: 0.5rem;
     border-radius: 4px;
     border: 1px solid var(--border-color);
