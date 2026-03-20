@@ -94,6 +94,7 @@ test('isStationLocked handles edge cases and invalid values', (t) => {
     app.gameState.usedCounts = { [station]: NaN };
     assert.strictEqual(app.isStationLocked(station), false, 'NaN uses should be unlocked');
 });
+
 test('parseCSV correctly parses a simple CSV string', (t) => {
     const csvData = `Station Name,Lines Served,Valid for Colours,Zone(s)
 Station A,Line 1,Red,1
