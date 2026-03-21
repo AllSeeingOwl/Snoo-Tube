@@ -242,6 +242,7 @@ function renderTable() {
                     }
                 }
                 applyFilters();
+                if (searchInput) searchInput.focus();
             });
             td.appendChild(clearBtn);
         } else {
@@ -433,6 +434,7 @@ function renderWildcardList(stations) {
                     wildcardSearch.value = '';
                     // Trigger input event to re-render list
                     wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
+                    wildcardSearch.focus();
                 }
             });
             emptyLi.appendChild(clearBtn);

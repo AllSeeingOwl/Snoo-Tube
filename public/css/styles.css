@@ -186,6 +186,7 @@ tbody tr:hover {
 tbody tr.locked {
     opacity: 0.6;
     background-color: rgba(220, 53, 69, 0.1); /* light red tint */
+    cursor: not-allowed;
 }
 
 .station-name {
