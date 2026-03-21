@@ -157,6 +157,9 @@ function parseCSV(str) {
         station.searchName = station.name.toLowerCase();
         station.searchLines = station.lines.toLowerCase();
         station.searchColours = station.colours.toLowerCase();
+        // ⚡ Performance optimization: Pre-compute a single combined search string
+        // This avoids O(N) array/string allocations during the applyFilters hot loop
+        station.searchCombined = `${station.searchName}|${station.searchLines}|${station.searchColours}`;
 
         if (station.colours) {
             const coloursList = station.searchColours.match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
@@ -372,11 +375,9 @@ function applyFilters() {
 
         // 2. Text Search
         if (hasQuery) {
-            const matchesSearch = station.searchName.includes(query) ||
-                                  station.searchLines.includes(query) ||
-                                  station.searchColours.includes(query);
-
-            if (!matchesSearch) return false;
+            // ⚡ Performance optimization: Use pre-computed combined string check
+            // instead of three separate .includes() calls
+            if (!station.searchCombined.includes(query)) return false;
         }
 
         return true;
