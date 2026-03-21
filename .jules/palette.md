@@ -5,3 +5,7 @@
 ## 2024-05-24 - Dead-end Empty States vs Actionable Empty States
 **Learning:** When users encounter empty states resulting from search queries or filters, a simple "No items found" message creates a friction point, forcing them to manually delete their query character by character or navigate away to reset filters.
 **Action:** Always provide an actionable empty state (e.g., a "Clear Search" button) for any user-driven filtering mechanism to quickly return them to a productive state. Empty states should guide recovery, not just report failure.
+
+## 2024-10-31 - Focus Loss on Ephemeral Actionable Elements
+**Learning:** When actionable empty states (like a "Clear Search" button) are clicked, they trigger an immediate UI re-render that removes the button from the DOM. This causes keyboard users to abruptly lose focus, which resets to the start of the document `<body>`, forcing them to tab back through the entire page hierarchy.
+**Action:** Whenever a button's primary action involves its own destruction or removal from the DOM (e.g., clearing a search state that hides the empty state view), ensure focus is explicitly shifted to the most logical next element in the workflow, such as the search input that was just cleared.
