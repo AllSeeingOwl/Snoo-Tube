@@ -219,11 +219,12 @@ function renderTable() {
         const query = searchInput ? searchInput.value.trim() : '';
 
         if (query || filterType !== 'all') {
-            td.innerHTML = `
-                <div style="margin-bottom: 1rem; color: var(--text-muted);">
-                    No stations found matching your search or filters.
-                </div>
-            `;
+            const messageDiv = document.createElement('div');
+            messageDiv.style.marginBottom = '1rem';
+            messageDiv.style.color = 'var(--text-muted)';
+            messageDiv.textContent = 'No stations found matching your search or filters.';
+            td.appendChild(messageDiv);
+
             const clearBtn = document.createElement('button');
             clearBtn.textContent = 'Clear Search & Filters';
             clearBtn.className = 'secondary-btn';
