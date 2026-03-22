@@ -606,6 +606,27 @@ function setupEventListeners() {
             closeModal();
         }
     });
+
+    // Global keyboard shortcut to focus search input
+    window.addEventListener('keydown', (e) => {
+        if (e.key === '/') {
+            // Do not trigger if user is typing in an input or textarea
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+                return;
+            }
+
+            // Do not trigger if modal is open
+            if (wildcardModal && !wildcardModal.classList.contains('hidden')) {
+                return;
+            }
+
+            // Prevent '/' from being typed in the search box initially
+            e.preventDefault();
+            if (searchInput) {
+                searchInput.focus();
+            }
+        }
+    });
 }
 
 // Boot
