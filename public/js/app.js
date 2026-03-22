@@ -159,11 +159,16 @@ function parseCSV(str) {
         // This avoids O(N) array/string allocations during the applyFilters hot loop
         station.searchCombined = `${station.searchName}|${station.searchLines}|${station.searchColours}`;
 
+        // ⚡ Performance optimization: Use static array and includes() instead of regex match + Set
+        // This eliminates array allocations and deduplication overhead during parsing
+        station.parsedColours = [];
         if (station.colours) {
-            const coloursList = station.searchColours.match(/(red|yellow|green|brown|blue|pink|black)/g) || [];
-            station.parsedColours = [...new Set(coloursList)];
-        } else {
-            station.parsedColours = [];
+            const validColours = ['red', 'yellow', 'green', 'brown', 'blue', 'pink', 'black'];
+            for (let j = 0; j < 7; j++) {
+                if (station.searchColours.includes(validColours[j])) {
+                    station.parsedColours.push(validColours[j]);
+                }
+            }
         }
     });
 
