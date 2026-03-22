@@ -27,6 +27,33 @@ test('getLockThreshold returns Infinity for unknown or missing tiers (defaults t
     assert.strictEqual(app.getLockThreshold(), Infinity);
 });
 
+test('getLockThreshold returns Infinity when gameState is malformed or missing tier property', (t) => {
+    // Preserve original gameState to restore later
+    const originalTier = app.gameState.tier;
+
+    // Simulate completely removing tier property
+    delete app.gameState.tier;
+    assert.strictEqual(app.getLockThreshold(), Infinity, 'Should handle missing tier property');
+
+    // Restore
+    app.gameState.tier = originalTier;
+});
+
+test('getLockThreshold returns Infinity when gameState is overridden completely', (t) => {
+    // Note: since gameState is an exported object reference we can mutate its contents
+    // but not reassign the variable inside app.js if it was a const/let, however we can simulate
+    // an empty object state
+    const originalGameState = { ...app.gameState };
+
+    // Clear properties
+    for (let key in app.gameState) delete app.gameState[key];
+
+    assert.strictEqual(app.getLockThreshold(), Infinity, 'Should handle completely empty gameState object');
+
+    // Restore
+    Object.assign(app.gameState, originalGameState);
+});
+
 test('isStationLocked correctly identifies locked stations', (t) => {
     const station = 'Baker Street';
 
