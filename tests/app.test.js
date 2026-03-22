@@ -194,3 +194,83 @@ King's Cross St. Pancras,Circle,Yellow,1
     assert.strictEqual(station.searchColours, 'yellow, blue');
     assert.deepStrictEqual(station.parsedColours, ['yellow', 'blue']);
 });
+
+test('parseCSV handles different column orders', (t) => {
+    const csvData = `Zone(s),Valid for Colours,Station Name,Lines Served
+1,Red,Station A,Line 1
+2,Blue,Station B,Line 2`;
+
+    const parsed = app.parseCSV(csvData);
+
+    assert.strictEqual(parsed.length, 2);
+    assert.strictEqual(parsed[0].name, 'Station A');
+    assert.strictEqual(parsed[0].lines, 'Line 1');
+    assert.strictEqual(parsed[0].colours, 'Red');
+    assert.strictEqual(parsed[0].zone, '1');
+
+    assert.strictEqual(parsed[1].name, 'Station B');
+    assert.strictEqual(parsed[1].lines, 'Line 2');
+    assert.strictEqual(parsed[1].colours, 'Blue');
+    assert.strictEqual(parsed[1].zone, '2');
+});
+
+test('parseCSV handles missing optional columns', (t) => {
+    const csvData = `Station Name,Lines Served
+Station A,Line 1
+Station B,Line 2`;
+
+    const parsed = app.parseCSV(csvData);
+
+    assert.strictEqual(parsed.length, 2);
+    assert.strictEqual(parsed[0].name, 'Station A');
+    assert.strictEqual(parsed[0].lines, 'Line 1');
+    assert.strictEqual(parsed[0].colours, '');
+    assert.strictEqual(parsed[0].zone, '');
+
+    assert.strictEqual(parsed[1].name, 'Station B');
+    assert.strictEqual(parsed[1].lines, 'Line 2');
+    assert.strictEqual(parsed[1].colours, '');
+    assert.strictEqual(parsed[1].zone, '');
+});
+
+test('parseCSV handles missing mandatory Station Name column', (t) => {
+    const csvData = `Lines Served,Zone(s)
+Line 1,1
+Line 2,2`;
+
+    const parsed = app.parseCSV(csvData);
+
+    assert.strictEqual(parsed.length, 0);
+});
+
+test('parseCSV handles empty string input gracefully', (t) => {
+    const csvData = ``;
+    const parsed = app.parseCSV(csvData);
+    assert.strictEqual(parsed.length, 0);
+});
+
+test('parseCSV handles an orphan secondary line (empty station name on first row)', (t) => {
+    const csvData = `Station Name,Lines Served,Valid for Colours,Zone(s)
+,Line 1,Red,1
+Station A,Line 2,Blue,2`;
+
+    const parsed = app.parseCSV(csvData);
+
+    assert.strictEqual(parsed.length, 1);
+    assert.strictEqual(parsed[0].name, 'Station A');
+    assert.strictEqual(parsed[0].lines, 'Line 2');
+    assert.strictEqual(parsed[0].colours, 'Blue');
+});
+
+test('parseCSV correctly deduplicates and filters colours', (t) => {
+    const csvData = `Station Name,Lines Served,Valid for Colours,Zone(s)
+Station A,Line 1,"Red, Red, purple, Black",1`;
+
+    const parsed = app.parseCSV(csvData);
+
+    assert.strictEqual(parsed.length, 1);
+    // Note: parsedColours is a property added dynamically by a subsequent processing
+    // step over the returned `stations` array inside parseCSV. Since it modifies the
+    // returned objects, it works when we test it here.
+    assert.deepStrictEqual(parsed[0].parsedColours, ['red', 'black']);
+});
