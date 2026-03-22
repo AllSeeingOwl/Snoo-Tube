@@ -64,6 +64,24 @@ test('isStationLocked handles missing station entries', (t) => {
     assert.strictEqual(app.isStationLocked('Non-existent Station'), false);
 });
 
+test('isStationLocked handles an explicit threshold parameter', (t) => {
+    const station = 'Euston';
+    app.gameState.usedCounts = { [station]: 1 };
+
+    // Default threshold for Advanced is 1, so 1 use should be locked
+    app.gameState.tier = 'Advanced';
+    assert.strictEqual(app.isStationLocked(station), true, 'Should be locked without explicit threshold (Advanced)');
+
+    // Passing explicit threshold of 2 should override and return unlocked
+    assert.strictEqual(app.isStationLocked(station, 2), false, 'Should be unlocked when explicit threshold 2 > uses 1');
+
+    // Passing explicit threshold of 1 should lock
+    assert.strictEqual(app.isStationLocked(station, 1), true, 'Should be locked when explicit threshold 1 == uses 1');
+
+    // Passing explicit threshold of 0 should lock
+    assert.strictEqual(app.isStationLocked(station, 0), true, 'Should be locked when explicit threshold 0 < uses 1');
+});
+
 test('isStationLocked handles edge cases and invalid values', (t) => {
     const station = 'Waterloo';
 
