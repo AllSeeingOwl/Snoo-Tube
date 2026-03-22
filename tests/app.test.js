@@ -301,3 +301,35 @@ Station A,Line 1,"Red, Red, purple, Black",1`;
     // returned objects, it works when we test it here.
     assert.deepStrictEqual(parsed[0].parsedColours, ['red', 'black']);
 });
+
+test('debounce correctly batches rapid calls', async (t) => {
+    let callCount = 0;
+    const increment = () => callCount++;
+
+    const debouncedIncrement = app.debounce(increment, 50);
+
+    // Call it 5 times rapidly
+    debouncedIncrement();
+    debouncedIncrement();
+    debouncedIncrement();
+    debouncedIncrement();
+    debouncedIncrement();
+
+    // Verify it hasn't been called immediately
+    assert.strictEqual(callCount, 0, 'Should not be called immediately');
+
+    // Wait for debounce period
+    await new Promise(resolve => setTimeout(resolve, 60));
+
+    // Verify it was only called once
+    assert.strictEqual(callCount, 1, 'Should only be called once after delay');
+
+    // Call it again
+    debouncedIncrement();
+
+    // Wait for debounce period again
+    await new Promise(resolve => setTimeout(resolve, 60));
+
+    // Verify it was called a second time
+    assert.strictEqual(callCount, 2, 'Should be called again after another delay');
+});

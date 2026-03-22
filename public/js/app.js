@@ -666,6 +666,7 @@ if (typeof module !== 'undefined' && module.exports) {
         gameState,
         getLockThreshold,
         isStationLocked,
-        parseCSV
+        parseCSV,
+        debounce
     };
 }
