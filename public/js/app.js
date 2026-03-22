@@ -197,9 +197,9 @@ function getLockThreshold() {
     return Infinity; // Casual
 }
 
-function isStationLocked(stationName) {
+function isStationLocked(stationName, threshold = getLockThreshold()) {
     const uses = gameState.usedCounts[stationName] || 0;
-    return uses >= getLockThreshold();
+    return uses >= threshold;
 }
 
 // UI Rendering
@@ -257,10 +257,13 @@ function renderTable() {
 
     const fragment = document.createDocumentFragment();
 
+    // ⚡ Performance optimization: Compute threshold once per render
+    const currentThreshold = getLockThreshold();
+
     displayStations.forEach(station => {
         const tr = document.createElement('tr');
         const uses = gameState.usedCounts[station.name] || 0;
-        const locked = isStationLocked(station.name);
+        const locked = isStationLocked(station.name, currentThreshold);
 
         if (locked) tr.classList.add('locked');
 
@@ -368,10 +371,13 @@ function applyFilters() {
     const isLockedFilter = filterType === 'locked';
     const isUnlockedFilter = filterType === 'unlocked';
 
+    // ⚡ Performance optimization: Compute threshold once per filter cycle
+    const currentThreshold = getLockThreshold();
+
     displayStations = allStations.filter(station => {
         // ⚡ Performance optimization: Run status filter (fast map lookup) before text search
         // 1. Status Filter
-        const locked = isStationLocked(station.name);
+        const locked = isStationLocked(station.name, currentThreshold);
         if (isUnlockedFilter && locked) return false;
         if (isLockedFilter && !locked) return false;
 
@@ -391,7 +397,9 @@ function applyFilters() {
 // Wildcard Modal Logic
 function openWildcardModal() {
     // Get list of currently locked stations
-    const lockedStations = allStations.filter(s => isStationLocked(s.name));
+    // ⚡ Performance optimization: Compute threshold once
+    const currentThreshold = getLockThreshold();
+    const lockedStations = allStations.filter(s => isStationLocked(s.name, currentThreshold));
 
     if (lockedStations.length === 0) {
         showToast("No locked stations available to unlock.");
@@ -593,8 +601,9 @@ function setupEventListeners() {
     if (wildcardSearch) {
         wildcardSearch.addEventListener('input', debounce((e) => {
             const query = e.target.value.toLowerCase();
+            const currentThreshold = getLockThreshold();
             const lockedStations = allStations.filter(s =>
-                isStationLocked(s.name) && s.name.toLowerCase().includes(query)
+                isStationLocked(s.name, currentThreshold) && s.name.toLowerCase().includes(query)
             );
             renderWildcardList(lockedStations);
         }, 200));
