@@ -178,7 +178,25 @@ function loadGameState() {
     const saved = localStorage.getItem('snookerTubeyState');
     if (saved) {
         try {
-            gameState = JSON.parse(saved);
+            const parsed = JSON.parse(saved);
+            if (parsed && typeof parsed === 'object') {
+                if (typeof parsed.tier === 'string') {
+                    gameState.tier = parsed.tier;
+                }
+
+                if (parsed.usedCounts && typeof parsed.usedCounts === 'object') {
+                    // Safe object to prevent prototype pollution from storage
+                    gameState.usedCounts = Object.create(null);
+                    for (const key in parsed.usedCounts) {
+                        if (Object.prototype.hasOwnProperty.call(parsed.usedCounts, key)) {
+                            const val = parsed.usedCounts[key];
+                            if (typeof val === 'number') {
+                                gameState.usedCounts[key] = val;
+                            }
+                        }
+                    }
+                }
+            }
             if (tierSelect) tierSelect.value = gameState.tier;
         } catch(e) {
             console.error('Failed to parse saved state');
