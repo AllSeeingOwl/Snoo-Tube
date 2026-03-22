@@ -9,3 +9,7 @@
 ## 2024-10-31 - Focus Loss on Ephemeral Actionable Elements
 **Learning:** When actionable empty states (like a "Clear Search" button) are clicked, they trigger an immediate UI re-render that removes the button from the DOM. This causes keyboard users to abruptly lose focus, which resets to the start of the document `<body>`, forcing them to tab back through the entire page hierarchy.
 **Action:** Whenever a button's primary action involves its own destruction or removal from the DOM (e.g., clearing a search state that hides the empty state view), ensure focus is explicitly shifted to the most logical next element in the workflow, such as the search input that was just cleared.
+
+## 2026-03-22 - Global Keyboard Shortcuts in Vanilla JS
+**Learning:** Adding a global `/` keyboard shortcut significantly improves accessibility and speed for power users to focus the primary search input. However, in a pure vanilla HTML/JS application, it is crucial to proactively call `e.preventDefault()` inside the `keydown` event handler *before* focusing the input, otherwise the trigger key (`/`) will immediately bleed into the focused input field as a typed character.
+**Action:** Always verify that keyboard shortcut listeners include logic to ignore the event when focus is already within interactive input/textarea elements, and ensure `e.preventDefault()` is invoked before calling `.focus()` on the target.
