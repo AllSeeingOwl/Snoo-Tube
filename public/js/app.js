@@ -128,26 +128,24 @@ function parseCSV(str) {
         }
         parsedCols.push(currentVal.trim());
 
-        if (parsedCols.length >= 4) {
-            const name = parsedCols[nameIdx];
-            if (name === undefined) continue; // Skip empty rows (like second lines for interchanges in the raw CSV, though ideally we merge them)
+        const name = parsedCols[nameIdx];
+        if (name === undefined) continue; // Skip empty rows (like second lines for interchanges in the raw CSV, though ideally we merge them)
 
-            // Note: The raw CSV has empty names for secondary lines of interchanges (e.g., Acton Town).
-            // We should merge these or handle them. Let's merge them into the previous station if name is empty.
-            if (name === '') {
-                if (stations.length > 0) {
-                    const prev = stations[stations.length - 1];
-                    if (parsedCols[linesIdx]) prev.lines += ', ' + parsedCols[linesIdx];
-                    if (parsedCols[coloursIdx]) prev.colours += ', ' + parsedCols[coloursIdx];
-                }
-            } else {
-                stations.push({
-                    name: name.replace(/^"|"$/g, ''),
-                    lines: parsedCols[linesIdx] ? parsedCols[linesIdx].replace(/^"|"$/g, '') : '',
-                    colours: parsedCols[coloursIdx] ? parsedCols[coloursIdx].replace(/^"|"$/g, '') : '',
-                    zone: parsedCols[zoneIdx] ? parsedCols[zoneIdx].replace(/^"|"$/g, '') : ''
-                });
+        // Note: The raw CSV has empty names for secondary lines of interchanges (e.g., Acton Town).
+        // We should merge these or handle them. Let's merge them into the previous station if name is empty.
+        if (name === '') {
+            if (stations.length > 0) {
+                const prev = stations[stations.length - 1];
+                if (parsedCols[linesIdx]) prev.lines += ', ' + parsedCols[linesIdx];
+                if (parsedCols[coloursIdx]) prev.colours += ', ' + parsedCols[coloursIdx];
             }
+        } else {
+            stations.push({
+                name: name.replace(/^"|"$/g, ''),
+                lines: parsedCols[linesIdx] ? parsedCols[linesIdx].replace(/^"|"$/g, '') : '',
+                colours: parsedCols[coloursIdx] ? parsedCols[coloursIdx].replace(/^"|"$/g, '') : '',
+                zone: parsedCols[zoneIdx] ? parsedCols[zoneIdx].replace(/^"|"$/g, '') : ''
+            });
         }
     }
 
