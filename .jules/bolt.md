@@ -9,3 +9,11 @@
 ## 2024-03-22 - Avoid Recalculating Static Values in Hot Loops
 **Learning:** In a vanilla JS array `filter` and `forEach` render cycle for 300+ items, repeatedly calling a getter function `getLockThreshold()` that accesses global state inside `isStationLocked(stationName)` causes significant unnecessary overhead. A micro-benchmark showed an ~18% execution time reduction when computing the value once and passing it into the loop as an argument.
 **Action:** When evaluating items in a hot loop against a static application state (like a difficulty tier), compute the state threshold outside the loop and pass it as an argument rather than re-evaluating it inside the loop for every single item.
+
+## $(date +%Y-%m-%d) - Optimize station colour parsing
+**Learning:** Using regex match and `Set` for deduplicating predefined strings within another string results in unnecessary array allocations and garbage collection overhead. Iterating over a static array of allowed values and using `.includes()` is significantly faster.
+**Action:** Replace `match(regex) || []` and `[...new Set()]` with a static array loop and `.includes()` when searching for a small known list of sub-strings.
+
+## 2024-03-24 - Optimize station colour parsing
+**Learning:** Using regex match and `Set` for deduplicating predefined strings within another string results in unnecessary array allocations and garbage collection overhead. Iterating over a static array of allowed values and using `.includes()` is significantly faster.
+**Action:** Replace `match(regex) || []` and `[...new Set()]` with a static array loop and `.includes()` when searching for a small known list of sub-strings.
