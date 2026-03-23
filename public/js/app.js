@@ -183,7 +183,7 @@ function loadGameState() {
         try {
             const parsed = JSON.parse(saved);
             if (parsed && typeof parsed === 'object') {
-                if (typeof parsed.tier === 'string') {
+                if (typeof parsed.tier === 'string' && ['Advanced', 'Intermediate', 'Casual'].includes(parsed.tier)) {
                     gameState.tier = parsed.tier;
                 }
 
@@ -193,7 +193,7 @@ function loadGameState() {
                     for (const key in parsed.usedCounts) {
                         if (Object.prototype.hasOwnProperty.call(parsed.usedCounts, key)) {
                             const val = parsed.usedCounts[key];
-                            if (typeof val === 'number') {
+                            if (typeof val === 'number' && Number.isInteger(val) && val >= 0) {
                                 gameState.usedCounts[key] = val;
                             }
                         }
