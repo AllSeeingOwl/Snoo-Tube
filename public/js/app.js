@@ -477,6 +477,9 @@ function renderWildcardList(stations) {
         return;
     }
 
+    // ⚡ Performance optimization: Use DocumentFragment to batch DOM insertions
+    // Impact: Avoids multiple reflows/repaints when rendering large lists
+    const fragment = document.createDocumentFragment();
     stations.forEach(station => {
         const li = document.createElement('li');
         li.textContent = `${station.name} (${station.lines})`;
@@ -484,8 +487,9 @@ function renderWildcardList(stations) {
         li.setAttribute('role', 'button');
         li.setAttribute('aria-label', `Unlock ${station.name}`);
         li.dataset.stationName = station.name;
-        lockedStationsList.appendChild(li);
+        fragment.appendChild(li);
     });
+    lockedStationsList.appendChild(fragment);
 }
 
 function unlockStation(stationName) {
@@ -627,7 +631,9 @@ function setupEventListeners() {
             const query = e.target.value.toLowerCase();
             const currentThreshold = getLockThreshold();
             const lockedStations = allStations.filter(s =>
-                isStationLocked(s.name, currentThreshold) && s.name.toLowerCase().includes(query)
+                // ⚡ Performance optimization: Use pre-computed searchName and short-circuit empty query
+                // Impact: Eliminates O(n) string allocations (.toLowerCase()) inside the filter loop
+                isStationLocked(s.name, currentThreshold) && (!query || s.searchName.includes(query))
             );
             renderWildcardList(lockedStations);
         }, 200));
