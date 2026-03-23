@@ -8,7 +8,7 @@
 **Learning:** Calling `.toLowerCase()` repeatedly within an array `filter` loop for O(n) text search causes measurable main-thread blocking and garbage collection overhead. Pre-computing and caching the lowercase versions of these strings on the object directly during initialization provides a massive, measurable speed boost (reduced filter time by >60% in a 10k iteration local node benchmark).
 **Action:** When working with frequent text-based filtering on static lists, always pre-compute search properties (e.g. `searchName`) on the object during the initial data parse rather than running string manipulation functions on every render/filter cycle.
 
-## $(date +%Y-%m-%d) - Pre-compute Combined Search Strings
+## 2024-05-20 - Pre-compute Combined Search Strings
 **Learning:** In vanilla JS apps with frequent filtering (like searching through a list of items), doing string concatenation and multiple `.includes()` checks inside the array `.filter()` hot-loop causes significant overhead due to constant string allocation.
 **Action:** Move all string concatenation to the initial parsing phase (`parseCSV`). Pre-compute a single `searchCombined` property (e.g., `name|lines|colours`) and perform a single `.includes()` check during the filter loop.
 
@@ -16,10 +16,18 @@
 **Learning:** In a vanilla JS array `filter` and `forEach` render cycle for 300+ items, repeatedly calling a getter function `getLockThreshold()` that accesses global state inside `isStationLocked(stationName)` causes significant unnecessary overhead. A micro-benchmark showed an ~18% execution time reduction when computing the value once and passing it into the loop as an argument.
 **Action:** When evaluating items in a hot loop against a static application state (like a difficulty tier), compute the state threshold outside the loop and pass it as an argument rather than re-evaluating it inside the loop for every single item.
 
-## $(date +%Y-%m-%d) - Optimize station colour parsing
+## 2024-05-20 - Optimize station colour parsing
 **Learning:** Using regex match and `Set` for deduplicating predefined strings within another string results in unnecessary array allocations and garbage collection overhead. Iterating over a static array of allowed values and using `.includes()` is significantly faster.
 **Action:** Replace `match(regex) || []` and `[...new Set()]` with a static array loop and `.includes()` when searching for a small known list of sub-strings.
 
 ## 2024-03-24 - Optimize station colour parsing
 **Learning:** Using regex match and `Set` for deduplicating predefined strings within another string results in unnecessary array allocations and garbage collection overhead. Iterating over a static array of allowed values and using `.includes()` is significantly faster.
 **Action:** Replace `match(regex) || []` and `[...new Set()]` with a static array loop and `.includes()` when searching for a small known list of sub-strings.
+
+## 2024-05-20 - DOM List Rendering Optimization
+**Learning:** Appending items directly to the DOM one-by-one inside a loop (like `lockedStationsList.appendChild(li)`) triggers multiple expensive layout reflows and repaints, scaling poorly with list size.
+**Action:** Use a `DocumentFragment` to batch DOM node creation in memory, appending all generated items to the fragment first, and then appending the single fragment to the live DOM. This ensures only one layout calculation is triggered.
+
+## 2024-05-20 - Array Filter Optimization
+**Learning:** Running string functions like `.toLowerCase()` inside an array `.filter()` loops introduces repetitive string allocations that create garbage collection overhead and block the main thread.
+**Action:** Always pre-compute lowercase strings (e.g., `searchName`) on initialization and short-circuit search functions when empty (e.g., `!query || s.searchName.includes(query)`) to bypass `.includes()` entirely for empty queries.
