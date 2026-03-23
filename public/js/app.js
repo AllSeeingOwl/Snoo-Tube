@@ -432,6 +432,7 @@ function openWildcardModal() {
     if (wildcardSearch) wildcardSearch.value = '';
     if (wildcardModal) {
         wildcardModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
         if (wildcardSearch) wildcardSearch.focus();
     }
 }
@@ -502,6 +503,7 @@ function unlockStation(stationName) {
 function closeModal() {
     if (wildcardModal) {
         wildcardModal.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore background scrolling
         if (wildcardBtn) wildcardBtn.focus();
     }
 }
@@ -639,6 +641,31 @@ function setupEventListeners() {
             closeModal();
         }
     });
+
+    // Focus trap for modal
+    if (wildcardModal) {
+        wildcardModal.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                const focusableElements = wildcardModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                if (focusableElements.length === 0) return;
+
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    }
+                }
+            }
+        });
+    }
 
     // Global keyboard shortcut to focus search input
     window.addEventListener('keydown', (e) => {
