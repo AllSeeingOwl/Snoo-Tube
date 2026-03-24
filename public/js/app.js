@@ -59,7 +59,7 @@ async function init() {
 
     try {
         await fetchStations();
-        renderTable();
+        applyFilters();
         setupEventListeners();
 
         // Register Service Worker
@@ -413,11 +413,27 @@ function applyFilters() {
         return true;
     });
 
+    updateWildcardButtonState();
     renderTable();
 }
 
 // Wildcard Modal Logic
+function updateWildcardButtonState() {
+    if (!wildcardBtn) return;
+    const currentThreshold = getLockThreshold();
+    const hasLocked = allStations.some(s => isStationLocked(s.name, currentThreshold));
+
+    if (hasLocked) {
+        wildcardBtn.removeAttribute('aria-disabled');
+        wildcardBtn.removeAttribute('title');
+    } else {
+        wildcardBtn.setAttribute('aria-disabled', 'true');
+        wildcardBtn.setAttribute('title', 'No locked stations available to unlock.');
+    }
+}
+
 function openWildcardModal() {
+    if (wildcardBtn && wildcardBtn.getAttribute('aria-disabled') === 'true') return;
     // Get list of currently locked stations
     // ⚡ Performance optimization: Compute threshold once
     const currentThreshold = getLockThreshold();

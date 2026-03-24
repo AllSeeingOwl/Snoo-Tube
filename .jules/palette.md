@@ -16,3 +16,7 @@
 ## 2024-03-23 - Custom Modal Focus Trap and Background Scrolling
 **Learning:** For custom modals, simply calling `.focus()` on an input is insufficient for accessibility. Keyboard users can easily 'tab out' of the modal overlay into the hidden background page elements, losing context. Furthermore, scrolling with the mouse wheel can scroll the background instead of the modal.
 **Action:** Always implement a complete accessibility package for custom modals: 1) apply `document.body.style.overflow = 'hidden'` on open (and restore on close) to prevent background scroll. 2) Implement a 'focus trap' listening for `keydown` 'Tab' events that circularly routes focus between the modal's first and last focusable elements.
+
+## 2024-11-06 - Proactively Disabling Invalid Action Buttons
+**Learning:** Action buttons that trigger states or modals dependent on certain prerequisites (e.g., a "Wildcard" button that requires at least one locked item to be useful) should not remain visually active only to return a negative "error toast" upon click. This "click-then-fail" pattern adds unnecessary cognitive load and user frustration.
+**Action:** Always compute prerequisite states proactively. Visually disable buttons (via the `disabled` attribute and appropriate styling) when their action cannot be performed, and use `aria-disabled` and `title` attributes to explain *why* the button is unavailable (e.g., "No locked stations available to unlock."). This provides immediate, clear feedback without requiring interaction.

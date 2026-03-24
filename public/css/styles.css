@@ -92,7 +92,15 @@ button {
     background-color: var(--success-color);
     color: white;
 }
-.wildcard-btn:hover { background-color: #157347; }
+.wildcard-btn:hover:not([aria-disabled="true"]) { background-color: #157347; }
+.wildcard-btn[aria-disabled="true"] {
+    pointer-events: none;
+    background-color: var(--card-bg);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 
 .reset-btn {
     background-color: var(--danger-color);
