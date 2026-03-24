@@ -112,21 +112,33 @@ function parseCSV(str) {
 
     for (let i = 1; i < lines.length; i++) {
         // Basic split fallback if complex regex fails or for empty columns
-        let parsedCols = [];
-        let inQuotes = false;
-        let currentVal = '';
+        const line = lines[i];
+        let parsedCols;
 
-        for (let char of lines[i]) {
-            if (char === '"') {
-                inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-                parsedCols.push(currentVal.trim());
-                currentVal = '';
-            } else {
-                currentVal += char;
+        // ⚡ Performance optimization: Fast path for rows without quotes
+        // Character-by-character parsing is slow, so we bypass it for the vast majority of rows
+        if (line.includes('"')) {
+            parsedCols = [];
+            let inQuotes = false;
+            let currentVal = '';
+
+            for (let char of line) {
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    parsedCols.push(currentVal.trim());
+                    currentVal = '';
+                } else {
+                    currentVal += char;
+                }
+            }
+            parsedCols.push(currentVal.trim());
+        } else {
+            parsedCols = line.split(',');
+            for (let j = 0; j < parsedCols.length; j++) {
+                parsedCols[j] = parsedCols[j].trim();
             }
         }
-        parsedCols.push(currentVal.trim());
 
         const name = parsedCols[nameIdx];
         if (name === undefined) continue; // Skip empty rows (like second lines for interchanges in the raw CSV, though ideally we merge them)
