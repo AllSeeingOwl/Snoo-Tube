@@ -38,7 +38,7 @@ let allStations = []; // Original data from CSV
 let displayStations = []; // Filtered data for display
 let gameState = {
     tier: 'Advanced',
-    usedCounts: {} // { "Station Name": count }
+    usedCounts: Object.create(null) // { "Station Name": count }
 };
 
 // Colors Mapping for Badges
@@ -561,7 +561,7 @@ function showToast(message) {
 
 function resetGame() {
     if (confirm('Are you sure you want to reset all station usages for a new game?')) {
-        gameState.usedCounts = {};
+        gameState.usedCounts = Object.create(null);
         saveGameState();
         showToast('Game has been reset!');
         applyFilters();

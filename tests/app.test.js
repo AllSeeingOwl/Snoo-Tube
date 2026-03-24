@@ -59,7 +59,7 @@ test('isStationLocked correctly identifies locked stations', (t) => {
 
     // Advanced Tier (Threshold = 1)
     app.gameState.tier = 'Advanced';
-    app.gameState.usedCounts = {};
+    app.gameState.usedCounts = Object.create(null);
     assert.strictEqual(app.isStationLocked(station), false, '0 uses should be unlocked in Advanced');
 
     app.gameState.usedCounts[station] = 1;
@@ -67,7 +67,7 @@ test('isStationLocked correctly identifies locked stations', (t) => {
 
     // Intermediate Tier (Threshold = 2)
     app.gameState.tier = 'Intermediate';
-    app.gameState.usedCounts = {};
+    app.gameState.usedCounts = Object.create(null);
     assert.strictEqual(app.isStationLocked(station), false, '0 uses should be unlocked in Intermediate');
 
     app.gameState.usedCounts[station] = 1;
@@ -78,7 +78,7 @@ test('isStationLocked correctly identifies locked stations', (t) => {
 
     // Casual Tier (Threshold = Infinity)
     app.gameState.tier = 'Casual';
-    app.gameState.usedCounts = {};
+    app.gameState.usedCounts = Object.create(null);
     assert.strictEqual(app.isStationLocked(station), false, '0 uses should be unlocked in Casual');
 
     app.gameState.usedCounts[station] = 100;
@@ -87,7 +87,7 @@ test('isStationLocked correctly identifies locked stations', (t) => {
 
 test('isStationLocked handles missing station entries', (t) => {
     app.gameState.tier = 'Advanced';
-    app.gameState.usedCounts = {};
+    app.gameState.usedCounts = Object.create(null);
     assert.strictEqual(app.isStationLocked('Non-existent Station'), false);
 });
 
