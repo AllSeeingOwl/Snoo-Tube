@@ -236,55 +236,140 @@ function isStationLocked(stationName, threshold = getLockThreshold()) {
 }
 
 // UI Rendering
+function renderEmptyTableState() {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = 5;
+    td.style.textAlign = 'center';
+    td.style.padding = '2rem';
+
+    const activeFilterBtn = document.querySelector('.filter-btn.active');
+    const filterType = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+    const query = searchInput ? searchInput.value.trim() : '';
+
+    if (query || filterType !== 'all') {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.marginBottom = '1rem';
+        messageDiv.style.color = 'var(--text-muted)';
+        messageDiv.textContent = 'No stations found matching your search or filters.';
+        td.appendChild(messageDiv);
+
+        const clearBtn = document.createElement('button');
+        clearBtn.textContent = 'Clear Search & Filters';
+        clearBtn.className = 'secondary-btn';
+        clearBtn.style.width = 'auto';
+        clearBtn.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            if (filterBtns) {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
+                const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+                if (allBtn) {
+                    allBtn.classList.add('active');
+                    allBtn.setAttribute('aria-pressed', 'true');
+                }
+            }
+            applyFilters();
+            if (searchInput) searchInput.focus();
+        });
+        td.appendChild(clearBtn);
+    } else {
+        td.textContent = 'No stations found.';
+    }
+
+    tr.appendChild(td);
+    return tr;
+}
+
+function createColourBadge(colourName) {
+    if (!colourMap[colourName]) return null;
+    const badge = document.createElement('span');
+    badge.className = 'colour-badge';
+    badge.style.backgroundColor = colourMap[colourName];
+    badge.title = colourName;
+    return badge;
+}
+
+function createStationRow(station, threshold) {
+    const tr = document.createElement('tr');
+    const uses = gameState.usedCounts[station.name] || 0;
+    const locked = isStationLocked(station.name, threshold);
+
+    if (locked) tr.classList.add('locked');
+
+    // Create colour badges
+    const colourBadgesContainer = document.createDocumentFragment();
+    if (station.parsedColours && station.parsedColours.length > 0) {
+        station.parsedColours.forEach(c => {
+            const badge = createColourBadge(c);
+            if (badge) {
+                colourBadgesContainer.appendChild(badge);
+            }
+        });
+    }
+
+    tr.tabIndex = 0;
+    tr.setAttribute('role', 'button');
+    if (locked) {
+        tr.setAttribute('aria-disabled', 'true');
+        tr.setAttribute('aria-label', `Station locked. Record use for ${station.name}`);
+    } else {
+        tr.setAttribute('aria-label', `Record use for ${station.name}`);
+    }
+    // ⚡ Performance optimization: Dataset used for event delegation
+    tr.dataset.stationName = station.name;
+
+    // Create table cells safely
+    const nameTd = document.createElement('td');
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'station-name';
+    nameDiv.textContent = station.name + ' ';
+    if (locked) {
+        const lockedSpan = document.createElement('span');
+        lockedSpan.className = 'locked-icon';
+        lockedSpan.title = 'Locked';
+        lockedSpan.textContent = '🔒';
+        nameDiv.appendChild(lockedSpan);
+    }
+    nameTd.appendChild(nameDiv);
+
+    const linesTd = document.createElement('td');
+    const linesDiv = document.createElement('div');
+    linesDiv.className = 'station-lines';
+    linesDiv.textContent = station.lines;
+    linesTd.appendChild(linesDiv);
+
+    const coloursTd = document.createElement('td');
+    coloursTd.className = 'station-colours';
+    coloursTd.appendChild(colourBadgesContainer);
+    const coloursSpan = document.createElement('span');
+    coloursSpan.textContent = station.colours;
+    coloursTd.appendChild(coloursSpan);
+
+    const zoneTd = document.createElement('td');
+    zoneTd.textContent = station.zone;
+
+    const usesTd = document.createElement('td');
+    usesTd.className = 'use-count';
+    usesTd.textContent = uses;
+
+    tr.appendChild(nameTd);
+    tr.appendChild(linesTd);
+    tr.appendChild(coloursTd);
+    tr.appendChild(zoneTd);
+    tr.appendChild(usesTd);
+
+    return tr;
+}
+
 function renderTable() {
     if (!stationsBody) return;
     stationsBody.textContent = '';
 
     if (displayStations.length === 0) {
-        const tr = document.createElement('tr');
-        const td = document.createElement('td');
-        td.colSpan = 5;
-        td.style.textAlign = 'center';
-        td.style.padding = '2rem';
-
-        const activeFilterBtn = document.querySelector('.filter-btn.active');
-        const filterType = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
-        const query = searchInput ? searchInput.value.trim() : '';
-
-        if (query || filterType !== 'all') {
-            const messageDiv = document.createElement('div');
-            messageDiv.style.marginBottom = '1rem';
-            messageDiv.style.color = 'var(--text-muted)';
-            messageDiv.textContent = 'No stations found matching your search or filters.';
-            td.appendChild(messageDiv);
-
-            const clearBtn = document.createElement('button');
-            clearBtn.textContent = 'Clear Search & Filters';
-            clearBtn.className = 'secondary-btn';
-            clearBtn.style.width = 'auto';
-            clearBtn.addEventListener('click', () => {
-                if (searchInput) searchInput.value = '';
-                if (filterBtns) {
-                    filterBtns.forEach(b => {
-                        b.classList.remove('active');
-                        b.setAttribute('aria-pressed', 'false');
-                    });
-                    const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-                    if (allBtn) {
-                        allBtn.classList.add('active');
-                        allBtn.setAttribute('aria-pressed', 'true');
-                    }
-                }
-                applyFilters();
-                if (searchInput) searchInput.focus();
-            });
-            td.appendChild(clearBtn);
-        } else {
-            td.textContent = 'No stations found.';
-        }
-
-        tr.appendChild(td);
-        stationsBody.appendChild(tr);
+        stationsBody.appendChild(renderEmptyTableState());
         return;
     }
 
@@ -294,78 +379,7 @@ function renderTable() {
     const currentThreshold = getLockThreshold();
 
     displayStations.forEach(station => {
-        const tr = document.createElement('tr');
-        const uses = gameState.usedCounts[station.name] || 0;
-        const locked = isStationLocked(station.name, currentThreshold);
-
-        if (locked) tr.classList.add('locked');
-
-        // Create colour badges
-        const colourBadgesContainer = document.createDocumentFragment();
-        if (station.parsedColours && station.parsedColours.length > 0) {
-            station.parsedColours.forEach(c => {
-                if (colourMap[c]) {
-                    const badge = document.createElement('span');
-                    badge.className = 'colour-badge';
-                    badge.style.backgroundColor = colourMap[c];
-                    badge.title = c;
-                    colourBadgesContainer.appendChild(badge);
-                }
-            });
-        }
-
-        tr.tabIndex = 0;
-        tr.setAttribute('role', 'button');
-        if (locked) {
-            tr.setAttribute('aria-disabled', 'true');
-            tr.setAttribute('aria-label', `Station locked. Record use for ${station.name}`);
-        } else {
-            tr.setAttribute('aria-label', `Record use for ${station.name}`);
-        }
-        // ⚡ Performance optimization: Dataset used for event delegation
-        tr.dataset.stationName = station.name;
-
-        // Create table cells safely
-        const nameTd = document.createElement('td');
-        const nameDiv = document.createElement('div');
-        nameDiv.className = 'station-name';
-        nameDiv.textContent = station.name + ' ';
-        if (locked) {
-            const lockedSpan = document.createElement('span');
-            lockedSpan.className = 'locked-icon';
-            lockedSpan.title = 'Locked';
-            lockedSpan.textContent = '🔒';
-            nameDiv.appendChild(lockedSpan);
-        }
-        nameTd.appendChild(nameDiv);
-
-        const linesTd = document.createElement('td');
-        const linesDiv = document.createElement('div');
-        linesDiv.className = 'station-lines';
-        linesDiv.textContent = station.lines;
-        linesTd.appendChild(linesDiv);
-
-        const coloursTd = document.createElement('td');
-        coloursTd.className = 'station-colours';
-        coloursTd.appendChild(colourBadgesContainer);
-        const coloursSpan = document.createElement('span');
-        coloursSpan.textContent = station.colours;
-        coloursTd.appendChild(coloursSpan);
-
-        const zoneTd = document.createElement('td');
-        zoneTd.textContent = station.zone;
-
-        const usesTd = document.createElement('td');
-        usesTd.className = 'use-count';
-        usesTd.textContent = uses;
-
-        tr.appendChild(nameTd);
-        tr.appendChild(linesTd);
-        tr.appendChild(coloursTd);
-        tr.appendChild(zoneTd);
-        tr.appendChild(usesTd);
-
-        fragment.appendChild(tr);
+        fragment.appendChild(createStationRow(station, currentThreshold));
     });
 
     stationsBody.appendChild(fragment);
