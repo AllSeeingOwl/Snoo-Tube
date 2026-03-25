@@ -190,7 +190,14 @@ function parseCSV(str) {
 // State Management
 function loadGameState() {
     if (typeof localStorage === 'undefined') return;
-    const saved = localStorage.getItem('snookerTubeyState');
+    let saved;
+    try {
+        saved = localStorage.getItem('snookerTubeyState');
+    } catch (e) {
+        console.warn('localStorage is not available:', e);
+        return;
+    }
+
     if (saved) {
         try {
             const parsed = JSON.parse(saved);
@@ -221,7 +228,11 @@ function loadGameState() {
 
 function saveGameState() {
     if (typeof localStorage === 'undefined') return;
-    localStorage.setItem('snookerTubeyState', JSON.stringify(gameState));
+    try {
+        localStorage.setItem('snookerTubeyState', JSON.stringify(gameState));
+    } catch (e) {
+        console.warn('Failed to save state to localStorage:', e);
+    }
 }
 
 function getLockThreshold() {
