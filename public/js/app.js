@@ -597,6 +597,16 @@ function setupEventListeners() {
     // Search Input
     if (searchInput) {
         searchInput.addEventListener('input', debounce(applyFilters, 200));
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (searchInput.value) {
+                    searchInput.value = '';
+                    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                } else {
+                    searchInput.blur();
+                }
+            }
+        });
     }
 
     // Filter Buttons
@@ -681,6 +691,16 @@ function setupEventListeners() {
             );
             renderWildcardList(lockedStations);
         }, 200));
+
+        wildcardSearch.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (wildcardSearch.value) {
+                    e.stopPropagation();
+                    wildcardSearch.value = '';
+                    wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }
+        });
     }
 
     // Escape key to close modal
