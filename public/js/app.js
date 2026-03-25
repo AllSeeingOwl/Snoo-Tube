@@ -17,6 +17,9 @@ let cancelWildcardBtn;
 let wildcardSearch;
 let lockedStationsList;
 
+// Templates
+let stationRowTemplate;
+
 function initDOMElements() {
     tierSelect = document.getElementById('game-tier');
     searchInput = document.getElementById('search-input');
@@ -31,6 +34,39 @@ function initDOMElements() {
     cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
     wildcardSearch = document.getElementById('wildcard-search');
     lockedStationsList = document.getElementById('locked-stations-list');
+
+    // Initialize template
+    if (typeof document !== 'undefined') {
+        stationRowTemplate = document.createElement('tr');
+        stationRowTemplate.tabIndex = 0;
+        stationRowTemplate.setAttribute('role', 'button');
+
+        const nameTd = document.createElement('td');
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'station-name';
+        nameTd.appendChild(nameDiv);
+
+        const linesTd = document.createElement('td');
+        const linesDiv = document.createElement('div');
+        linesDiv.className = 'station-lines';
+        linesTd.appendChild(linesDiv);
+
+        const coloursTd = document.createElement('td');
+        coloursTd.className = 'station-colours';
+        const coloursSpan = document.createElement('span');
+        coloursTd.appendChild(coloursSpan);
+
+        const zoneTd = document.createElement('td');
+
+        const usesTd = document.createElement('td');
+        usesTd.className = 'use-count';
+
+        stationRowTemplate.appendChild(nameTd);
+        stationRowTemplate.appendChild(linesTd);
+        stationRowTemplate.appendChild(coloursTd);
+        stationRowTemplate.appendChild(zoneTd);
+        stationRowTemplate.appendChild(usesTd);
+    }
 }
 
 // State
@@ -293,25 +329,13 @@ function createColourBadge(colourName) {
 }
 
 function createStationRow(station, threshold) {
-    const tr = document.createElement('tr');
+    // ⚡ Performance optimization: Clone static template instead of creating nodes individually
+    const tr = stationRowTemplate.cloneNode(true);
     const uses = gameState.usedCounts[station.name] || 0;
     const locked = isStationLocked(station.name, threshold);
 
     if (locked) tr.classList.add('locked');
 
-    // Create colour badges
-    const colourBadgesContainer = document.createDocumentFragment();
-    if (station.parsedColours && station.parsedColours.length > 0) {
-        station.parsedColours.forEach(c => {
-            const badge = createColourBadge(c);
-            if (badge) {
-                colourBadgesContainer.appendChild(badge);
-            }
-        });
-    }
-
-    tr.tabIndex = 0;
-    tr.setAttribute('role', 'button');
     if (locked) {
         tr.setAttribute('aria-disabled', 'true');
         tr.setAttribute('aria-label', `Station locked. Record use for ${station.name}`);
@@ -321,10 +345,8 @@ function createStationRow(station, threshold) {
     // ⚡ Performance optimization: Dataset used for event delegation
     tr.dataset.stationName = station.name;
 
-    // Create table cells safely
-    const nameTd = document.createElement('td');
-    const nameDiv = document.createElement('div');
-    nameDiv.className = 'station-name';
+    const nameTd = tr.childNodes[0];
+    const nameDiv = nameTd.childNodes[0];
     nameDiv.textContent = station.name + ' ';
     if (locked) {
         const lockedSpan = document.createElement('span');
@@ -333,33 +355,30 @@ function createStationRow(station, threshold) {
         lockedSpan.textContent = '🔒';
         nameDiv.appendChild(lockedSpan);
     }
-    nameTd.appendChild(nameDiv);
 
-    const linesTd = document.createElement('td');
-    const linesDiv = document.createElement('div');
-    linesDiv.className = 'station-lines';
+    const linesTd = tr.childNodes[1];
+    const linesDiv = linesTd.childNodes[0];
     linesDiv.textContent = station.lines;
-    linesTd.appendChild(linesDiv);
 
-    const coloursTd = document.createElement('td');
-    coloursTd.className = 'station-colours';
-    coloursTd.appendChild(colourBadgesContainer);
-    const coloursSpan = document.createElement('span');
+    const coloursTd = tr.childNodes[2];
+    if (station.parsedColours && station.parsedColours.length > 0) {
+        const colourBadgesContainer = document.createDocumentFragment();
+        station.parsedColours.forEach(c => {
+            const badge = createColourBadge(c);
+            if (badge) {
+                colourBadgesContainer.appendChild(badge);
+            }
+        });
+        coloursTd.insertBefore(colourBadgesContainer, coloursTd.childNodes[0]);
+    }
+    const coloursSpan = coloursTd.childNodes[coloursTd.childNodes.length - 1];
     coloursSpan.textContent = station.colours;
-    coloursTd.appendChild(coloursSpan);
 
-    const zoneTd = document.createElement('td');
+    const zoneTd = tr.childNodes[3];
     zoneTd.textContent = station.zone;
 
-    const usesTd = document.createElement('td');
-    usesTd.className = 'use-count';
+    const usesTd = tr.childNodes[4];
     usesTd.textContent = uses;
-
-    tr.appendChild(nameTd);
-    tr.appendChild(linesTd);
-    tr.appendChild(coloursTd);
-    tr.appendChild(zoneTd);
-    tr.appendChild(usesTd);
 
     return tr;
 }
