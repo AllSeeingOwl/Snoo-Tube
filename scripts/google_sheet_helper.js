@@ -71,13 +71,16 @@ function updateStationLocks(tier) {
   if (tier === TIER_CASUAL) {
     ui.alert('Casual Tier Selected', 'In Casual Tier, stations are always reusable. No locking applied by this script.', ui.ButtonSet.OK);
     // Optionally, you could set all to "No" if you want a visual cue
+    const lockStatuses = [];
     for (let i = HEADER_ROW_COUNT; i < values.length; i++) {
       if (values[i][STATION_NAME_COL] !== "") { // Process only if station name exists
-        // Check if the current value is different before setting to avoid unnecessary writes
-        if (sheet.getRange(i + 1, CURRENTLY_LOCKED_COL + 1).getValue() !== "No") {
-            sheet.getRange(i + 1, CURRENTLY_LOCKED_COL + 1).setValue("No");
-        }
+        lockStatuses.push(["No"]);
+      } else {
+        lockStatuses.push([values[i][CURRENTLY_LOCKED_COL]]);
       }
+    }
+    if (lockStatuses.length > 0) {
+      sheet.getRange(HEADER_ROW_COUNT + 1, CURRENTLY_LOCKED_COL + 1, lockStatuses.length, 1).setValues(lockStatuses);
     }
     SpreadsheetApp.flush(); // Apply changes
     return;
@@ -94,10 +97,14 @@ function updateStationLocks(tier) {
   }
 
   let stationsUpdated = 0;
+  const lockStatuses = [];
   // Start from row after header to skip header
   for (let i = HEADER_ROW_COUNT; i < values.length; i++) {
     const stationName = values[i][STATION_NAME_COL];
-    if (stationName === "" || stationName == null) continue; // Skip empty rows or rows without station names
+    if (stationName === "" || stationName == null) {
+      lockStatuses.push([values[i][CURRENTLY_LOCKED_COL]]);
+      continue; // Skip empty rows or rows without station names
+    }
 
     const timesUsedRaw = values[i][TIMES_USED_COL];
     // Ensure timesUsed is treated as a number. If it's blank or not a number, treat as 0.
@@ -111,9 +118,13 @@ function updateStationLocks(tier) {
 
     // Only write if the value needs to change to avoid unnecessary writes
     if (values[i][CURRENTLY_LOCKED_COL] !== isLocked) {
-        sheet.getRange(i + 1, CURRENTLY_LOCKED_COL + 1).setValue(isLocked);
         stationsUpdated++;
     }
+    lockStatuses.push([isLocked]);
+  }
+
+  if (lockStatuses.length > 0) {
+    sheet.getRange(HEADER_ROW_COUNT + 1, CURRENTLY_LOCKED_COL + 1, lockStatuses.length, 1).setValues(lockStatuses);
   }
   SpreadsheetApp.flush(); // Apply all pending changes
   if (stationsUpdated > 0) {
