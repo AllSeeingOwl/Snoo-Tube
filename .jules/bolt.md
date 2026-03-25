@@ -39,3 +39,7 @@
 ## 2026-03-24 - Batched Spreadsheet Updates in Google Apps Script
 **Learning:** Performing individual `getValue()` or `setValue()` calls inside a loop (the N+1 issue) in Google Apps Script is extremely slow because each call is an expensive RPC to the Google Sheets backend.
 **Action:** Always batch reads and writes. Use `getValues()` to pull a range into a 2D JavaScript array, perform all logic in memory, and then use `setValues()` to write the entire range back in a single operation. This reduces the number of RPC calls from O(n) to O(1).
+
+## 2024-05-20 - DOM cloning vs manual element creation
+**Learning:** Instantiating complex DOM elements within a loop using nested `document.createElement()` and `appendChild()` calls 300+ times is significantly slower than cloning a pre-constructed template using `cloneNode(true)`. Microbenchmarks show that cloning a template requires 2x less execution time since standard class assignment and child hierarchies do not need to be iteratively recreated.
+**Action:** When a static UI component needs to be rendered hundreds or thousands of times, pre-construct its outer DOM structure globally and use `cloneNode(true)`. Then, navigate via `childNodes` to modify just the dynamically changing variables.
