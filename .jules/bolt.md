@@ -35,3 +35,7 @@
 ## 2024-05-20 - Fast-path String Splitting
 **Learning:** Character-by-character parsing logic in JavaScript (e.g., using `for (let char of str)`) is significantly slower than native string manipulation functions like `String.prototype.split()`. In scenarios where parsing rules can be complex (like CSV handling with quotes), running the complex parser on every line creates unnecessary initialization overhead.
 **Action:** Always implement a "fast path" for parsing if possible. By checking `line.includes('"')` first, the vast majority of simple rows can be split natively with `line.split(',')`, yielding a measurable ~15-20% performance improvement during app initialization.
+
+## 2026-03-24 - Batched Spreadsheet Updates in Google Apps Script
+**Learning:** Performing individual `getValue()` or `setValue()` calls inside a loop (the N+1 issue) in Google Apps Script is extremely slow because each call is an expensive RPC to the Google Sheets backend.
+**Action:** Always batch reads and writes. Use `getValues()` to pull a range into a 2D JavaScript array, perform all logic in memory, and then use `setValues()` to write the entire range back in a single operation. This reduces the number of RPC calls from O(n) to O(1).
