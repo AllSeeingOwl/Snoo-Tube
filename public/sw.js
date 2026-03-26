@@ -41,6 +41,20 @@ self.addEventListener('activate', event => {
 
 // Fetch Event
 self.addEventListener('fetch', event => {
+    // 🛡️ Sentinel: Mitigate Cache Poisoning and DoS risks
+    // Only intercept and cache GET requests
+    if (event.request.method !== 'GET') {
+        return;
+    }
+
+    // Do not cache requests with query strings to prevent cache storage DoS
+    // (e.g. an attacker requesting /index.html?rand=1, ?rand=2...)
+    const url = new URL(event.request.url);
+    if (url.search) {
+        event.respondWith(fetch(event.request));
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request)
             .then(response => {
