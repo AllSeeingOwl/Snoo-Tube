@@ -106,7 +106,14 @@ button {
     background-color: var(--danger-color);
     color: white;
 }
-.reset-btn:hover { background-color: var(--danger-hover); }
+.reset-btn:hover:not([aria-disabled="true"]) { background-color: var(--danger-hover); }
+.reset-btn[aria-disabled="true"] {
+    background-color: var(--card-bg);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 
 .secondary-btn {
     background-color: var(--card-bg);
