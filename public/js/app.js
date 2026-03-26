@@ -476,7 +476,30 @@ function applyFilters() {
     });
 
     updateWildcardButtonState();
+    updateResetButtonState();
     renderTable();
+}
+
+// Reset Button Logic
+function updateResetButtonState() {
+    if (!resetBtn) return;
+
+    // Check if any stations have been used (counts > 0)
+    let hasUsedStations = false;
+    for (const key in gameState.usedCounts) {
+        if (gameState.usedCounts[key] > 0) {
+            hasUsedStations = true;
+            break;
+        }
+    }
+
+    if (hasUsedStations) {
+        resetBtn.removeAttribute('aria-disabled');
+        resetBtn.removeAttribute('title');
+    } else {
+        resetBtn.setAttribute('aria-disabled', 'true');
+        resetBtn.setAttribute('title', 'No stations have been used yet.');
+    }
 }
 
 // Wildcard Modal Logic
@@ -665,7 +688,13 @@ function setupEventListeners() {
 
     // Reset Game
     if (resetBtn) {
-        resetBtn.addEventListener('click', resetGame);
+        resetBtn.addEventListener('click', (e) => {
+            if (resetBtn.getAttribute('aria-disabled') === 'true') {
+                e.preventDefault();
+                return;
+            }
+            resetGame();
+        });
     }
 
     // ⚡ Performance optimization: Event delegation for table rows
