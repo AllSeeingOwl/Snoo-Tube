@@ -506,7 +506,11 @@ function updateResetButtonState() {
 function updateWildcardButtonState() {
     if (!wildcardBtn) return;
     const currentThreshold = getLockThreshold();
-    const hasLocked = allStations.some(s => isStationLocked(s.name, currentThreshold));
+
+    // ⚡ Performance optimization: Check the small usedCounts object instead of allStations array
+    // Impact: Changes O(N) array iteration to O(K) object iteration where K is used stations.
+    // Huge improvement during filter typing (runs on every keystroke).
+    const hasLocked = Object.values(gameState.usedCounts).some(count => count >= currentThreshold);
 
     if (hasLocked) {
         wildcardBtn.removeAttribute('aria-disabled');
