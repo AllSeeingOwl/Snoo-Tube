@@ -19,6 +19,8 @@ A web-based tracker for the "Snooker Tubey" game. This app allows you to keep tr
   - `css/styles.css` - Styling.
   - `js/app.js` - Application logic.
   - `manifest.json` & `sw.js` - Service worker setup for offline PWA installation.
+- `scripts/` - Contains helper scripts (e.g., benchmarking, Google Apps Script logic).
+- `tests/` - Contains automated unit tests for the application logic.
 
 ## Running Locally
 
