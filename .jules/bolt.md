@@ -47,3 +47,7 @@
 ## 2024-05-22 - Avoid DOM Querying in Hot Loops
 **Learning:** Repeatedly querying the DOM with `document.querySelector` inside frequently executed functions (like input debouncing or filtering loops) causes a measurable performance bottleneck. Micro-benchmarks showed a ~65% speedup in `applyFilters` execution when avoiding `document.querySelector`.
 **Action:** Cache the state of DOM-dependent variables (like the active filter type) in memory (e.g., a JavaScript variable) and update this cached state within the relevant event listeners, instead of querying the DOM structure on every read.
+
+## 2024-06-12 - Checking State in Small Objects vs Iterating Static Lists
+**Learning:** Repeatedly checking if any items in a large static list meet a specific condition (`allStations.some(...)`) is highly inefficient when the target condition involves global state (like `gameState.usedCounts`). Iterating over a dictionary of actively used items is considerably faster because the subset $K$ is significantly smaller than the whole dataset $N$, improving algorithmic complexity from $O(N)$ to $O(K)$.
+**Action:** When verifying boolean states for dynamic data mapped to a static list, iterate over the keys of the dynamic state object instead of running a loop across the entire array of static items.
