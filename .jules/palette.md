@@ -25,3 +25,6 @@
 ## 2025-03-25 - Context-Aware Escape in Nested Search Components
 **Learning:** When a search input exists inside a modal that uses the `Escape` key to close (a standard UX pattern), pressing `Escape` to clear a search query often inadvertently closes the entire modal, causing frustration and context loss.
 **Action:** For search inputs within modals, implement an `Escape` keydown listener that first clears the text and calls `e.stopPropagation()` to prevent the modal closure event from firing. The modal should only close natively on a subsequent `Escape` press when the input is already empty.
+## 2024-11-20 - Disabled Elements and Tooltips
+**Learning:** Applying `pointer-events: none` to disabled or `aria-disabled` buttons prevents all pointer events, which also completely disables native HTML `title` tooltips and custom cursors (like `cursor: not-allowed`). This prevents users from discovering *why* a button is disabled.
+**Action:** To preserve keyboard focus and accessibility for disabled buttons with explanatory tooltips, use `aria-disabled="true"` and explicit JavaScript event blocking instead of the native HTML `disabled` attribute or CSS `pointer-events: none`.

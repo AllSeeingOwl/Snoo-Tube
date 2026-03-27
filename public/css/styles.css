@@ -94,7 +94,6 @@ button {
 }
 .wildcard-btn:hover:not([aria-disabled="true"]) { background-color: #157347; }
 .wildcard-btn[aria-disabled="true"] {
-    pointer-events: none;
     background-color: var(--card-bg);
     color: var(--text-muted);
     border: 1px solid var(--border-color);
