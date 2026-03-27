@@ -736,7 +736,15 @@ function setupEventListeners() {
     });
 
     // Wildcard
-    if (wildcardBtn) wildcardBtn.addEventListener('click', openWildcardModal);
+    if (wildcardBtn) {
+        wildcardBtn.addEventListener('click', (e) => {
+            if (wildcardBtn.getAttribute('aria-disabled') === 'true') {
+                e.preventDefault();
+                return;
+            }
+            openWildcardModal();
+        });
+    }
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
     if (cancelWildcardBtn) cancelWildcardBtn.addEventListener('click', closeModal);
 
