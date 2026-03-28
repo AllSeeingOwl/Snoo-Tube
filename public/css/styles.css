@@ -122,6 +122,10 @@ button {
     width: 100%;
 }
 
+.secondary-btn:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
 main {
     flex: 1;
     padding: 1rem;
@@ -155,6 +159,10 @@ main {
     color: var(--text-muted);
     border: 1px solid var(--border-color);
     flex-shrink: 0;
+}
+
+.filter-btn:not(.active):hover {
+    background-color: rgba(255,255,255,0.05);
 }
 
 .filter-btn.active {
@@ -193,8 +201,13 @@ tbody tr {
     transition: background-color 0.1s;
 }
 
-tbody tr:hover {
+tbody tr:hover,
+tbody tr:focus-visible {
     background-color: rgba(255,255,255,0.05);
+}
+
+tbody tr:focus-visible {
+    outline-offset: -2px; /* Prevent outline from being clipped by table borders */
 }
 
 tbody tr.locked {
@@ -280,6 +293,10 @@ tbody tr.locked {
     line-height: 1;
 }
 
+.close-btn:hover {
+    color: var(--text-main);
+}
+
 #locked-stations-list {
     list-style: none;
     overflow-y: auto;
@@ -295,7 +312,8 @@ tbody tr.locked {
     cursor: pointer;
 }
 
-#locked-stations-list li:hover {
+#locked-stations-list li:hover,
+#locked-stations-list li:focus-visible {
     background-color: rgba(255,255,255,0.1);
 }
 
