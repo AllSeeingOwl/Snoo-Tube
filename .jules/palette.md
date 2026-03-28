@@ -28,3 +28,7 @@
 ## 2024-11-20 - Disabled Elements and Tooltips
 **Learning:** Applying `pointer-events: none` to disabled or `aria-disabled` buttons prevents all pointer events, which also completely disables native HTML `title` tooltips and custom cursors (like `cursor: not-allowed`). This prevents users from discovering *why* a button is disabled.
 **Action:** To preserve keyboard focus and accessibility for disabled buttons with explanatory tooltips, use `aria-disabled="true"` and explicit JavaScript event blocking instead of the native HTML `disabled` attribute or CSS `pointer-events: none`.
+
+## 2026-03-28 - Interactive Table Row Focus Rings
+**Learning:** When custom interactive elements like table rows (`<tr>`) receive keyboard focus, the default `:focus-visible` outline is often clipped by the boundaries of the table container or adjacent row borders, making the focus state difficult to see and failing accessibility standards.
+**Action:** Apply a negative `outline-offset` (e.g., `-2px`) to the `:focus-visible` state of interactive table rows to draw the focus ring inward, ensuring it remains fully visible within the element's bounding box without being clipped by the table structure.
