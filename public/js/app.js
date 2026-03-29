@@ -123,12 +123,20 @@ async function init() {
 
 // Data Fetching and Parsing
 async function fetchStations() {
-    const response = await fetch('../data/Snooker Tubey Database.csv');
-    if (!response.ok) throw new Error('Failed to fetch CSV');
+    // 🛡️ Sentinel: Add timeout to external fetch call to prevent hanging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-    const csvText = await response.text();
-    allStations = parseCSV(csvText);
-    displayStations = [...allStations];
+    try {
+        const response = await fetch('../data/Snooker Tubey Database.csv', { signal: controller.signal });
+        if (!response.ok) throw new Error('Failed to fetch CSV');
+
+        const csvText = await response.text();
+        allStations = parseCSV(csvText);
+        displayStations = [...allStations];
+    } finally {
+        clearTimeout(timeoutId);
+    }
 }
 
 function parseCSV(str) {
