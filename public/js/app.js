@@ -440,7 +440,18 @@ function handleStationClick(stationName) {
             showToast(`${stationName} used. (${gameState.usedCounts[stationName]} times)`);
         }
 
+        // Store focus state before re-rendering
+        const wasFocused = document.activeElement && document.activeElement.dataset.stationName === stationName;
+
         applyFilters(); // Re-render table keeping current filters
+
+        // Restore focus if it was focused before
+        if (wasFocused) {
+            const rowToFocus = document.querySelector(`tr[data-station-name="${CSS.escape(stationName)}"]`);
+            if (rowToFocus) {
+                rowToFocus.focus();
+            }
+        }
     }
 }
 
@@ -621,8 +632,18 @@ function unlockStation(stationName) {
         gameState.usedCounts[stationName] = 0;
         saveGameState();
         showToast(`🚇 ${stationName} has been UNLOCKED via Wildcard!`);
+
+        // Store the name to focus it in the main table after close
+        const unlockedStationName = stationName;
+
         closeModal();
         applyFilters();
+
+        // Return focus to the newly unlocked station row in the main table
+        const rowToFocus = document.querySelector(`tr[data-station-name="${CSS.escape(unlockedStationName)}"]`);
+        if (rowToFocus) {
+            rowToFocus.focus();
+        }
     }
 }
 
