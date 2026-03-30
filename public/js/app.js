@@ -208,7 +208,10 @@ function parseCSV(str) {
 
     // Pre-parse and deduplicate colours for performance
     // Also pre-compute lowercase strings for faster searching later
-    stations.forEach(station => {
+    // ⚡ Performance optimization: Replace Array.forEach with a standard for-loop
+    // Impact: Avoids callback overhead during initialization
+    for (let i = 0; i < stations.length; i++) {
+        const station = stations[i];
         station.searchName = station.name.toLowerCase();
         station.searchLines = station.lines.toLowerCase();
         station.searchColours = station.colours.toLowerCase();
@@ -227,7 +230,7 @@ function parseCSV(str) {
                 }
             }
         }
-    });
+    }
 
     return stations;
 }
@@ -421,9 +424,10 @@ function renderTable() {
     // ⚡ Performance optimization: Compute threshold once per render
     const currentThreshold = getLockThreshold();
 
-    displayStations.forEach(station => {
-        fragment.appendChild(createStationRow(station, currentThreshold));
-    });
+    // ⚡ Performance optimization: Replace Array.forEach with a standard for-loop
+    for (let i = 0; i < displayStations.length; i++) {
+        fragment.appendChild(createStationRow(displayStations[i], currentThreshold));
+    }
 
     stationsBody.appendChild(fragment);
 }
@@ -551,11 +555,30 @@ function applyFilters() {
 
         newDisplay.push(station);
     }
+
+    // ⚡ Performance optimization: Skip DOM re-render if the displayed stations haven't changed
+    // Impact: Prevents tearing down and rebuilding hundreds of DOM nodes on every keystroke
+    // when the search query yields the exact same list of stations.
+    let listChanged = false;
+    if (newDisplay.length !== displayStations.length) {
+        listChanged = true;
+    } else {
+        for (let i = 0; i < newDisplay.length; i++) {
+            if (newDisplay[i].name !== displayStations[i].name) {
+                listChanged = true;
+                break;
+            }
+        }
+    }
+
     displayStations = newDisplay;
 
     updateWildcardButtonState();
     updateResetButtonState();
-    renderTable();
+
+    if (listChanged) {
+        renderTable();
+    }
 }
 
 // Reset Button Logic
@@ -585,10 +608,15 @@ function updateWildcardButtonState() {
     if (!wildcardBtn) return;
     const currentThreshold = getLockThreshold();
 
-    // ⚡ Performance optimization: Check the small usedCounts object instead of allStations array
-    // Impact: Changes O(N) array iteration to O(K) object iteration where K is used stations.
-    // Huge improvement during filter typing (runs on every keystroke).
-    const hasLocked = Object.values(gameState.usedCounts).some(count => count >= currentThreshold);
+    // ⚡ Performance optimization: Iterate over usedCounts object keys directly instead of using Object.values().some()
+    // Impact: Eliminates array allocation and callback overhead on every keystroke during applyFilters().
+    let hasLocked = false;
+    for (const key in gameState.usedCounts) {
+        if (gameState.usedCounts[key] >= currentThreshold) {
+            hasLocked = true;
+            break;
+        }
+    }
 
     if (hasLocked) {
         wildcardBtn.removeAttribute('aria-disabled');
@@ -674,7 +702,10 @@ function renderWildcardList(stations) {
     // ⚡ Performance optimization: Use DocumentFragment to batch DOM insertions
     // Impact: Avoids multiple reflows/repaints when rendering large lists
     const fragment = document.createDocumentFragment();
-    stations.forEach(station => {
+
+    // ⚡ Performance optimization: Replace Array.forEach with a standard for-loop
+    for (let i = 0; i < stations.length; i++) {
+        const station = stations[i];
         const li = document.createElement('li');
         li.textContent = `${station.name} (${station.lines})`;
         li.tabIndex = 0;
@@ -682,7 +713,7 @@ function renderWildcardList(stations) {
         li.setAttribute('aria-label', `Unlock ${station.name}`);
         li.dataset.stationName = station.name;
         fragment.appendChild(li);
-    });
+    }
     lockedStationsList.appendChild(fragment);
 }
 
