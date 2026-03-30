@@ -793,6 +793,8 @@ function setupEventListeners() {
         resetBtn.addEventListener('click', (e) => {
             if (resetBtn.getAttribute('aria-disabled') === 'true') {
                 e.preventDefault();
+                const reason = resetBtn.getAttribute('title');
+                if (reason) showToast(reason);
                 return;
             }
             resetGame();
@@ -842,6 +844,8 @@ function setupEventListeners() {
         wildcardBtn.addEventListener('click', (e) => {
             if (wildcardBtn.getAttribute('aria-disabled') === 'true') {
                 e.preventDefault();
+                const reason = wildcardBtn.getAttribute('title');
+                if (reason) showToast(reason);
                 return;
             }
             openWildcardModal();
