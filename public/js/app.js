@@ -9,6 +9,7 @@ let wildcardBtn;
 let resetBtn;
 let toast;
 let toastTimeout;
+let searchAnnouncer;
 
 // Modal Elements
 let wildcardModal;
@@ -16,6 +17,7 @@ let closeBtn;
 let cancelWildcardBtn;
 let wildcardSearch;
 let lockedStationsList;
+let wildcardAnnouncer;
 
 // Templates
 let stationRowTemplate;
@@ -28,12 +30,14 @@ function initDOMElements() {
     wildcardBtn = document.getElementById('wildcard-btn');
     resetBtn = document.getElementById('reset-btn');
     toast = document.getElementById('toast');
+    searchAnnouncer = document.getElementById('search-announcer');
 
     wildcardModal = document.getElementById('wildcard-modal');
     closeBtn = document.querySelector('.close-btn');
     cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
     wildcardSearch = document.getElementById('wildcard-search');
     lockedStationsList = document.getElementById('locked-stations-list');
+    wildcardAnnouncer = document.getElementById('wildcard-announcer');
 
     // Initialize template
     if (typeof document !== 'undefined') {
@@ -577,6 +581,10 @@ function applyFilters() {
     if (listChanged) {
         renderTable();
     }
+
+    if (searchAnnouncer) {
+        searchAnnouncer.textContent = `${displayStations.length} station${displayStations.length === 1 ? '' : 's'} found.`;
+    }
 }
 
 // Reset Button Logic
@@ -910,6 +918,9 @@ function setupEventListeners() {
             }
 
             renderWildcardList(lockedStations);
+            if (wildcardAnnouncer) {
+                wildcardAnnouncer.textContent = `${lockedStations.length} locked station${lockedStations.length === 1 ? '' : 's'} found.`;
+            }
         }, 200));
 
         wildcardSearch.addEventListener('keydown', (e) => {

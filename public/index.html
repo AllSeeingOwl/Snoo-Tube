@@ -37,6 +37,7 @@
     <main>
         <section class="search-section">
             <input type="search" id="search-input" maxlength="100" placeholder="Search station, line, or colour... (Press '/')" aria-label="Search stations" aria-keyshortcuts="/">
+            <div id="search-announcer" class="sr-only" aria-live="polite"></div>
             <div class="filter-controls" role="group" aria-label="Station status filters">
                 <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
                 <button class="filter-btn" data-filter="unlocked" aria-pressed="false">Unlocked</button>
@@ -70,6 +71,7 @@
             <h2 id="wildcard-modal-title">Overground Wildcard</h2>
             <p id="wildcard-modal-desc">Select a previously used station to unlock:</p>
             <input type="search" id="wildcard-search" maxlength="100" placeholder="Search locked stations..." aria-label="Search locked stations">
+            <div id="wildcard-announcer" class="sr-only" aria-live="polite"></div>
             <ul id="locked-stations-list">
                 <!-- Locked stations will populate here -->
             </ul>

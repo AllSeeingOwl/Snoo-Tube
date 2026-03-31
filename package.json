@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "jsdom": "^29.0.1"
+  },
+  "devDependencies": {
+    "express": "^5.2.1"
   }
 }
