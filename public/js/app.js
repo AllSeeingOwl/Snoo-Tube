@@ -222,11 +222,20 @@ function parseCSV(str) {
         // ⚡ Performance optimization: Use static array and includes() instead of regex match + Set
         // This eliminates array allocations and deduplication overhead during parsing
         station.parsedColours = [];
+        if (typeof document !== 'undefined') {
+            station.colourBadgesFragment = document.createDocumentFragment();
+        }
         if (station.colours) {
             const validColours = ['red', 'yellow', 'green', 'brown', 'blue', 'pink', 'black'];
             for (let j = 0; j < 7; j++) {
                 if (station.searchColours.includes(validColours[j])) {
                     station.parsedColours.push(validColours[j]);
+                    if (typeof document !== 'undefined') {
+                        const badge = createColourBadge(validColours[j]);
+                        if (badge) {
+                            station.colourBadgesFragment.appendChild(badge);
+                        }
+                    }
                 }
             }
         }
@@ -388,15 +397,9 @@ function createStationRow(station, threshold) {
     linesDiv.textContent = station.lines;
 
     const coloursTd = tr.childNodes[2];
-    if (station.parsedColours && station.parsedColours.length > 0) {
-        const colourBadgesContainer = document.createDocumentFragment();
-        station.parsedColours.forEach(c => {
-            const badge = createColourBadge(c);
-            if (badge) {
-                colourBadgesContainer.appendChild(badge);
-            }
-        });
-        coloursTd.insertBefore(colourBadgesContainer, coloursTd.childNodes[0]);
+    // ⚡ Performance optimization: Clone pre-computed colour badges fragment instead of creating individual badges per row
+    if (station.colourBadgesFragment && station.parsedColours.length > 0) {
+        coloursTd.insertBefore(station.colourBadgesFragment.cloneNode(true), coloursTd.childNodes[0]);
     }
     const coloursSpan = coloursTd.childNodes[coloursTd.childNodes.length - 1];
     coloursSpan.textContent = station.colours;
@@ -452,24 +455,19 @@ function handleStationClick(stationName) {
             showToast(`${stationName} used. (${gameState.usedCounts[stationName]} times)`);
         }
 
-        // Store focus state before re-rendering
-        const wasFocused = document.activeElement && document.activeElement.dataset.stationName === stationName;
-
-        applyFilters(); // Re-render table keeping current filters
-
-        // Restore focus if it was focused before
-        if (wasFocused) {
-            const rowToFocus = document.querySelector(`tr[data-station-name="${CSS.escape(stationName)}"]`);
-            if (rowToFocus) {
-                rowToFocus.focus();
-            }
-        }
         // ⚡ Performance optimization: Surgically update the DOM row instead of re-rendering the entire table
         // Impact: Eliminates ~500 DOM node creations and O(N) filtering overhead on every click
         if (currentFilterType === 'unlocked' && nowLocked) {
             // If viewing unlocked only, locking it means it should disappear.
             // A full re-filter handles the empty state and array sync correctly.
+
+            // Store focus state before re-rendering
+            const wasFocused = document.activeElement && document.activeElement.dataset.stationName === stationName;
+
             applyFilters();
+
+            // Try to move focus to a nearby element if possible, or just let it reset
+            // (Since the row disappeared, we can't focus it anymore)
         } else {
             updateStationRowDOM(stationName, nowLocked);
             updateWildcardButtonState();
