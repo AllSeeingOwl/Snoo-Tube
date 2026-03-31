@@ -1,5 +1,10 @@
 // Snooker Tubey Tracker App Logic
 
+// 🛡️ Sentinel: Mitigate Clickjacking risks by enforcing frame-busting
+if (typeof window !== 'undefined' && window.self !== window.top) {
+    window.top.location = window.self.location;
+}
+
 // DOM Elements
 let tierSelect;
 let searchInput;
@@ -107,10 +112,10 @@ async function init() {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
                 .then(() => console.log('Service Worker registered'))
-                .catch(err => console.log('Service Worker registration failed:', err));
+                .catch(err => console.log('Service Worker registration failed.'));
         }
     } catch (error) {
-        console.error('Error initializing app:', error);
+        console.error('An error occurred during application initialization.');
         if (stationsBody) {
             stationsBody.textContent = '';
             const tr = document.createElement('tr');
@@ -255,7 +260,7 @@ function loadGameState() {
     try {
         saved = localStorage.getItem('snookerTubeyState');
     } catch (e) {
-        console.warn('localStorage is not available:', e);
+        console.warn('localStorage is not available or accessible.');
         return;
     }
 
@@ -292,7 +297,7 @@ function saveGameState() {
     try {
         localStorage.setItem('snookerTubeyState', JSON.stringify(gameState));
     } catch (e) {
-        console.warn('Failed to save state to localStorage:', e);
+        console.warn('Failed to save state to localStorage. Storage may be full or disabled.');
     }
 }
 
