@@ -333,3 +333,87 @@ test('debounce correctly batches rapid calls', async (t) => {
     // Verify it was called a second time
     assert.strictEqual(callCount, 2, 'Should be called again after another delay');
 });
+
+test('loadGameState handles localStorage.getItem errors', (t) => {
+    // Setup
+    const originalLocalStorage = global.localStorage;
+    const originalConsoleWarn = console.warn;
+    let warnCalled = false;
+
+    global.localStorage = {
+        getItem: () => { throw new Error('localStorage error'); }
+    };
+    console.warn = () => { warnCalled = true; };
+
+    try {
+        app.loadGameState();
+        assert.strictEqual(warnCalled, true, 'console.warn should be called when localStorage.getItem throws');
+    } finally {
+        // Cleanup
+        global.localStorage = originalLocalStorage;
+        console.warn = originalConsoleWarn;
+    }
+});
+
+test('loadGameState handles invalid JSON in localStorage', (t) => {
+    // Setup
+    const originalLocalStorage = global.localStorage;
+    const originalConsoleError = console.error;
+    let errorCalled = false;
+
+    global.localStorage = {
+        getItem: () => 'invalid JSON'
+    };
+    console.error = () => { errorCalled = true; };
+
+    try {
+        app.loadGameState();
+        assert.strictEqual(errorCalled, true, 'console.error should be called when JSON.parse fails');
+    } finally {
+        // Cleanup
+        global.localStorage = originalLocalStorage;
+        console.error = originalConsoleError;
+    }
+});
+
+test('loadGameState restores gameState from valid JSON', (t) => {
+    // Setup
+    const originalLocalStorage = global.localStorage;
+    const originalGameState = JSON.parse(JSON.stringify(app.gameState));
+
+    const savedState = {
+        tier: 'Intermediate',
+        usedCounts: { 'Station A': 5 }
+    };
+
+    global.localStorage = {
+        getItem: () => JSON.stringify(savedState)
+    };
+
+    try {
+        app.loadGameState();
+        assert.strictEqual(app.gameState.tier, 'Intermediate');
+        assert.strictEqual(app.gameState.usedCounts['Station A'], 5);
+    } finally {
+        // Cleanup
+        global.localStorage = originalLocalStorage;
+        Object.assign(app.gameState, originalGameState);
+    }
+});
+
+test('loadGameState returns early when localStorage is undefined', (t) => {
+    // Setup
+    const originalLocalStorage = global.localStorage;
+
+    // In Node.js, we can't easily make 'typeof localStorage' be 'undefined' if it's already on global
+    // but we can try to shadow it or delete it from global if it's there.
+    delete global.localStorage;
+
+    try {
+        app.loadGameState();
+        // If it didn't crash, it likely returned early as expected.
+    } finally {
+        // Cleanup
+        global.localStorage = originalLocalStorage;
+    }
+});
