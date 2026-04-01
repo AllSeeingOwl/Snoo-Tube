@@ -82,6 +82,7 @@ function initDOMElements() {
 let allStations = []; // Original data from CSV
 let displayStations = []; // Filtered data for display
 let currentFilterType = 'all'; // ⚡ Performance optimization: Cache active filter state to avoid DOM query in hot loops
+let stationRowCache = new Map(); // ⚡ Performance optimization: O(1) lookup for station table rows
 let gameState = {
     tier: 'Advanced',
     usedCounts: Object.create(null) // { "Station Name": count }
@@ -425,6 +426,7 @@ function createStationRow(station, threshold) {
 function renderTable() {
     if (!stationsBody) return;
     stationsBody.textContent = '';
+    stationRowCache.clear(); // ⚡ Performance optimization: Clear DOM element cache
 
     if (displayStations.length === 0) {
         stationsBody.appendChild(renderEmptyTableState());
@@ -438,7 +440,10 @@ function renderTable() {
 
     // ⚡ Performance optimization: Replace Array.forEach with a standard for-loop
     for (let i = 0; i < displayStations.length; i++) {
-        fragment.appendChild(createStationRow(displayStations[i], currentThreshold));
+        const station = displayStations[i];
+        const row = createStationRow(station, currentThreshold);
+        stationRowCache.set(station.name, row); // ⚡ Performance optimization: Cache the row element
+        fragment.appendChild(row);
     }
 
     stationsBody.appendChild(fragment);
@@ -488,10 +493,8 @@ function handleStationClick(stationName) {
 function updateStationRowDOM(stationName, isLocked) {
     if (!stationsBody) return;
 
-    // Find the specific row to update
-    // CSS selectors need escaping for special characters in station names (e.g. quotes)
-    const escapedName = CSS.escape(stationName);
-    const tr = stationsBody.querySelector(`tr[data-station-name="${escapedName}"]`);
+    // ⚡ Performance optimization: Use cached DOM element for O(1) lookup
+    const tr = stationRowCache.get(stationName);
     if (!tr) return;
 
     const uses = gameState.usedCounts[stationName] || 0;
