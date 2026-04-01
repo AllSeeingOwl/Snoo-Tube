@@ -9,3 +9,7 @@
 ## 2024-05-15 - Live Region Announcer for Search Filter
 **Learning:** Screen reader users miss the context of results dynamically changing via Javascript lists, such as live search filters. Text updates only visual for sighted users.
 **Action:** Pair text search inputs that trigger live filtering with `aria-live="polite"` visually hidden announcement regions. When filtering completes, explicitly set the textContent of the announcer to summarize the new result count (e.g. "5 stations found").
+
+## 2024-05-18 - Visual Keyboard Shortcut Hints
+**Learning:** Cluttering input placeholders with keyboard shortcuts (like `(Press '/')`) makes the placeholder text harder to read and doesn't look like an actual key.
+**Action:** Use a dedicated `<kbd>` element styled to look like a key, positioned absolutely inside the input wrapper. Conditionally hide it via CSS (`:focus + .hint`, `:not(:placeholder-shown) + .hint`) to prevent overlap with typed text or browser-native clear buttons.
