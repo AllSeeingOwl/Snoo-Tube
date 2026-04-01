@@ -153,10 +153,38 @@ main {
     gap: 0.5rem;
 }
 
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
 #search-input {
     width: 100%;
     font-size: 1.1rem;
     padding: 0.75rem;
+    padding-right: 2.5rem; /* Make room for the shortcut hint */
+}
+
+.shortcut-hint {
+    position: absolute;
+    right: 0.75rem;
+    pointer-events: none; /* Let clicks pass through to input */
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    box-shadow: 0 1px 0 var(--border-color);
+}
+
+/* Hide the hint when the user focuses the input or has typed something */
+#search-input:focus + .shortcut-hint,
+#search-input:not(:placeholder-shown) + .shortcut-hint {
+    display: none;
 }
 
 .filter-controls {
