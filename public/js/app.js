@@ -596,14 +596,7 @@ function applyFilters() {
 function updateResetButtonState() {
     if (!resetBtn) return;
 
-    // Check if any stations have been used (counts > 0)
-    let hasUsedStations = false;
-    for (const key in gameState.usedCounts) {
-        if (gameState.usedCounts[key] > 0) {
-            hasUsedStations = true;
-            break;
-        }
-    }
+    const hasUsedStations = Object.values(gameState.usedCounts).some(count => count > 0);
 
     if (hasUsedStations) {
         resetBtn.removeAttribute('aria-disabled');
@@ -619,15 +612,7 @@ function updateWildcardButtonState() {
     if (!wildcardBtn) return;
     const currentThreshold = getLockThreshold();
 
-    // ⚡ Performance optimization: Iterate over usedCounts object keys directly instead of using Object.values().some()
-    // Impact: Eliminates array allocation and callback overhead on every keystroke during applyFilters().
-    let hasLocked = false;
-    for (const key in gameState.usedCounts) {
-        if (gameState.usedCounts[key] >= currentThreshold) {
-            hasLocked = true;
-            break;
-        }
-    }
+    const hasLocked = Object.values(gameState.usedCounts).some(count => count >= currentThreshold);
 
     if (hasLocked) {
         wildcardBtn.removeAttribute('aria-disabled');
