@@ -107,6 +107,8 @@ async function init() {
     try {
         await fetchStations();
         applyFilters();
+        updateWildcardButtonState();
+        updateResetButtonState();
         setupEventListeners();
 
         // Register Service Worker
@@ -462,6 +464,9 @@ function handleStationClick(stationName) {
         gameState.usedCounts[stationName] = (gameState.usedCounts[stationName] || 0) + 1;
         saveGameState();
 
+        updateWildcardButtonState();
+        updateResetButtonState();
+
         const nowLocked = isStationLocked(stationName);
         if (nowLocked) {
             showToast(`${stationName} used and is now LOCKED.`);
@@ -484,8 +489,6 @@ function handleStationClick(stationName) {
             // (Since the row disappeared, we can't focus it anymore)
         } else {
             updateStationRowDOM(stationName, nowLocked);
-            updateWildcardButtonState();
-            updateResetButtonState();
         }
     }
 }
@@ -582,9 +585,6 @@ function applyFilters() {
     }
 
     displayStations = newDisplay;
-
-    updateWildcardButtonState();
-    updateResetButtonState();
 
     if (listChanged) {
         renderTable();
@@ -729,6 +729,9 @@ function unlockStation(stationName) {
         closeModal();
         applyFilters();
 
+        updateWildcardButtonState();
+        updateResetButtonState();
+
         // Return focus to the newly unlocked station row in the main table
         const rowToFocus = document.querySelector(`tr[data-station-name="${CSS.escape(unlockedStationName)}"]`);
         if (rowToFocus) {
@@ -768,6 +771,10 @@ function resetGame() {
     if (confirm('Are you sure you want to reset all station usages for a new game?')) {
         gameState.usedCounts = Object.create(null);
         saveGameState();
+
+        updateWildcardButtonState();
+        updateResetButtonState();
+
         showToast('Game has been reset!');
         applyFilters();
     }
@@ -780,6 +787,10 @@ function setupEventListeners() {
         tierSelect.addEventListener('change', (e) => {
             gameState.tier = e.target.value;
             saveGameState();
+
+            updateWildcardButtonState();
+            updateResetButtonState();
+
             applyFilters(); // Re-evaluate locks based on new tier
             showToast(`Tier changed to ${e.target.value}`);
         });
