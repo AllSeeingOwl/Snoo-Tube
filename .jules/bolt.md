@@ -62,4 +62,6 @@
 
 ## 2026-03-30 - Prevent DOM Thrashing During Live Search
 **Learning:** When implementing live search filtering on large lists (e.g., `applyFilters()`), destroying and recreating hundreds of DOM nodes on every keystroke when the output list hasn't actually changed is a massive performance drain.
-**Action:** Optimize performance by array dirty-checking. Compare the newly filtered array to the previously displayed array. Skip the costly DOM tear-down and rebuild process (`renderTable()`) entirely if the resulting list of items has not changed.
+**Action:** Optimize performance by array dirty-checking. Compare the newly filtered array to the previously displayed array. Skip the costly DOM tear-down and rebuild process (`renderTable()`) entirely if the resulting list of items has not changed.## 2025-02-12 - Decouple UI state calculations from search hot loops
+**Learning:** In frontend JS filtering loops (like live-search on keystrokes), calculating data-dependent UI state (such as button enabled/disabled status based on `gameState`) inside the render loop is redundant and wasteful because the underlying state does not mutate during string filtering.
+**Action:** Decouple state-based UI updates (e.g. iterating over `gameState.usedCounts` to enable/disable buttons) from view-based updates (`applyFilters()`). Move those calculations so they only fire when the underlying data is explicitly mutated.
