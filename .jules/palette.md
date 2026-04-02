@@ -13,3 +13,6 @@
 ## 2024-05-18 - Visual Keyboard Shortcut Hints
 **Learning:** Cluttering input placeholders with keyboard shortcuts (like `(Press '/')`) makes the placeholder text harder to read and doesn't look like an actual key.
 **Action:** Use a dedicated `<kbd>` element styled to look like a key, positioned absolutely inside the input wrapper. Conditionally hide it via CSS (`:focus + .hint`, `:not(:placeholder-shown) + .hint`) to prevent overlap with typed text or browser-native clear buttons.
+## 2026-04-02 - Avoid aria-label overwriting complex content
+**Learning:** Applying `aria-label` to custom interactive elements (like `role="button"` on table rows or list items) completely overrides their visible text content, hiding valuable contextual data (like station lines, zones, and usage counts) from screen reader users.
+**Action:** When adding interaction context to complex items, avoid overriding the whole element with `aria-label`. Instead, use a visually hidden `.sr-only` span inside the element to prepend the action verb, ensuring all text remains accessible.

@@ -386,16 +386,21 @@ function createStationRow(station, threshold) {
 
     if (locked) {
         tr.setAttribute('aria-disabled', 'true');
-        tr.setAttribute('aria-label', `Station locked. Record use for ${station.name}`);
-    } else {
-        tr.setAttribute('aria-label', `Record use for ${station.name}`);
     }
     // ⚡ Performance optimization: Dataset used for event delegation
     tr.dataset.stationName = station.name;
 
     const nameTd = tr.childNodes[0];
     const nameDiv = nameTd.childNodes[0];
-    nameDiv.textContent = station.name + ' ';
+    nameDiv.textContent = ''; // clear any template text
+
+    const actionSpan = document.createElement('span');
+    actionSpan.className = 'sr-only action-text';
+    actionSpan.textContent = locked ? 'Station locked. Record use for ' : 'Record use for ';
+    nameDiv.appendChild(actionSpan);
+
+    nameDiv.appendChild(document.createTextNode(station.name + ' '));
+
     if (locked) {
         const lockedSpan = document.createElement('span');
         lockedSpan.className = 'locked-icon';
@@ -505,16 +510,19 @@ function updateStationRowDOM(stationName, isLocked) {
     if (isLocked) {
         tr.classList.add('locked');
         tr.setAttribute('aria-disabled', 'true');
-        tr.setAttribute('aria-label', `Station locked. Record use for ${stationName}`);
     } else {
         tr.classList.remove('locked');
         tr.removeAttribute('aria-disabled');
-        tr.setAttribute('aria-label', `Record use for ${stationName}`);
     }
 
     // Safely target the inner wrapper where the icon should go
     const nameDiv = tr.querySelector('.station-name');
     if (!nameDiv) return;
+
+    const actionSpan = nameDiv.querySelector('.action-text');
+    if (actionSpan) {
+        actionSpan.textContent = isLocked ? 'Station locked. Record use for ' : 'Record use for ';
+    }
 
     const existingIcon = nameDiv.querySelector('.locked-icon');
     if (isLocked && !existingIcon) {
@@ -706,10 +714,15 @@ function renderWildcardList(stations) {
     for (let i = 0; i < stations.length; i++) {
         const station = stations[i];
         const li = document.createElement('li');
-        li.textContent = `${station.name} (${station.lines})`;
         li.tabIndex = 0;
         li.setAttribute('role', 'button');
-        li.setAttribute('aria-label', `Unlock ${station.name}`);
+
+        const actionSpan = document.createElement('span');
+        actionSpan.className = 'sr-only';
+        actionSpan.textContent = 'Unlock ';
+        li.appendChild(actionSpan);
+        li.appendChild(document.createTextNode(`${station.name} (${station.lines})`));
+
         li.dataset.stationName = station.name;
         fragment.appendChild(li);
     }
