@@ -16,3 +16,7 @@
 ## 2026-04-02 - Avoid aria-label overwriting complex content
 **Learning:** Applying `aria-label` to custom interactive elements (like `role="button"` on table rows or list items) completely overrides their visible text content, hiding valuable contextual data (like station lines, zones, and usage counts) from screen reader users.
 **Action:** When adding interaction context to complex items, avoid overriding the whole element with `aria-label`. Instead, use a visually hidden `.sr-only` span inside the element to prepend the action verb, ensuring all text remains accessible.
+
+## 2024-05-20 - Hide Decorative Elements from Screen Readers
+**Learning:** Screen readers often announce emojis (like 🚇) or read `title` attributes on visual UI elements (like color badges). This can create redundant or confusing auditory output, especially when the text content already conveys the necessary information.
+**Action:** Always wrap decorative emojis in `<span aria-hidden="true">` and add `aria-hidden="true"` to purely visual elements (like CSS color badges) that have text equivalents nearby to prevent duplicate announcements.
