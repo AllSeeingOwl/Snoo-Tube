@@ -433,7 +433,7 @@ function createStationRow(station, threshold) {
 function renderTable() {
     if (!stationsBody) return;
     stationsBody.textContent = '';
-    stationRowCache.clear(); // ⚡ Performance optimization: Clear DOM element cache
+    // ⚡ Performance optimization: Retain DOM element cache across renders
 
     if (displayStations.length === 0) {
         stationsBody.appendChild(renderEmptyTableState());
@@ -448,8 +448,16 @@ function renderTable() {
     // ⚡ Performance optimization: Replace Array.forEach with a standard for-loop
     for (let i = 0; i < displayStations.length; i++) {
         const station = displayStations[i];
-        const row = createStationRow(station, currentThreshold);
-        stationRowCache.set(station.name, row); // ⚡ Performance optimization: Cache the row element
+        // ⚡ Performance optimization: Reuse cached DOM elements to avoid expensive createStationRow calls
+        let row = stationRowCache.get(station.name);
+        if (!row) {
+            row = createStationRow(station, currentThreshold);
+            stationRowCache.set(station.name, row);
+        } else {
+            // Ensure the cached row is fully up-to-date with current game state (locked status and used counts)
+            // Note: updateStationRowDOM correctly handles detached nodes and updates both the lock icon and the uses count cell.
+            updateStationRowDOM(station.name, isStationLocked(station.name, currentThreshold));
+        }
         fragment.appendChild(row);
     }
 
