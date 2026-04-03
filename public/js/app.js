@@ -406,6 +406,8 @@ function createStationRow(station, threshold) {
         lockedSpan.className = 'locked-icon';
         lockedSpan.title = 'Locked';
         lockedSpan.textContent = '🔒';
+        lockedSpan.setAttribute('role', 'img');
+        lockedSpan.setAttribute('aria-label', 'Locked');
         nameDiv.appendChild(lockedSpan);
     }
 
@@ -530,6 +532,8 @@ function updateStationRowDOM(stationName, isLocked) {
         lockedSpan.className = 'locked-icon';
         lockedSpan.title = 'Locked';
         lockedSpan.textContent = '🔒';
+        lockedSpan.setAttribute('role', 'img');
+        lockedSpan.setAttribute('aria-label', 'Locked');
         nameDiv.appendChild(lockedSpan);
     } else if (!isLocked && existingIcon) {
         existingIcon.remove();
