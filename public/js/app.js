@@ -382,6 +382,10 @@ function createStationRow(station, threshold) {
     const uses = gameState.usedCounts[station.name] || 0;
     const locked = isStationLocked(station.name, threshold);
 
+    // ⚡ Performance optimization: Cache state directly on DOM node to bypass future queries
+    tr._cachedUses = uses;
+    tr._cachedIsLocked = locked;
+
     if (locked) tr.classList.add('locked');
 
     if (locked) {
@@ -516,6 +520,12 @@ function updateStationRowDOM(stationName, isLocked) {
     if (!tr) return;
 
     const uses = gameState.usedCounts[stationName] || 0;
+
+    // ⚡ Performance optimization: Early return if state hasn't changed to bypass expensive DOM queries
+    if (tr._cachedUses === uses && tr._cachedIsLocked === isLocked) return;
+
+    tr._cachedUses = uses;
+    tr._cachedIsLocked = isLocked;
 
     if (isLocked) {
         tr.classList.add('locked');
