@@ -5,6 +5,31 @@ const app = express();
 // 🛡️ Sentinel: Disable x-powered-by header to prevent information leakage
 app.disable('x-powered-by');
 
+// 🛡️ Sentinel: Configure Express to trust the reverse proxy for accurate client IP resolution
+app.set('trust proxy', 1);
+
+// 🛡️ Sentinel: Simple rate limiting to mitigate DoS attacks
+const rateLimitMap = new Map();
+const rateLimitTimer = setInterval(() => {
+  if (rateLimitMap.size > 10000) {
+    // Prevent unbounded memory growth
+    rateLimitMap.clear();
+  } else {
+    rateLimitMap.clear();
+  }
+}, 60000); // Clear every minute
+rateLimitTimer.unref(); // Prevent timer from hanging process exit
+
+app.use((req, res, next) => {
+  const ip = req.ip || req.socket.remoteAddress;
+  const count = (rateLimitMap.get(ip) || 0) + 1;
+  rateLimitMap.set(ip, count);
+  if (count > 300) {
+    return res.status(429).send('Too many requests, please try again later.');
+  }
+  next();
+});
+
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
