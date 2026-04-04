@@ -373,6 +373,7 @@ function createColourBadge(colourName) {
     badge.className = 'colour-badge';
     badge.style.backgroundColor = colourMap[colourName];
     badge.title = colourName;
+    badge.setAttribute('aria-hidden', 'true');
     return badge;
 }
 
@@ -475,7 +476,7 @@ function handleStationClick(stationName) {
     const locked = isStationLocked(stationName);
 
     if (locked) {
-        showToast(`${stationName} is already locked!`);
+        showToast(`🔒 ${stationName} is already locked!`);
         return;
     }
 
@@ -488,9 +489,9 @@ function handleStationClick(stationName) {
 
         const nowLocked = isStationLocked(stationName);
         if (nowLocked) {
-            showToast(`${stationName} used and is now LOCKED.`);
+            showToast(`🔒 ${stationName} used and is now LOCKED.`);
         } else {
-            showToast(`${stationName} used. (${gameState.usedCounts[stationName]} times)`);
+            showToast(`✅ ${stationName} used. (${gameState.usedCounts[stationName]} times)`);
         }
 
         // ⚡ Performance optimization: Surgically update the DOM row instead of re-rendering the entire table
@@ -810,7 +811,7 @@ function resetGame() {
         updateWildcardButtonState();
         updateResetButtonState();
 
-        showToast('Game has been reset!');
+        showToast('🔄 Game has been reset!');
         applyFilters();
     }
 }
@@ -827,7 +828,7 @@ function setupEventListeners() {
             updateResetButtonState();
 
             applyFilters(); // Re-evaluate locks based on new tier
-            showToast(`Tier changed to ${e.target.value}`);
+            showToast(`⚙️ Tier changed to ${e.target.value}`);
         });
     }
 
