@@ -62,6 +62,12 @@
 
 ## 2026-03-30 - Prevent DOM Thrashing During Live Search
 **Learning:** When implementing live search filtering on large lists (e.g., `applyFilters()`), destroying and recreating hundreds of DOM nodes on every keystroke when the output list hasn't actually changed is a massive performance drain.
-**Action:** Optimize performance by array dirty-checking. Compare the newly filtered array to the previously displayed array. Skip the costly DOM tear-down and rebuild process (`renderTable()`) entirely if the resulting list of items has not changed.## 2025-02-12 - Decouple UI state calculations from search hot loops
+**Action:** Optimize performance by array dirty-checking. Compare the newly filtered array to the previously displayed array. Skip the costly DOM tear-down and rebuild process (`renderTable()`) entirely if the resulting list of items has not changed.
+
+## 2025-02-12 - Decouple UI state calculations from search hot loops
 **Learning:** In frontend JS filtering loops (like live-search on keystrokes), calculating data-dependent UI state (such as button enabled/disabled status based on `gameState`) inside the render loop is redundant and wasteful because the underlying state does not mutate during string filtering.
 **Action:** Decouple state-based UI updates (e.g. iterating over `gameState.usedCounts` to enable/disable buttons) from view-based updates (`applyFilters()`). Move those calculations so they only fire when the underlying data is explicitly mutated.
+
+## 2025-02-16 - Cache DOM nodes in modal rendering
+**Learning:** In a live-search filtering loop within a modal, repeatedly executing `document.createElement()` and `appendChild()` on every keystroke causes unnecessary memory allocation, layout reflows, and potential garbage collection overhead.
+**Action:** Use a JS `Map` (e.g., `wildcardRowCache`) to cache newly created DOM elements mapped to unique object properties (like `station.name`). During subsequent render loops, use `.get()` to reuse existing nodes rather than continuously tearing them down and rebuilding them.
