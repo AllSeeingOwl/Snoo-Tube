@@ -22,6 +22,12 @@ rateLimitTimer.unref(); // Prevent timer from hanging process exit
 
 app.use((req, res, next) => {
   const ip = req.ip || req.socket.remoteAddress;
+
+  // 🛡️ Sentinel: Prevent Memory DoS from spoofed IPs when behind a proxy
+  if (rateLimitMap.size >= 10000 && !rateLimitMap.has(ip)) {
+      return res.status(429).send('Too many requests, please try again later.');
+  }
+
   const count = (rateLimitMap.get(ip) || 0) + 1;
   rateLimitMap.set(ip, count);
   if (count > 300) {
@@ -37,6 +43,9 @@ app.use((req, res, next) => {
   res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
   res.setHeader('Referrer-Policy', 'no-referrer');
   res.setHeader('Content-Security-Policy', "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'none'; require-trusted-types-for 'script'; form-action 'none'; upgrade-insecure-requests; frame-ancestors 'none';");
+  // 🛡️ Sentinel: Cross-Origin Isolation headers to mitigate XS-Leaks and Spectre attacks
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
   next();
 });
 

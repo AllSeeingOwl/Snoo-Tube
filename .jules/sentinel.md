@@ -7,3 +7,8 @@
 **Vulnerability:** The application was exposing the underlying server technology stack via the `X-Powered-By` header. This information can be used by attackers to target specific vulnerabilities.
 **Learning:** Default configurations in frameworks like Express often include headers that leak information. It's important to explicitly disable them.
 **Prevention:** Always disable the `X-Powered-By` header in Express applications using `app.disable('x-powered-by');` to minimize the attack surface.
+
+## 2024-05-26 - Unbounded Memory Growth in Rate Limiters
+**Vulnerability:** A custom rate-limiting Map could grow without bounds if flooded with uniquely spoofed `X-Forwarded-For` IPs before the cleanup interval runs, leading to an Out-Of-Memory (OOM) Denial of Service (DoS).
+**Learning:** When an application trusts proxies (`app.set('trust proxy', 1)`), client IPs can be spoofed. Storing unrestricted entries based on these IPs creates a severe memory vulnerability.
+**Prevention:** Always enforce a hard size limit on in-memory storage structures (like Maps or Arrays) that use untrusted user input (like IPs or headers) as keys. Fail securely (e.g., return `429 Too Many Requests`) when the limit is reached.
