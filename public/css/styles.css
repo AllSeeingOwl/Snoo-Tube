@@ -160,11 +160,44 @@ main {
     width: 100%;
 }
 
-#search-input {
+#search-input, #wildcard-search {
     width: 100%;
     font-size: 1.1rem;
     padding: 0.75rem;
-    padding-right: 2.5rem; /* Make room for the shortcut hint */
+    padding-right: 2.5rem; /* Make room for the clear button or hint */
+}
+
+/* Hide native WebKit search cancel button */
+#search-input::-webkit-search-cancel-button,
+#wildcard-search::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Clear Search Button */
+.clear-search-btn {
+    position: absolute;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    padding: 0 0.5rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.clear-search-btn:hover {
+    color: var(--text-main);
+    background: none; /* override default button hover */
+}
+
+.clear-search-btn.hidden {
+    display: none;
 }
 
 .shortcut-hint {
@@ -182,8 +215,8 @@ main {
 }
 
 /* Hide the hint when the user focuses the input or has typed something */
-#search-input:focus + .shortcut-hint,
-#search-input:not(:placeholder-shown) + .shortcut-hint {
+#search-input:focus ~ .shortcut-hint,
+#search-input:not(:placeholder-shown) ~ .shortcut-hint {
     display: none;
 }
 
