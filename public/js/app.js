@@ -83,6 +83,7 @@ let allStations = []; // Original data from CSV
 let displayStations = []; // Filtered data for display
 let currentFilterType = 'all'; // ⚡ Performance optimization: Cache active filter state to avoid DOM query in hot loops
 let stationRowCache = new Map(); // ⚡ Performance optimization: O(1) lookup for station table rows
+let wildcardRowCache = new Map(); // ⚡ Performance optimization: O(1) lookup for wildcard list items
 let gameState = {
     tier: 'Advanced',
     usedCounts: Object.create(null) // { "Station Name": count }
@@ -736,17 +737,24 @@ function renderWildcardList(stations) {
     // ⚡ Performance optimization: Replace Array.forEach with a standard for-loop
     for (let i = 0; i < stations.length; i++) {
         const station = stations[i];
-        const li = document.createElement('li');
-        li.tabIndex = 0;
-        li.setAttribute('role', 'button');
 
-        const actionSpan = document.createElement('span');
-        actionSpan.className = 'sr-only';
-        actionSpan.textContent = 'Unlock ';
-        li.appendChild(actionSpan);
-        li.appendChild(document.createTextNode(`${station.name} (${station.lines})`));
+        let li = wildcardRowCache.get(station.name);
 
-        li.dataset.stationName = station.name;
+        if (!li) {
+            li = document.createElement('li');
+            li.tabIndex = 0;
+            li.setAttribute('role', 'button');
+
+            const actionSpan = document.createElement('span');
+            actionSpan.className = 'sr-only';
+            actionSpan.textContent = 'Unlock ';
+            li.appendChild(actionSpan);
+            li.appendChild(document.createTextNode(`${station.name} (${station.lines})`));
+
+            li.dataset.stationName = station.name;
+            wildcardRowCache.set(station.name, li);
+        }
+
         fragment.appendChild(li);
     }
     lockedStationsList.appendChild(fragment);
