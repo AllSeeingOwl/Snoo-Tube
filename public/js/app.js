@@ -8,6 +8,7 @@ if (typeof window !== 'undefined' && window.self !== window.top) {
 // DOM Elements
 let tierSelect;
 let searchInput;
+let clearSearchBtn;
 let filterBtns;
 let stationsBody;
 let wildcardBtn;
@@ -21,6 +22,7 @@ let wildcardModal;
 let closeBtn;
 let cancelWildcardBtn;
 let wildcardSearch;
+let clearWildcardSearchBtn;
 let lockedStationsList;
 let wildcardAnnouncer;
 
@@ -30,6 +32,7 @@ let stationRowTemplate;
 function initDOMElements() {
     tierSelect = document.getElementById('game-tier');
     searchInput = document.getElementById('search-input');
+    clearSearchBtn = document.getElementById('clear-search-btn');
     filterBtns = document.querySelectorAll('.filter-btn');
     stationsBody = document.getElementById('stations-body');
     wildcardBtn = document.getElementById('wildcard-btn');
@@ -41,6 +44,7 @@ function initDOMElements() {
     closeBtn = document.querySelector('.close-btn');
     cancelWildcardBtn = document.getElementById('cancel-wildcard-btn');
     wildcardSearch = document.getElementById('wildcard-search');
+    clearWildcardSearchBtn = document.getElementById('clear-wildcard-search-btn');
     lockedStationsList = document.getElementById('locked-stations-list');
     wildcardAnnouncer = document.getElementById('wildcard-announcer');
 
@@ -834,6 +838,15 @@ function setupEventListeners() {
 
     // Search Input
     if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            if (clearSearchBtn) {
+                if (e.target.value.length > 0) {
+                    clearSearchBtn.classList.remove('hidden');
+                } else {
+                    clearSearchBtn.classList.add('hidden');
+                }
+            }
+        });
         searchInput.addEventListener('input', debounce(applyFilters, 200));
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -843,6 +856,16 @@ function setupEventListeners() {
                 } else {
                     searchInput.blur();
                 }
+            }
+        });
+    }
+
+    if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', () => {
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                searchInput.focus();
             }
         });
     }
@@ -940,6 +963,15 @@ function setupEventListeners() {
 
     // Wildcard search filter
     if (wildcardSearch) {
+        wildcardSearch.addEventListener('input', (e) => {
+            if (clearWildcardSearchBtn) {
+                if (e.target.value.length > 0) {
+                    clearWildcardSearchBtn.classList.remove('hidden');
+                } else {
+                    clearWildcardSearchBtn.classList.add('hidden');
+                }
+            }
+        });
         wildcardSearch.addEventListener('input', debounce((e) => {
             const query = e.target.value.toLowerCase();
             const currentThreshold = getLockThreshold();
@@ -970,6 +1002,16 @@ function setupEventListeners() {
                     wildcardSearch.value = '';
                     wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
                 }
+            }
+        });
+    }
+
+    if (clearWildcardSearchBtn) {
+        clearWildcardSearchBtn.addEventListener('click', () => {
+            if (wildcardSearch) {
+                wildcardSearch.value = '';
+                wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
+                wildcardSearch.focus();
             }
         });
     }
