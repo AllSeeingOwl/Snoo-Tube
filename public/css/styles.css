@@ -126,6 +126,12 @@ button {
     cursor: not-allowed;
 }
 
+.how-to-play-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+.how-to-play-btn:hover { background-color: var(--primary-hover); }
+
 .secondary-btn {
     background-color: var(--card-bg);
     color: var(--text-main);
@@ -368,6 +374,46 @@ tbody tr.locked {
 
 .close-btn:hover {
     color: var(--text-main);
+}
+
+.how-to-play-content {
+    max-width: 600px;
+    max-height: 90vh;
+}
+
+.how-to-play-text {
+    overflow-y: auto;
+    margin-top: 1rem;
+    padding-right: 0.5rem;
+}
+
+.how-to-play-text h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.how-to-play-text p, .how-to-play-text ul {
+    margin-bottom: 1rem;
+}
+
+.how-to-play-text ul {
+    padding-left: 1.5rem;
+}
+
+.how-to-play-text li {
+    margin-bottom: 0.5rem;
+}
+
+.colour-rules {
+    list-style: none;
+    padding-left: 0;
+}
+
+.colour-rules li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
 }
 
 #locked-stations-list {

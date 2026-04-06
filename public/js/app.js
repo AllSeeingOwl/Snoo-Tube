@@ -26,6 +26,10 @@ let clearWildcardSearchBtn;
 let lockedStationsList;
 let wildcardAnnouncer;
 
+let howToPlayBtn;
+let howToPlayModal;
+let closeHowToPlayBtn;
+
 // Templates
 let stationRowTemplate;
 
@@ -47,6 +51,10 @@ function initDOMElements() {
     clearWildcardSearchBtn = document.getElementById('clear-wildcard-search-btn');
     lockedStationsList = document.getElementById('locked-stations-list');
     wildcardAnnouncer = document.getElementById('wildcard-announcer');
+
+    howToPlayBtn = document.getElementById('how-to-play-btn');
+    howToPlayModal = document.getElementById('how-to-play-modal');
+    closeHowToPlayBtn = document.getElementById('close-how-to-play-btn');
 
     // Initialize template
     if (typeof document !== 'undefined') {
@@ -813,10 +821,23 @@ function unlockStation(stationName) {
 }
 
 function closeModal() {
-    if (wildcardModal) {
+    if (wildcardModal && !wildcardModal.classList.contains('hidden')) {
         wildcardModal.classList.add('hidden');
         document.body.style.overflow = ''; // Restore background scrolling
         if (wildcardBtn) wildcardBtn.focus();
+    }
+    if (howToPlayModal && !howToPlayModal.classList.contains('hidden')) {
+        howToPlayModal.classList.add('hidden');
+        document.body.style.overflow = '';
+        if (howToPlayBtn) howToPlayBtn.focus();
+    }
+}
+
+function openHowToPlayModal() {
+    if (howToPlayModal) {
+        howToPlayModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        if (closeHowToPlayBtn) closeHowToPlayBtn.focus();
     }
 }
 
@@ -986,9 +1007,16 @@ function setupEventListeners() {
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
     if (cancelWildcardBtn) cancelWildcardBtn.addEventListener('click', closeModal);
 
+    if (howToPlayBtn) {
+        howToPlayBtn.addEventListener('click', openHowToPlayModal);
+    }
+    const howToPlayCloseBtns = howToPlayModal ? howToPlayModal.querySelectorAll('.close-btn') : [];
+    howToPlayCloseBtns.forEach(btn => btn.addEventListener('click', closeModal));
+    if (closeHowToPlayBtn) closeHowToPlayBtn.addEventListener('click', closeModal);
+
     // Close modal on outside click
     window.addEventListener('click', (e) => {
-        if (e.target === wildcardModal) {
+        if (e.target === wildcardModal || e.target === howToPlayModal) {
             closeModal();
         }
     });
@@ -1050,8 +1078,13 @@ function setupEventListeners() {
 
     // Escape key to close modal
     window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && wildcardModal && !wildcardModal.classList.contains('hidden')) {
-            closeModal();
+        if (e.key === 'Escape') {
+            if (wildcardModal && !wildcardModal.classList.contains('hidden')) {
+                closeModal();
+            }
+            if (howToPlayModal && !howToPlayModal.classList.contains('hidden')) {
+                closeModal();
+            }
         }
     });
 
@@ -1060,6 +1093,30 @@ function setupEventListeners() {
         wildcardModal.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
                 const focusableElements = wildcardModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                if (focusableElements.length === 0) return;
+
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    }
+                }
+            }
+        });
+    }
+
+    if (howToPlayModal) {
+        howToPlayModal.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                const focusableElements = howToPlayModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
                 if (focusableElements.length === 0) return;
 
                 const firstElement = focusableElements[0];
