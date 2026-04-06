@@ -71,3 +71,7 @@
 ## 2025-02-16 - Cache DOM nodes in modal rendering
 **Learning:** In a live-search filtering loop within a modal, repeatedly executing `document.createElement()` and `appendChild()` on every keystroke causes unnecessary memory allocation, layout reflows, and potential garbage collection overhead.
 **Action:** Use a JS `Map` (e.g., `wildcardRowCache`) to cache newly created DOM elements mapped to unique object properties (like `station.name`). During subsequent render loops, use `.get()` to reuse existing nodes rather than continuously tearing them down and rebuilding them.
+
+## 2025-03-01 - Avoid Redundant State Lookups by Ordering Filters by Restrictiveness
+**Learning:** In a multi-criteria loop (like filtering a dataset by both text match and external state), running an O(1) state lookup *before* a string match isn't always optimal. Text searches are often highly restrictive. Running the text match first allows skipping the status evaluation entirely for non-matching strings, avoiding repeated lookups against global state. Furthermore, skipping status checks completely when a generic "all" view is active avoids N completely unnecessary object property accesses.
+**Action:** Structure loop conditionals from most restrictive to least restrictive. Always add a boolean guard flag outside the loop to bypass entire branches of conditional logic (like state lookups) when that particular filter criterion is known to be inactive.
