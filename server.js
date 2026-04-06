@@ -54,6 +54,12 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/data', express.static(path.join(__dirname, 'data')));
 
+// 🛡️ Sentinel: Global error handler to prevent stack trace leakage
+app.use((err, req, res, next) => {
+  console.error('An error occurred:', err); // Internal logging
+  res.status(500).send('Internal Server Error'); // Sanitized client response
+});
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
