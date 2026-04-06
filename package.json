@@ -1,6 +1,17 @@
 {
+  "name": "snooker-tubey-tracker",
+  "version": "1.0.0",
+  "description": "A station tracker for the Snooker Tubey game.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --experimental-test-coverage --test tests/*.test.js",
+    "benchmark": "node --expose-gc scripts/benchmark_memory.js"
+  },
   "dependencies": {
-    "express": "^5.2.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
     "jsdom": "^29.0.1"
   }
 }
