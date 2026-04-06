@@ -508,10 +508,34 @@ function handleStationClick(stationName) {
             // Store focus state before re-rendering
             const wasFocused = document.activeElement && document.activeElement.dataset.stationName === stationName;
 
+            let nextFocusStationName = null;
+            if (wasFocused) {
+                const row = document.activeElement;
+                const nextRow = row.nextElementSibling;
+                const prevRow = row.previousElementSibling;
+
+                if (nextRow && nextRow.dataset.stationName) {
+                    nextFocusStationName = nextRow.dataset.stationName;
+                } else if (prevRow && prevRow.dataset.stationName) {
+                    nextFocusStationName = prevRow.dataset.stationName;
+                }
+            }
+
             applyFilters();
 
-            // Try to move focus to a nearby element if possible, or just let it reset
-            // (Since the row disappeared, we can't focus it anymore)
+            // Restore focus to the adjacent row or the search input
+            if (wasFocused) {
+                if (nextFocusStationName) {
+                    const rowToFocus = document.querySelector(`tr[data-station-name="${CSS.escape(nextFocusStationName)}"]`);
+                    if (rowToFocus) {
+                        rowToFocus.focus();
+                    } else if (searchInput) {
+                        searchInput.focus();
+                    }
+                } else if (searchInput) {
+                    searchInput.focus();
+                }
+            }
         } else {
             updateStationRowDOM(stationName, nowLocked);
         }
