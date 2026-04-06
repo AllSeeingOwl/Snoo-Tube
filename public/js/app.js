@@ -578,6 +578,7 @@ function applyFilters() {
     const hasQuery = query !== '';
     const isLockedFilter = filterType === 'locked';
     const isUnlockedFilter = filterType === 'unlocked';
+    const hasStatusFilter = isLockedFilter || isUnlockedFilter;
 
     // ⚡ Performance optimization: Compute threshold once per filter cycle
     const currentThreshold = getLockThreshold();
@@ -589,17 +590,16 @@ function applyFilters() {
     for (let i = 0; i < len; i++) {
         const station = allStations[i];
 
-        // ⚡ Performance optimization: Run status filter (fast map lookup) before text search
-        // 1. Status Filter
-        const locked = isStationLocked(station.name, currentThreshold);
-        if (isUnlockedFilter && locked) continue;
-        if (isLockedFilter && !locked) continue;
+        // ⚡ Performance optimization: Run text search before status filter
+        // Text search is often more restrictive, allowing us to skip the status check
+        if (hasQuery && !station.searchCombined.includes(query)) continue;
 
-        // 2. Text Search
-        if (hasQuery) {
-            // ⚡ Performance optimization: Use pre-computed combined string check
-            // instead of three separate .includes() calls
-            if (!station.searchCombined.includes(query)) continue;
+        // ⚡ Performance optimization: Skip status filter entirely if viewing 'all'
+        // Impact: Avoids N unneeded global state evaluations
+        if (hasStatusFilter) {
+            const locked = isStationLocked(station.name, currentThreshold);
+            if (isUnlockedFilter && locked) continue;
+            if (isLockedFilter && !locked) continue;
         }
 
         newDisplay.push(station);
