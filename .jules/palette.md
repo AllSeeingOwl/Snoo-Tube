@@ -7,3 +7,8 @@
 ## 2024-04-06 - Preserve Focus on DOM Element Removal
 **Learning:** When interactive elements (like table rows) are dynamically removed from the DOM (e.g., locking a station in an "unlocked only" filtered view), the browser resets focus to the document body, causing a disorienting loss of context for keyboard and screen reader users.
 **Action:** When performing an action that removes the currently focused element from the DOM, always explicitly compute and save the reference to the logical next element (like the next or previous sibling row) before the DOM mutation, and restore focus to it after the re-render. If no logical element remains, focus a stable fallback element like a search input.
+
+## 2026-04-07 - Accessible Scrollable Regions and Modal Focus Management
+
+**Learning:** Scrollable containers without interactive elements (like the stations table or the rules text) are completely inaccessible to keyboard-only users who cannot use a mouse to scroll. Additionally, focusing the 'Close' button at the *bottom* of a modal containing long text causes screen readers to skip the content entirely.
+**Action:** Always add `tabindex="0"`, `role="region"`, and an `aria-label` to containers that rely on `overflow: auto`. When opening modals with instructional text, always focus the first interactive element at the top of the modal (like the top close button) to preserve reading order.
