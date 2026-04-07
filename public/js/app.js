@@ -880,6 +880,17 @@ function resetGame() {
 
 // Event Listeners Setup
 function setupEventListeners() {
+    setupTierListeners();
+    setupSearchListeners();
+    setupFilterListeners();
+    setupResetListeners();
+    setupTableDelegationListeners();
+    setupModalListeners();
+    setupWildcardSearchListeners();
+    setupGlobalShortcuts();
+}
+
+function setupTierListeners() {
     // Tier Selection
     if (tierSelect) {
         tierSelect.addEventListener('change', (e) => {
@@ -893,7 +904,9 @@ function setupEventListeners() {
             showToast(`⚙️ Tier changed to ${e.target.value}`);
         });
     }
+}
 
+function setupSearchListeners() {
     // Search Input
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
@@ -927,7 +940,9 @@ function setupEventListeners() {
             }
         });
     }
+}
 
+function setupFilterListeners() {
     // Filter Buttons
     if (filterBtns) {
         filterBtns.forEach(btn => {
@@ -945,7 +960,9 @@ function setupEventListeners() {
             });
         });
     }
+}
 
+function setupResetListeners() {
     // Reset Game
     if (resetBtn) {
         resetBtn.addEventListener('click', (e) => {
@@ -958,45 +975,53 @@ function setupEventListeners() {
             resetGame();
         });
     }
+}
 
+function setupTableDelegationListeners() {
     // ⚡ Performance optimization: Event delegation for table rows
     // Impact: Reduces memory usage by ~50% (avoids thousands of closures) and improves initial rendering speed
-    stationsBody.addEventListener('click', (e) => {
-        const tr = e.target.closest('tr');
-        if (tr && tr.dataset.stationName) {
-            handleStationClick(tr.dataset.stationName);
-        }
-    });
-
-    stationsBody.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+    if (stationsBody) {
+        stationsBody.addEventListener('click', (e) => {
             const tr = e.target.closest('tr');
             if (tr && tr.dataset.stationName) {
-                e.preventDefault();
                 handleStationClick(tr.dataset.stationName);
             }
-        }
-    });
+        });
+
+        stationsBody.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const tr = e.target.closest('tr');
+                if (tr && tr.dataset.stationName) {
+                    e.preventDefault();
+                    handleStationClick(tr.dataset.stationName);
+                }
+            }
+        });
+    }
 
     // ⚡ Performance optimization: Event delegation for wildcard list
     // Impact: Avoids attaching individual event listeners to potentially hundreds of list items
-    lockedStationsList.addEventListener('click', (e) => {
-        const li = e.target.closest('li');
-        if (li && li.dataset.stationName) {
-            unlockStation(li.dataset.stationName);
-        }
-    });
-
-    lockedStationsList.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+    if (lockedStationsList) {
+        lockedStationsList.addEventListener('click', (e) => {
             const li = e.target.closest('li');
             if (li && li.dataset.stationName) {
-                e.preventDefault();
                 unlockStation(li.dataset.stationName);
             }
-        }
-    });
+        });
 
+        lockedStationsList.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const li = e.target.closest('li');
+                if (li && li.dataset.stationName) {
+                    e.preventDefault();
+                    unlockStation(li.dataset.stationName);
+                }
+            }
+        });
+    }
+}
+
+function setupModalListeners() {
     // Wildcard
     if (wildcardBtn) {
         wildcardBtn.addEventListener('click', (e) => {
@@ -1025,60 +1050,6 @@ function setupEventListeners() {
             closeModal();
         }
     });
-
-    // Wildcard search filter
-    if (wildcardSearch) {
-        wildcardSearch.addEventListener('input', (e) => {
-            if (clearWildcardSearchBtn) {
-                if (e.target.value.length > 0) {
-                    clearWildcardSearchBtn.classList.remove('hidden');
-                } else {
-                    clearWildcardSearchBtn.classList.add('hidden');
-                }
-            }
-        });
-        wildcardSearch.addEventListener('input', debounce((e) => {
-            const query = e.target.value.toLowerCase();
-
-            // ⚡ Performance optimization: Search only against the pre-filtered currentLockedStations list
-            // Impact: Reduces O(N) search over all stations to O(K) over locked stations and bypasses redundant state checks
-            const lockedStations = [];
-            const len = currentLockedStations.length;
-            for (let i = 0; i < len; i++) {
-                const s = currentLockedStations[i];
-                // ⚡ Performance optimization: Use pre-computed searchName and short-circuit empty query
-                // Impact: Eliminates string allocations (.toLowerCase()) inside the filter loop
-                if (!query || s.searchName.includes(query)) {
-                    lockedStations.push(s);
-                }
-            }
-
-            renderWildcardList(lockedStations);
-            if (wildcardAnnouncer) {
-                wildcardAnnouncer.textContent = `${lockedStations.length} locked station${lockedStations.length === 1 ? '' : 's'} found.`;
-            }
-        }, 200));
-
-        wildcardSearch.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (wildcardSearch.value) {
-                    e.stopPropagation();
-                    wildcardSearch.value = '';
-                    wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
-                }
-            }
-        });
-    }
-
-    if (clearWildcardSearchBtn) {
-        clearWildcardSearchBtn.addEventListener('click', () => {
-            if (wildcardSearch) {
-                wildcardSearch.value = '';
-                wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
-                wildcardSearch.focus();
-            }
-        });
-    }
 
     // Escape key to close modal
     window.addEventListener('keydown', (e) => {
@@ -1140,7 +1111,65 @@ function setupEventListeners() {
             }
         });
     }
+}
 
+function setupWildcardSearchListeners() {
+    // Wildcard search filter
+    if (wildcardSearch) {
+        wildcardSearch.addEventListener('input', (e) => {
+            if (clearWildcardSearchBtn) {
+                if (e.target.value.length > 0) {
+                    clearWildcardSearchBtn.classList.remove('hidden');
+                } else {
+                    clearWildcardSearchBtn.classList.add('hidden');
+                }
+            }
+        });
+        wildcardSearch.addEventListener('input', debounce((e) => {
+            const query = e.target.value.toLowerCase();
+
+            // ⚡ Performance optimization: Search only against the pre-filtered currentLockedStations list
+            // Impact: Reduces O(N) search over all stations to O(K) over locked stations and bypasses redundant state checks
+            const lockedStations = [];
+            const len = currentLockedStations.length;
+            for (let i = 0; i < len; i++) {
+                const s = currentLockedStations[i];
+                // ⚡ Performance optimization: Use pre-computed searchName and short-circuit empty query
+                // Impact: Eliminates string allocations (.toLowerCase()) inside the filter loop
+                if (!query || s.searchName.includes(query)) {
+                    lockedStations.push(s);
+                }
+            }
+
+            renderWildcardList(lockedStations);
+            if (wildcardAnnouncer) {
+                wildcardAnnouncer.textContent = `${lockedStations.length} locked station${lockedStations.length === 1 ? '' : 's'} found.`;
+            }
+        }, 200));
+
+        wildcardSearch.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (wildcardSearch.value) {
+                    e.stopPropagation();
+                    wildcardSearch.value = '';
+                    wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }
+        });
+    }
+
+    if (clearWildcardSearchBtn) {
+        clearWildcardSearchBtn.addEventListener('click', () => {
+            if (wildcardSearch) {
+                wildcardSearch.value = '';
+                wildcardSearch.dispatchEvent(new Event('input', { bubbles: true }));
+                wildcardSearch.focus();
+            }
+        });
+    }
+}
+
+function setupGlobalShortcuts() {
     // Global keyboard shortcut to focus search input
     window.addEventListener('keydown', (e) => {
         if (e.key === '/') {
