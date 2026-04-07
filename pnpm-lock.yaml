@@ -11,6 +11,7 @@ importers:
       express:
         specifier: ^5.2.1
         version: 5.2.1
+    devDependencies:
       jsdom:
         specifier: ^29.0.1
         version: 29.0.1

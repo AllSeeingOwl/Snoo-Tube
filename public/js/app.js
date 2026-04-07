@@ -841,7 +841,8 @@ function openHowToPlayModal() {
     if (howToPlayModal) {
         howToPlayModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
-        if (closeHowToPlayBtn) closeHowToPlayBtn.focus();
+        const topCloseBtn = howToPlayModal.querySelector('.close-btn');
+        if (topCloseBtn) topCloseBtn.focus();
     }
 }
 
