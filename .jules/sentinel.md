@@ -12,3 +12,8 @@
 **Vulnerability:** A custom rate-limiting Map could grow without bounds if flooded with uniquely spoofed `X-Forwarded-For` IPs before the cleanup interval runs, leading to an Out-Of-Memory (OOM) Denial of Service (DoS).
 **Learning:** When an application trusts proxies (`app.set('trust proxy', 1)`), client IPs can be spoofed. Storing unrestricted entries based on these IPs creates a severe memory vulnerability.
 **Prevention:** Always enforce a hard size limit on in-memory storage structures (like Maps or Arrays) that use untrusted user input (like IPs or headers) as keys. Fail securely (e.g., return `429 Too Many Requests`) when the limit is reached.
+
+## 2026-04-07 - Cross-Origin Isolation for Spectre Mitigation
+**Vulnerability:** The application was not fully cross-origin isolated, leaving it potentially vulnerable to side-channel attacks like Spectre and XS-Leaks.
+**Learning:** Enabling cross-origin isolation requires both `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`.
+**Prevention:** Always implement COOP and COEP headers to protect against cross-origin data leakage and enable powerful browser features securely.
