@@ -1176,6 +1176,7 @@ if (typeof module !== 'undefined' && module.exports) {
         getLockThreshold,
         isStationLocked,
         loadGameState,
+        saveGameState,
         parseCSV,
         debounce
     };

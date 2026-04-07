@@ -417,3 +417,76 @@ test('loadGameState returns early when localStorage is undefined', (t) => {
         global.localStorage = originalLocalStorage;
     }
 });
+
+test('saveGameState correctly saves gameState to localStorage', (t) => {
+    // Setup
+    const originalLocalStorage = global.localStorage;
+    const originalGameState = JSON.parse(JSON.stringify(app.gameState));
+    let savedKey = null;
+    let savedValue = null;
+
+    app.gameState.tier = 'Advanced';
+    app.gameState.usedCounts = { 'Test Station': 1 };
+
+    global.localStorage = {
+        setItem: (key, value) => {
+            savedKey = key;
+            savedValue = value;
+        }
+    };
+
+    try {
+        app.saveGameState();
+        assert.strictEqual(savedKey, 'snookerTubeyState');
+        const parsed = JSON.parse(savedValue);
+        assert.strictEqual(parsed.tier, 'Advanced');
+        assert.strictEqual(parsed.usedCounts['Test Station'], 1);
+    } finally {
+        // Cleanup
+        global.localStorage = originalLocalStorage;
+        Object.assign(app.gameState, originalGameState);
+    }
+});
+
+test('saveGameState handles localStorage.setItem errors', (t) => {
+    // Setup
+    const originalLocalStorage = global.localStorage;
+    const originalConsoleWarn = console.warn;
+    let warnCalled = false;
+
+    global.localStorage = {
+        setItem: () => { throw new Error('QuotaExceededError'); }
+    };
+    console.warn = () => { warnCalled = true; };
+
+    try {
+        app.saveGameState();
+        assert.strictEqual(warnCalled, true, 'console.warn should be called when localStorage.setItem throws');
+    } finally {
+        // Cleanup
+        global.localStorage = originalLocalStorage;
+        console.warn = originalConsoleWarn;
+    }
+});
+
+test('saveGameState returns early when localStorage is undefined', (t) => {
+    // Setup
+    const originalLocalStorage = global.localStorage;
+    const originalConsoleWarn = console.warn;
+    let warnCalled = false;
+    let setItemCalled = false;
+
+    // In Node.js environment, we can delete from global
+    delete global.localStorage;
+    console.warn = () => { warnCalled = true; };
+
+    try {
+        app.saveGameState();
+        assert.strictEqual(warnCalled, false, 'console.warn should NOT be called when localStorage is undefined');
+        assert.strictEqual(setItemCalled, false, 'localStorage.setItem should NOT be called');
+    } finally {
+        // Cleanup
+        global.localStorage = originalLocalStorage;
+        console.warn = originalConsoleWarn;
+    }
+});
