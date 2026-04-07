@@ -96,6 +96,7 @@ let displayStations = []; // Filtered data for display
 let currentFilterType = 'all'; // ⚡ Performance optimization: Cache active filter state to avoid DOM query in hot loops
 let stationRowCache = new Map(); // ⚡ Performance optimization: O(1) lookup for station table rows
 let wildcardRowCache = new Map(); // ⚡ Performance optimization: O(1) lookup for wildcard list items
+let currentLockedStations = []; // ⚡ Performance optimization: Cache locked stations for O(K) modal searching
 let gameState = {
     tier: 'Advanced',
     usedCounts: Object.create(null) // { "Station Name": count }
@@ -711,6 +712,9 @@ function openWildcardModal() {
         }
     }
 
+    // ⚡ Performance optimization: Cache the locked stations for faster modal searching
+    currentLockedStations = lockedStations;
+
     if (lockedStations.length === 0) {
         showToast("No locked stations available to unlock.");
         return;
@@ -1034,17 +1038,16 @@ function setupEventListeners() {
         });
         wildcardSearch.addEventListener('input', debounce((e) => {
             const query = e.target.value.toLowerCase();
-            const currentThreshold = getLockThreshold();
 
-            // ⚡ Performance optimization: Replace Array.filter with a standard for-loop
-            // Impact: Faster execution time by avoiding callback invocation overhead
+            // ⚡ Performance optimization: Search only against the pre-filtered currentLockedStations list
+            // Impact: Reduces O(N) search over all stations to O(K) over locked stations and bypasses redundant state checks
             const lockedStations = [];
-            const len = allStations.length;
+            const len = currentLockedStations.length;
             for (let i = 0; i < len; i++) {
-                const s = allStations[i];
+                const s = currentLockedStations[i];
                 // ⚡ Performance optimization: Use pre-computed searchName and short-circuit empty query
-                // Impact: Eliminates O(n) string allocations (.toLowerCase()) inside the filter loop
-                if (isStationLocked(s.name, currentThreshold) && (!query || s.searchName.includes(query))) {
+                // Impact: Eliminates string allocations (.toLowerCase()) inside the filter loop
+                if (!query || s.searchName.includes(query)) {
                     lockedStations.push(s);
                 }
             }
