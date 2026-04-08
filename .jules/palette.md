@@ -12,3 +12,8 @@
 
 **Learning:** Scrollable containers without interactive elements (like the stations table or the rules text) are completely inaccessible to keyboard-only users who cannot use a mouse to scroll. Additionally, focusing the 'Close' button at the *bottom* of a modal containing long text causes screen readers to skip the content entirely.
 **Action:** Always add `tabindex="0"`, `role="region"`, and an `aria-label` to containers that rely on `overflow: auto`. When opening modals with instructional text, always focus the first interactive element at the top of the modal (like the top close button) to preserve reading order.
+
+## 2025-05-16 - Programmatic Association of Dynamic Inputs
+
+**Learning:** When text inputs, selects, or other interactive elements dynamically update a separate section of the page (like a search input filtering a list or a dropdown altering table contents), screen reader users may not be aware of which specific container is being modified, reducing clarity and predictability.
+**Action:** Always use the `aria-controls` attribute on interactive elements that dynamically modify separate sections of the UI. Ensure the value of `aria-controls` matches the `id` of the target container being modified (e.g., `aria-controls="stations-body"`).
