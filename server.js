@@ -8,6 +8,14 @@ app.disable('x-powered-by');
 // 🛡️ Sentinel: Configure Express to trust the reverse proxy for accurate client IP resolution
 app.set('trust proxy', 1);
 
+// 🛡️ Sentinel: Enforce maximum URL length to prevent DoS attacks via excessively long URLs
+app.use((req, res, next) => {
+  if (req.url.length > 2048) {
+    return res.status(414).send('URI Too Long');
+  }
+  next();
+});
+
 // 🛡️ Sentinel: Simple rate limiting to mitigate DoS attacks
 const rateLimitMap = new Map();
 const rateLimitTimer = setInterval(() => {
