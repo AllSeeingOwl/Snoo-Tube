@@ -23,7 +23,7 @@
         <div class="header-controls">
             <div class="tier-selector">
                 <label for="game-tier">Tier:</label>
-                <select id="game-tier">
+                <select id="game-tier" aria-controls="stations-body">
                     <option value="Advanced">Advanced (1 use)</option>
                     <option value="Intermediate">Intermediate (2 uses)</option>
                     <option value="Casual">Casual (Unlimited)</option>
@@ -38,7 +38,7 @@
     <main>
         <section class="search-section">
             <div class="search-input-wrapper">
-                <input type="search" id="search-input" maxlength="100" placeholder="Search station, line, or colour..." aria-label="Search stations" aria-keyshortcuts="/">
+                <input type="search" id="search-input" maxlength="100" placeholder="Search station, line, or colour..." aria-label="Search stations" aria-keyshortcuts="/" aria-controls="stations-body">
                 <button type="button" id="clear-search-btn" class="clear-search-btn hidden" aria-label="Clear search" title="Clear search">&times;</button>
                 <kbd class="shortcut-hint" aria-hidden="true">/</kbd>
             </div>
@@ -76,7 +76,7 @@
             <h2 id="wildcard-modal-title">Overground Wildcard</h2>
             <p id="wildcard-modal-desc">Select a previously used station to unlock:</p>
             <div class="search-input-wrapper">
-                <input type="search" id="wildcard-search" maxlength="100" placeholder="Search locked stations..." aria-label="Search locked stations">
+                <input type="search" id="wildcard-search" maxlength="100" placeholder="Search locked stations..." aria-label="Search locked stations" aria-controls="locked-stations-list">
                 <button type="button" id="clear-wildcard-search-btn" class="clear-search-btn hidden" aria-label="Clear wildcard search" title="Clear search">&times;</button>
             </div>
             <div id="wildcard-announcer" class="sr-only" aria-live="polite"></div>
