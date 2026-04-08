@@ -428,6 +428,9 @@ function createStationRow(station, threshold) {
         lockedSpan.setAttribute('role', 'img');
         lockedSpan.setAttribute('aria-label', 'Locked');
         nameDiv.appendChild(lockedSpan);
+        tr._cachedLockedIcon = lockedSpan;
+    } else {
+        tr._cachedLockedIcon = null;
     }
 
     const linesTd = tr.childNodes[1];
@@ -447,6 +450,11 @@ function createStationRow(station, threshold) {
 
     const usesTd = tr.childNodes[4];
     usesTd.textContent = uses;
+
+    // Cache specific DOM elements for faster updates
+    tr._cachedNameDiv = nameDiv;
+    tr._cachedActionSpan = actionSpan;
+    tr._cachedUsesTd = usesTd;
 
     return tr;
 }
@@ -574,16 +582,16 @@ function updateStationRowDOM(stationName, isLocked) {
         tr.removeAttribute('aria-disabled');
     }
 
-    // Safely target the inner wrapper where the icon should go
-    const nameDiv = tr.querySelector('.station-name');
+    // ⚡ Performance optimization: Use cached references instead of querySelector
+    const nameDiv = tr._cachedNameDiv || tr.querySelector('.station-name');
     if (!nameDiv) return;
 
-    const actionSpan = nameDiv.querySelector('.action-text');
+    const actionSpan = tr._cachedActionSpan || nameDiv.querySelector('.action-text');
     if (actionSpan) {
         actionSpan.textContent = isLocked ? 'Station locked. Record use for ' : 'Record use for ';
     }
 
-    const existingIcon = nameDiv.querySelector('.locked-icon');
+    const existingIcon = tr._cachedLockedIcon || nameDiv.querySelector('.locked-icon');
     if (isLocked && !existingIcon) {
         const lockedSpan = document.createElement('span');
         lockedSpan.className = 'locked-icon';
@@ -592,12 +600,14 @@ function updateStationRowDOM(stationName, isLocked) {
         lockedSpan.setAttribute('role', 'img');
         lockedSpan.setAttribute('aria-label', 'Locked');
         nameDiv.appendChild(lockedSpan);
+        tr._cachedLockedIcon = lockedSpan;
     } else if (!isLocked && existingIcon) {
         existingIcon.remove();
+        tr._cachedLockedIcon = null;
     }
 
     // Update uses count (last cell)
-    const usesTd = tr.querySelector('.use-count');
+    const usesTd = tr._cachedUsesTd || tr.querySelector('.use-count');
     if (usesTd) usesTd.textContent = uses;
 }
 
