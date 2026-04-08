@@ -17,3 +17,8 @@
 **Vulnerability:** The application was not fully cross-origin isolated, leaving it potentially vulnerable to side-channel attacks like Spectre and XS-Leaks.
 **Learning:** Enabling cross-origin isolation requires both `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`.
 **Prevention:** Always implement COOP and COEP headers to protect against cross-origin data leakage and enable powerful browser features securely.
+
+## 2024-05-27 - Risk of Global Method Restriction vs Length Limitations
+**Vulnerability:** Application lacked explicit URL length limits, making it susceptible to DoS attacks via excessively long URLs or buffer exhaustion.
+**Learning:** Attempting to reduce attack surface by globally restricting HTTP methods (e.g., rejecting POST/PUT) is highly risky and often causes severe functional regressions. Length and size limits provide a much safer, non-breaking mitigation.
+**Prevention:** To mitigate DoS attacks, always prefer setting strict but reasonable length limits on URLs (e.g., 2048 characters) and payload sizes rather than globally restricting core protocol features.
