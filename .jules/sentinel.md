@@ -22,3 +22,8 @@
 **Vulnerability:** Application lacked explicit URL length limits, making it susceptible to DoS attacks via excessively long URLs or buffer exhaustion.
 **Learning:** Attempting to reduce attack surface by globally restricting HTTP methods (e.g., rejecting POST/PUT) is highly risky and often causes severe functional regressions. Length and size limits provide a much safer, non-breaking mitigation.
 **Prevention:** To mitigate DoS attacks, always prefer setting strict but reasonable length limits on URLs (e.g., 2048 characters) and payload sizes rather than globally restricting core protocol features.
+
+## 2026-04-07 - Resilient Service Worker Installation
+**Vulnerability:** Service Worker used `cache.addAll()` during the `install` phase. This function requires all assets to load successfully. If any single asset returned a 404 or failed to load, the entire Service Worker would fail to install. This silently disabled all security mitigations implemented in the `fetch` event (e.g., preventing cache poisoning from query strings).
+**Learning:** `cache.addAll()` is brittle and dangerous when a Service Worker includes critical security logic. A single missing asset can inadvertently disable the application's security posture.
+**Prevention:** Always use resilient caching strategies like `Promise.allSettled()` with individual `fetch` and `cache.put()` calls during the `install` event to ensure the Service Worker always activates, even if some assets fail to cache.

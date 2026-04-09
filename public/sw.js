@@ -15,7 +15,19 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
             .then(cache => {
                 console.log('Opened cache');
-                return cache.addAll(ASSETS);
+                // 🛡️ Sentinel: Prevent SW installation failure due to missing assets
+                // This guarantees the SW activates and the security mitigations in the fetch event are always applied.
+                return Promise.allSettled(
+                    ASSETS.map(url =>
+                        fetch(url).then(response => {
+                            if (response.ok) {
+                                return cache.put(url, response);
+                            }
+                        }).catch(err => {
+                            console.warn(`Failed to cache ${url}:`, err);
+                        })
+                    )
+                );
             })
     );
     self.skipWaiting();
