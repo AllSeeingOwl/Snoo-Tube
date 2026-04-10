@@ -844,6 +844,8 @@ function unlockStation(stationName) {
         const rowToFocus = document.querySelector(`tr[data-station-name="${CSS.escape(unlockedStationName)}"]`);
         if (rowToFocus) {
             rowToFocus.focus();
+        } else if (searchInput) {
+            searchInput.focus();
         }
     }
 }
