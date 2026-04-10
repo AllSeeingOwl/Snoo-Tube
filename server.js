@@ -66,14 +66,14 @@ app.use('/data', express.static(path.join(__dirname, 'data')));
 // 🛡️ Sentinel: Generic 404 handler to prevent path disclosure and override Express default
 app.use((req, res) => {
   res.setHeader('Cache-Control', 'no-store');
-  res.status(404).send('Not Found');
+  res.type('text/plain').status(404).send('Not Found');
 });
 
 // 🛡️ Sentinel: Global error handler to prevent stack trace leakage
 app.use((err, req, res, next) => {
   console.error('An error occurred:', err); // Internal logging
   res.setHeader('Cache-Control', 'no-store');
-  res.status(500).send('Internal Server Error'); // Sanitized client response
+  res.type('text/plain').status(500).send('Internal Server Error'); // Sanitized client response
 });
 
 app.listen(port, () => {

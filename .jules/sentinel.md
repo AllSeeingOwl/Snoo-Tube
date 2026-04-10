@@ -27,3 +27,8 @@
 **Vulnerability:** Service Worker used `cache.addAll()` during the `install` phase. This function requires all assets to load successfully. If any single asset returned a 404 or failed to load, the entire Service Worker would fail to install. This silently disabled all security mitigations implemented in the `fetch` event (e.g., preventing cache poisoning from query strings).
 **Learning:** `cache.addAll()` is brittle and dangerous when a Service Worker includes critical security logic. A single missing asset can inadvertently disable the application's security posture.
 **Prevention:** Always use resilient caching strategies like `Promise.allSettled()` with individual `fetch` and `cache.put()` calls during the `install` event to ensure the Service Worker always activates, even if some assets fail to cache.
+
+## 2026-04-10 - Explicit Content-Type for Error Handlers
+**Vulnerability:** Default Express text responses (like simple 404/500 messages) use `text/html`. If these error messages ever reflect user input in the future, it could lead to XSS.
+**Learning:** Browsers might attempt to parse plain string responses as HTML if the `Content-Type` defaults to `text/html`.
+**Prevention:** Always explicitly set `res.type('text/plain')` for generic text-based error responses to provide defense-in-depth against MIME confusion and potential XSS.
