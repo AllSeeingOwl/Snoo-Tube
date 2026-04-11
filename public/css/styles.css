@@ -199,6 +199,10 @@ main {
     align-items: center;
     justify-content: center;
     height: 100%;
+
+    transition: opacity 0.2s, visibility 0.2s;
+    opacity: 1;
+    visibility: visible;
 }
 
 .clear-search-btn:hover {
@@ -207,7 +211,8 @@ main {
 }
 
 .clear-search-btn.hidden {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .shortcut-hint {
@@ -345,10 +350,15 @@ tbody tr.locked {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+
+    transition: opacity 0.2s, visibility 0.2s;
+    opacity: 1;
+    visibility: visible;
 }
 
 .modal.hidden {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .modal-content {
@@ -361,6 +371,15 @@ tbody tr.locked {
     display: flex;
     flex-direction: column;
     position: relative;
+}
+
+.modal-content {
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+    transform: scale(1) translateY(0);
+}
+
+.modal.hidden .modal-content {
+    transform: scale(0.95) translateY(10px);
 }
 
 .close-btn {
@@ -445,7 +464,7 @@ tbody tr.locked {
     position: fixed;
     bottom: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(0);
     background-color: var(--card-bg);
     color: white;
     padding: 1rem 1.5rem;
@@ -453,12 +472,14 @@ tbody tr.locked {
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     z-index: 2000;
     border: 1px solid var(--border-color);
-    transition: opacity 0.3s;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 
 .toast.hidden {
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(10px);
 }
 
 @media (max-width: 600px) {
