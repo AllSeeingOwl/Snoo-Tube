@@ -32,3 +32,7 @@
 **Vulnerability:** Default Express text responses (like simple 404/500 messages) use `text/html`. If these error messages ever reflect user input in the future, it could lead to XSS.
 **Learning:** Browsers might attempt to parse plain string responses as HTML if the `Content-Type` defaults to `text/html`.
 **Prevention:** Always explicitly set `res.type('text/plain')` for generic text-based error responses to provide defense-in-depth against MIME confusion and potential XSS.
+## 2024-04-11 - Explicit Content-Type for Generic Error Responses
+**Vulnerability:** Default Express text responses (like simple 414 or 429 messages) use `text/html`. If these error messages ever reflect user input in the future, it could lead to XSS.
+**Learning:** Browsers might attempt to parse plain string responses as HTML if the `Content-Type` defaults to `text/html`. Caching mechanisms might store these error states improperly.
+**Prevention:** Always explicitly set `res.type('text/plain')` and `Cache-Control: no-store` for generic text-based error responses (such as rate limits or URI length checks) to provide defense-in-depth against MIME confusion, potential XSS, and caching of error states.

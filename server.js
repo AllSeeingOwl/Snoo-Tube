@@ -11,7 +11,8 @@ app.set('trust proxy', 1);
 // 🛡️ Sentinel: Enforce maximum URL length to prevent DoS attacks via excessively long URLs
 app.use((req, res, next) => {
   if (req.url.length > 2048) {
-    return res.status(414).send('URI Too Long');
+    res.setHeader('Cache-Control', 'no-store');
+    return res.type('text/plain').status(414).send('URI Too Long');
   }
   next();
 });
@@ -33,13 +34,15 @@ app.use((req, res, next) => {
 
   // 🛡️ Sentinel: Prevent Memory DoS from spoofed IPs when behind a proxy
   if (rateLimitMap.size >= 10000 && !rateLimitMap.has(ip)) {
-      return res.status(429).send('Too many requests, please try again later.');
+      res.setHeader('Cache-Control', 'no-store');
+      return res.type('text/plain').status(429).send('Too many requests, please try again later.');
   }
 
   const count = (rateLimitMap.get(ip) || 0) + 1;
   rateLimitMap.set(ip, count);
   if (count > 300) {
-    return res.status(429).send('Too many requests, please try again later.');
+    res.setHeader('Cache-Control', 'no-store');
+    return res.type('text/plain').status(429).send('Too many requests, please try again later.');
   }
   next();
 });
