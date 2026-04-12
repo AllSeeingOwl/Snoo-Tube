@@ -17,3 +17,6 @@
 
 **Learning:** When text inputs, selects, or other interactive elements dynamically update a separate section of the page (like a search input filtering a list or a dropdown altering table contents), screen reader users may not be aware of which specific container is being modified, reducing clarity and predictability.
 **Action:** Always use the `aria-controls` attribute on interactive elements that dynamically modify separate sections of the UI. Ensure the value of `aria-controls` matches the `id` of the target container being modified (e.g., `aria-controls="stations-body"`).
+## 2026-04-12 - Add hidden contextual text to isolated numeric table cells
+**Learning:** Purely numeric data in data table cells (e.g., a "Used" count displaying only "2") lacks context when navigated by a screen reader in isolation or sequentially, causing confusion.
+**Action:** When displaying isolated numbers, append a visually hidden `.sr-only` span containing a pluralized, contextual label (e.g., " uses") directly within the cell so screen readers announce "2 uses" while the visual design remains clean.
