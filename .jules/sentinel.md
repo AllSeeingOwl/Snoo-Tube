@@ -36,3 +36,8 @@
 **Vulnerability:** Default Express text responses (like simple 414 or 429 messages) use `text/html`. If these error messages ever reflect user input in the future, it could lead to XSS.
 **Learning:** Browsers might attempt to parse plain string responses as HTML if the `Content-Type` defaults to `text/html`. Caching mechanisms might store these error states improperly.
 **Prevention:** Always explicitly set `res.type('text/plain')` and `Cache-Control: no-store` for generic text-based error responses (such as rate limits or URI length checks) to provide defense-in-depth against MIME confusion, potential XSS, and caching of error states.
+
+## 2026-04-12 - Missing Payload Size Limits
+**Vulnerability:** The application lacked explicit request payload size limits, leaving it susceptible to Denial of Service (DoS) attacks via excessively large request bodies or chunked encoding, even on endpoints that do not process bodies.
+**Learning:** Default static servers and fallback error handlers do not automatically reject large payloads, meaning an attacker could exhaust server bandwidth or connection pool resources by sending massive requests.
+**Prevention:** Always implement explicit maximum payload size limits (e.g., via `Content-Length`) and restrict `Transfer-Encoding: chunked` if streaming uploads are not expected, providing defense-in-depth against resource exhaustion DoS.

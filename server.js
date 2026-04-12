@@ -17,6 +17,21 @@ app.use((req, res, next) => {
   next();
 });
 
+// 🛡️ Sentinel: Enforce payload size limits to mitigate DoS attacks via excessively large request bodies
+app.use((req, res, next) => {
+  const contentLength = req.headers['content-length'];
+  if (contentLength && parseInt(contentLength, 10) > 10240) { // 10KB limit
+    res.setHeader('Cache-Control', 'no-store');
+    return res.type('text/plain').status(413).send('Payload Too Large');
+  }
+  // This application does not expect chunked uploads. Block to prevent chunked DoS.
+  if (req.headers['transfer-encoding'] === 'chunked') {
+    res.setHeader('Cache-Control', 'no-store');
+    return res.type('text/plain').status(411).send('Length Required');
+  }
+  next();
+});
+
 // 🛡️ Sentinel: Simple rate limiting to mitigate DoS attacks
 const rateLimitMap = new Map();
 const rateLimitTimer = setInterval(() => {
