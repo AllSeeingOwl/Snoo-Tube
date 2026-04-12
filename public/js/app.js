@@ -99,7 +99,9 @@ let wildcardRowCache = new Map(); // ⚡ Performance optimization: O(1) lookup f
 let currentLockedStations = []; // ⚡ Performance optimization: Cache locked stations for O(K) modal searching
 let gameState = {
     tier: 'Advanced',
-    usedCounts: Object.create(null) // { "Station Name": count }
+    usedCounts: Object.create(null), // { "Station Name": count }
+    totalUsed: 0,
+    lockedCount: 0
 };
 
 // Colors Mapping for Badges
@@ -294,11 +296,16 @@ function loadGameState() {
                 if (parsed.usedCounts && typeof parsed.usedCounts === 'object') {
                     // Safe object to prevent prototype pollution from storage
                     gameState.usedCounts = Object.create(null);
+                    gameState.totalUsed = 0;
+                    gameState.lockedCount = 0;
+                    const threshold = getLockThreshold();
                     for (const key in parsed.usedCounts) {
                         if (Object.prototype.hasOwnProperty.call(parsed.usedCounts, key)) {
                             const val = parsed.usedCounts[key];
                             if (typeof val === 'number' && Number.isInteger(val) && val >= 0) {
                                 gameState.usedCounts[key] = val;
+                                if (val > 0) gameState.totalUsed++;
+                                if (val >= threshold) gameState.lockedCount++;
                             }
                         }
                     }
@@ -507,7 +514,13 @@ function handleStationClick(stationName) {
     }
 
     if (confirm(`Record use for ${stationName}?`)) {
-        gameState.usedCounts[stationName] = (gameState.usedCounts[stationName] || 0) + 1;
+        const currentUses = gameState.usedCounts[stationName] || 0;
+        const newUses = currentUses + 1;
+        gameState.usedCounts[stationName] = newUses;
+
+        if (currentUses === 0) gameState.totalUsed++;
+        if (newUses === getLockThreshold()) gameState.lockedCount++;
+
         saveGameState();
 
         updateWildcardButtonState();
@@ -684,18 +697,9 @@ function applyFilters() {
 function updateResetButtonState() {
     if (!resetBtn) return;
 
-    let hasUsedStations = false;
-    // ⚡ Performance optimization: Iterate over static array instead of for...in on object
-    // Impact: ~7x faster execution in hot paths by avoiding object property enumeration
-    const len = allStations.length;
-    for (let i = 0; i < len; i++) {
-        if (gameState.usedCounts[allStations[i].name] > 0) {
-            hasUsedStations = true;
-            break;
-        }
-    }
-
-    if (hasUsedStations) {
+    // ⚡ Performance optimization: O(1) state check using cached count
+    // Impact: Avoids O(N) loop over all stations
+    if (gameState.totalUsed > 0) {
         resetBtn.removeAttribute('aria-disabled');
         resetBtn.removeAttribute('title');
     } else {
@@ -707,20 +711,10 @@ function updateResetButtonState() {
 // Wildcard Modal Logic
 function updateWildcardButtonState() {
     if (!wildcardBtn) return;
-    const currentThreshold = getLockThreshold();
 
-    let hasLocked = false;
-    // ⚡ Performance optimization: Iterate over static array instead of for...in on object
-    // Impact: ~7x faster execution in hot paths by avoiding object property enumeration
-    const len = allStations.length;
-    for (let i = 0; i < len; i++) {
-        if (gameState.usedCounts[allStations[i].name] >= currentThreshold) {
-            hasLocked = true;
-            break;
-        }
-    }
-
-    if (hasLocked) {
+    // ⚡ Performance optimization: O(1) state check using cached count
+    // Impact: Avoids O(N) loop over all stations
+    if (gameState.lockedCount > 0) {
         wildcardBtn.removeAttribute('aria-disabled');
         wildcardBtn.removeAttribute('title');
     } else {
@@ -838,7 +832,12 @@ function renderWildcardList(stations) {
 function unlockStation(stationName) {
     if (confirm(`Use Overground Wildcard to unlock ${stationName}?`)) {
         // Reset count to 0
+        const oldUses = gameState.usedCounts[stationName] || 0;
         gameState.usedCounts[stationName] = 0;
+
+        if (oldUses > 0) gameState.totalUsed--;
+        if (oldUses >= getLockThreshold()) gameState.lockedCount--;
+
         saveGameState();
         showToast(`🚇 ${stationName} has been UNLOCKED via Wildcard!`);
 
@@ -905,6 +904,8 @@ function showToast(message) {
 function resetGame() {
     if (confirm('Are you sure you want to reset all station usages for a new game?')) {
         gameState.usedCounts = Object.create(null);
+        gameState.totalUsed = 0;
+        gameState.lockedCount = 0;
         saveGameState();
 
         updateWildcardButtonState();
@@ -932,6 +933,17 @@ function setupTierListeners() {
     if (tierSelect) {
         tierSelect.addEventListener('change', (e) => {
             gameState.tier = e.target.value;
+
+            // Re-evaluate locked count since threshold changed
+            const threshold = getLockThreshold();
+            let newLockedCount = 0;
+            for (const key in gameState.usedCounts) {
+                if (gameState.usedCounts[key] >= threshold) {
+                    newLockedCount++;
+                }
+            }
+            gameState.lockedCount = newLockedCount;
+
             saveGameState();
 
             updateWildcardButtonState();
