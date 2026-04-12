@@ -452,6 +452,10 @@ function createStationRow(station, threshold) {
 
     const usesTd = tr.childNodes[4];
     usesTd.textContent = uses;
+    const usesSpan = document.createElement('span');
+    usesSpan.className = 'sr-only';
+    usesSpan.textContent = uses === 1 ? ' use' : ' uses';
+    usesTd.appendChild(usesSpan);
 
     // Cache specific DOM elements for faster updates
     tr._cachedNameDiv = nameDiv;
@@ -612,7 +616,13 @@ function updateStationRowDOM(stationName, isLocked) {
 
     // Update uses count (last cell)
     const usesTd = tr._cachedUsesTd || tr.querySelector('.use-count');
-    if (usesTd) usesTd.textContent = uses;
+    if (usesTd) {
+        usesTd.textContent = uses;
+        const usesSpan = document.createElement('span');
+        usesSpan.className = 'sr-only';
+        usesSpan.textContent = uses === 1 ? ' use' : ' uses';
+        usesTd.appendChild(usesSpan);
+    }
 }
 
 // Filtering and Searching
