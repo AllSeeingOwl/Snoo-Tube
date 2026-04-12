@@ -8,3 +8,8 @@
 **Learning:** When repeatedly tearing down and rebuilding large lists in vanilla JS (like clearing a table body and appending a new `DocumentFragment`), the common pattern `element.textContent = ''; element.appendChild(fragment)` triggers unnecessary intermediate DOM state changes and reflows. Profiling showed that using the modern `element.replaceChildren(fragment)` API delegates the entire clear-and-append operation to the native browser engine in a single optimized pass, speeding up the `renderTable` operations by ~20%.
 
 **Action:** Whenever completely replacing the contents of a DOM element, use `replaceChildren(...)` instead of setting `innerHTML` or `textContent` to an empty string followed by `appendChild`.
+## 2026-04-12 - Cached Counters over Array Iteration
+
+**Learning:** When repeatedly checking if *any* element in a large dataset meets a condition (e.g., to enable/disable UI buttons based on whether any station is used or locked), iterating over the entire dataset (or even iterating over the keys of a sparse object) is an `O(N)` operation that becomes a bottleneck when called frequently. Even a highly optimized `for` loop overhead adds up.
+
+**Action:** Maintain global state variables (e.g., `gameState.totalUsed`, `gameState.lockedCount`) that are updated incrementally (`++` or `--`) during individual state mutation actions (like clicking a row or changing a configuration threshold). This reduces high-frequency global status checks to O(1) integer evaluations.
