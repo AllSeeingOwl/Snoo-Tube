@@ -645,6 +645,7 @@ function updateStationRowDOM(stationName, isLocked) {
 
 // Filtering and Searching
 function applyFilters() {
+    if (typeof document === 'undefined') return;
     const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
     // ⚡ Performance optimization: Use cached filter state instead of document.querySelector
     // Impact: ~65% faster execution time for applyFilters() by avoiding DOM parsing on every keystroke
@@ -710,7 +711,7 @@ function applyFilters() {
 
 // Reset Button Logic
 function updateResetButtonState() {
-    if (!resetBtn) return;
+    if (typeof document === 'undefined' || !resetBtn) return;
 
     // ⚡ Performance optimization: O(1) state check using cached count
     // Impact: Avoids O(N) loop over all stations
@@ -725,7 +726,7 @@ function updateResetButtonState() {
 
 // Wildcard Modal Logic
 function updateWildcardButtonState() {
-    if (!wildcardBtn) return;
+    if (typeof document === 'undefined' || !wildcardBtn) return;
 
     // ⚡ Performance optimization: O(1) state check using cached count
     // Impact: Avoids O(N) loop over all stations
@@ -907,6 +908,7 @@ function debounce(func, wait) {
 }
 
 function showToast(message) {
+    if (!toast) return;
     clearTimeout(toastTimeout);
     toast.textContent = message;
     toast.classList.remove('hidden');
@@ -1271,6 +1273,7 @@ if (typeof module !== 'undefined' && module.exports) {
         loadGameState,
         saveGameState,
         parseCSV,
-        debounce
+        debounce,
+        resetGame
     };
 }
