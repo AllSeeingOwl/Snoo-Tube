@@ -490,3 +490,72 @@ test('saveGameState returns early when localStorage is undefined', (t) => {
         console.warn = originalConsoleWarn;
     }
 });
+
+test('resetGame resets gameState when confirmed', (t) => {
+    // Setup
+    const originalConfirm = global.confirm;
+    const originalLocalStorage = global.localStorage;
+    const originalGameState = JSON.parse(JSON.stringify(app.gameState));
+
+    // Seed state
+    app.gameState.usedCounts = { 'Station A': 1 };
+    app.gameState.totalUsed = 1;
+    app.gameState.lockedCount = 1;
+
+    let confirmCalled = false;
+    global.confirm = () => {
+        confirmCalled = true;
+        return true;
+    };
+
+    let setItemCalled = false;
+    global.localStorage = {
+        setItem: () => { setItemCalled = true; },
+        getItem: () => null
+    };
+
+    try {
+        app.resetGame();
+
+        assert.strictEqual(confirmCalled, true, 'confirm should be called');
+        assert.deepStrictEqual(app.gameState.usedCounts, Object.create(null), 'usedCounts should be empty');
+        assert.strictEqual(app.gameState.totalUsed, 0, 'totalUsed should be 0');
+        assert.strictEqual(app.gameState.lockedCount, 0, 'lockedCount should be 0');
+        assert.strictEqual(setItemCalled, true, 'saveGameState should be called (via localStorage.setItem)');
+    } finally {
+        // Cleanup
+        global.confirm = originalConfirm;
+        global.localStorage = originalLocalStorage;
+        Object.assign(app.gameState, originalGameState);
+    }
+});
+
+test('resetGame does NOT reset gameState when NOT confirmed', (t) => {
+    // Setup
+    const originalConfirm = global.confirm;
+    const originalGameState = JSON.parse(JSON.stringify(app.gameState));
+
+    // Seed state
+    app.gameState.usedCounts = { 'Station B': 2 };
+    app.gameState.totalUsed = 2;
+    app.gameState.lockedCount = 1;
+
+    let confirmCalled = false;
+    global.confirm = () => {
+        confirmCalled = true;
+        return false;
+    };
+
+    try {
+        app.resetGame();
+
+        assert.strictEqual(confirmCalled, true, 'confirm should be called');
+        assert.strictEqual(app.gameState.usedCounts['Station B'], 2, 'usedCounts should remain unchanged');
+        assert.strictEqual(app.gameState.totalUsed, 2, 'totalUsed should remain unchanged');
+        assert.strictEqual(app.gameState.lockedCount, 1, 'lockedCount should remain unchanged');
+    } finally {
+        // Cleanup
+        global.confirm = originalConfirm;
+        Object.assign(app.gameState, originalGameState);
+    }
+});
