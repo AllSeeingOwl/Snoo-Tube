@@ -5,6 +5,11 @@ if (typeof window !== 'undefined' && window.self !== window.top) {
     window.top.location = window.self.location;
 }
 
+// Configuration Constants
+const FETCH_TIMEOUT_MS = 10000;
+const TOAST_DURATION_MS = 3000;
+const SEARCH_DEBOUNCE_MS = 200;
+
 // DOM Elements
 let tierSelect;
 let searchInput;
@@ -155,7 +160,7 @@ async function init() {
 async function fetchStations() {
     // 🛡️ Sentinel: Add timeout to external fetch call to prevent hanging
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
         const response = await fetch('../data/Snooker Tubey Database.csv', { signal: controller.signal });
@@ -908,7 +913,7 @@ function showToast(message) {
 
     toastTimeout = setTimeout(() => {
         toast.classList.add('hidden');
-    }, 3000);
+    }, TOAST_DURATION_MS);
 }
 
 function resetGame() {
@@ -977,7 +982,7 @@ function setupSearchListeners() {
                 }
             }
         });
-        searchInput.addEventListener('input', debounce(applyFilters, 200));
+        searchInput.addEventListener('input', debounce(applyFilters, SEARCH_DEBOUNCE_MS));
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (searchInput.value) {
@@ -1204,7 +1209,7 @@ function setupWildcardSearchListeners() {
             if (wildcardAnnouncer) {
                 wildcardAnnouncer.textContent = `${lockedStations.length} locked station${lockedStations.length === 1 ? '' : 's'} found.`;
             }
-        }, 200));
+        }, SEARCH_DEBOUNCE_MS));
 
         wildcardSearch.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
