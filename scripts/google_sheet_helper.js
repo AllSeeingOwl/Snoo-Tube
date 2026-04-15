@@ -24,6 +24,11 @@ const TIER_ADVANCED = "Advanced";
 const TIER_INTERMEDIATE = "Intermediate";
 const TIER_CASUAL = "Casual";
 
+// --- Reuse constants to avoid unnecessary array allocations in loops ---
+const YES_ARRAY = ["Yes"];
+const NO_ARRAY = ["No"];
+const RESET_ROW_ARRAY = [0, "No", ""];
+
 // --- Menu Function ---
 /**
  * Adds a custom menu to the Google Sheet UI to run the script functions.
@@ -71,12 +76,17 @@ function updateStationLocks(tier) {
   if (tier === TIER_CASUAL) {
     ui.alert('Casual Tier Selected', 'In Casual Tier, stations are always reusable. No locking applied by this script.', ui.ButtonSet.OK);
     // Optionally, you could set all to "No" if you want a visual cue
-    const lockStatuses = [];
-    for (let i = HEADER_ROW_COUNT; i < values.length; i++) {
-      if (values[i][STATION_NAME_COL] !== "") { // Process only if station name exists
-        lockStatuses.push(["No"]);
+    const len = values.length - HEADER_ROW_COUNT;
+    const lockStatuses = new Array(len);
+    for (let i = 0; i < len; i++) {
+      const row = values[i + HEADER_ROW_COUNT];
+      if (row[STATION_NAME_COL] !== "") { // Process only if station name exists
+        lockStatuses[i] = NO_ARRAY;
       } else {
-        lockStatuses.push([values[i][CURRENTLY_LOCKED_COL]]);
+        const current = row[CURRENTLY_LOCKED_COL];
+        if (current === "Yes") lockStatuses[i] = YES_ARRAY;
+        else if (current === "No") lockStatuses[i] = NO_ARRAY;
+        else lockStatuses[i] = [current];
       }
     }
     if (lockStatuses.length > 0) {
@@ -97,16 +107,21 @@ function updateStationLocks(tier) {
   }
 
   let stationsUpdated = 0;
-  const lockStatuses = [];
+  const len = values.length - HEADER_ROW_COUNT;
+  const lockStatuses = new Array(len);
   // Start from row after header to skip header
-  for (let i = HEADER_ROW_COUNT; i < values.length; i++) {
-    const stationName = values[i][STATION_NAME_COL];
+  for (let i = 0; i < len; i++) {
+    const row = values[i + HEADER_ROW_COUNT];
+    const stationName = row[STATION_NAME_COL];
     if (stationName === "" || stationName == null) {
-      lockStatuses.push([values[i][CURRENTLY_LOCKED_COL]]);
+      const current = row[CURRENTLY_LOCKED_COL];
+      if (current === "Yes") lockStatuses[i] = YES_ARRAY;
+      else if (current === "No") lockStatuses[i] = NO_ARRAY;
+      else lockStatuses[i] = [current];
       continue; // Skip empty rows or rows without station names
     }
 
-    const timesUsedRaw = values[i][TIMES_USED_COL];
+    const timesUsedRaw = row[TIMES_USED_COL];
     // Ensure timesUsed is treated as a number. If it's blank or not a number, treat as 0.
     const timesUsed = (timesUsedRaw === "" || timesUsedRaw == null || isNaN(parseInt(timesUsedRaw, 10))) ? 0 : parseInt(timesUsedRaw, 10);
 
@@ -117,10 +132,10 @@ function updateStationLocks(tier) {
     }
 
     // Only write if the value needs to change to avoid unnecessary writes
-    if (values[i][CURRENTLY_LOCKED_COL] !== isLocked) {
+    if (row[CURRENTLY_LOCKED_COL] !== isLocked) {
         stationsUpdated++;
     }
-    lockStatuses.push([isLocked]);
+    lockStatuses[i] = (isLocked === "Yes") ? YES_ARRAY : NO_ARRAY;
   }
 
   if (lockStatuses.length > 0) {
@@ -212,9 +227,10 @@ function resetBoardForNewGame() {
 
       // Create an array of arrays with the reset values
       // For each row, we set [0, "No", ""] for the three columns (Times Used, Locked, Notes)
-      const resetValues = [];
-      for (let i = 0; i < lastRow - HEADER_ROW_COUNT; i++) {
-        resetValues.push([0, "No", ""]); // Times Used = 0, Locked = No, Notes = ""
+      const numRows = lastRow - HEADER_ROW_COUNT;
+      const resetValues = new Array(numRows);
+      for (let i = 0; i < numRows; i++) {
+        resetValues[i] = RESET_ROW_ARRAY; // Times Used = 0, Locked = No, Notes = ""
       }
       rangeToReset.setValues(resetValues);
     }
