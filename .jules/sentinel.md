@@ -41,3 +41,8 @@
 **Vulnerability:** The application lacked explicit request payload size limits, leaving it susceptible to Denial of Service (DoS) attacks via excessively large request bodies or chunked encoding, even on endpoints that do not process bodies.
 **Learning:** Default static servers and fallback error handlers do not automatically reject large payloads, meaning an attacker could exhaust server bandwidth or connection pool resources by sending massive requests.
 **Prevention:** Always implement explicit maximum payload size limits (e.g., via `Content-Length`) and restrict `Transfer-Encoding: chunked` if streaming uploads are not expected, providing defense-in-depth against resource exhaustion DoS.
+
+## 2026-04-21 - Insecure Caching of Sensitive Data in Service Worker
+**Vulnerability:** The Service Worker fetch event listener was caching all GET responses without checking for Cache-Control headers. This could lead to sensitive or user-specific data being persisted in the browser's Cache Storage.
+**Learning:** Service Workers do not automatically respect Cache-Control headers when manually using the Cache API (cache.put). Developers must explicitly check these headers to ensure sensitive data is not stored insecurely.
+**Prevention:** Always check for 'no-store' and 'private' directives in the 'Cache-Control' header before caching network responses in a Service Worker.

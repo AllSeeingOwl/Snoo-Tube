@@ -81,6 +81,13 @@ self.addEventListener('fetch', event => {
                             return networkResponse;
                         }
 
+                        // 🛡️ Sentinel: Prevent insecure caching of sensitive data
+                        // Do not cache if the response has Cache-Control: no-store or private
+                        const cacheControl = networkResponse.headers.get('Cache-Control');
+                        if (cacheControl && (cacheControl.includes('no-store') || cacheControl.includes('private'))) {
+                            return networkResponse;
+                        }
+
                         // Clone the response
                         const responseToCache = networkResponse.clone();
 
