@@ -72,16 +72,20 @@ The **Snooker Tubey Tracker** is a web-based companion app designed to help you 
 ### Running Locally on Your Computer
 Because the app needs to load the `.csv` file database and register a Service Worker, you must run it through a local web server (you cannot simply double-click the `index.html` file).
 
-If you have Python installed, you can easily start a server:
+If you have Node.js and `pnpm` installed, you can easily start a server:
 
 1. Open your terminal/command prompt.
 2. Navigate to the root folder of this project.
-3. Run the following command:
+3. Install dependencies by running:
    ```bash
-   python -m http.server 8000
+   pnpm install
    ```
-   *(Or `python3 -m http.server 8000` depending on your setup).*
-4. Open your web browser and go to `http://localhost:8000/public/`.
+4. Start the server by running:
+   ```bash
+   pnpm start
+   ```
+   *(Or `node server.js`).*
+5. Open your web browser and go to `http://localhost:3000/`.
 
 ### Installing on Mobile for Offline Use
 You can add this app to your mobile device's home screen. Once added, it will behave like a native app and will work perfectly even when you have no internet connection.
