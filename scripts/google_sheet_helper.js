@@ -239,38 +239,3 @@ function resetBoardForNewGame() {
   }
 }
 
-// --- Optional: Automatic onEdit Trigger (Use with caution) ---
-/**
- * This is an example of an onEdit trigger. It can be powerful but also resource-intensive
- * if not carefully managed. For this game, manual triggers via the menu are often better.
- *
- * If you enable this, it will try to update the lock status of the EDITED ROW
- * whenever the "Times Used (This Game)" column is changed.
- * You'd need to decide which tier's logic to apply or add a way to select the tier.
- *
- * function onEdit(e) {
- * const sheet = e.source.getActiveSheet();
- * const range = e.range;
- * const editedRow = range.getRow();
- * const editedCol = range.getColumn();
- *
- * // Check if the edit was in the "Times Used" column (TIMES_USED_COL + 1) and not in the header
- * if (editedCol === TIMES_USED_COL + 1 && editedRow > HEADER_ROW_COUNT) {
- * // === IMPORTANT: Decide which tier logic to apply here ===
- * // For example, always use Advanced Tier logic:
- * const lockThreshold = 1; // For Advanced Tier
- * // Or, you might need a cell in the sheet to define the current tier, and read it here.
- *
- * const timesUsedRaw = sheet.getRange(editedRow, TIMES_USED_COL + 1).getValue();
- * const timesUsed = (timesUsedRaw === "" || timesUsedRaw == null || isNaN(parseInt(timesUsedRaw, 10))) ? 0 : parseInt(timesUsedRaw, 10);
- * * let isLocked = "No";
- * if (timesUsed >= lockThreshold) {
- * isLocked = "Yes";
- * }
- * // Only write if the value needs to change
- * if (sheet.getRange(editedRow, CURRENTLY_LOCKED_COL + 1).getValue() !== isLocked) {
- * sheet.getRange(editedRow, CURRENTLY_LOCKED_COL + 1).setValue(isLocked);
- * }
- * }
- * }
- */
