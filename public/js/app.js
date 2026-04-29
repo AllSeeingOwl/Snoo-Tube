@@ -1283,6 +1283,8 @@ if (typeof module !== 'undefined' && module.exports) {
         saveGameState,
         parseCSV,
         debounce,
-        resetGame
+        resetGame,
+        createStationRow,
+        initDOMElements
     };
 }
