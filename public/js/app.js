@@ -306,6 +306,9 @@ function loadGameState() {
                     const threshold = getLockThreshold();
                     for (const key in parsed.usedCounts) {
                         if (Object.prototype.hasOwnProperty.call(parsed.usedCounts, key)) {
+                            // 🛡️ Sentinel: Prevent prototype pollution
+                            if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
+
                             const val = parsed.usedCounts[key];
                             if (typeof val === 'number' && Number.isInteger(val) && val >= 0) {
                                 gameState.usedCounts[key] = val;
@@ -955,6 +958,9 @@ function setupTierListeners() {
             const threshold = getLockThreshold();
             let newLockedCount = 0;
             for (const key in gameState.usedCounts) {
+                // 🛡️ Sentinel: Prevent prototype pollution
+                if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
+
                 if (gameState.usedCounts[key] >= threshold) {
                     newLockedCount++;
                 }
