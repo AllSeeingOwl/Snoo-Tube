@@ -43,7 +43,7 @@ test('Service Worker should NOT cache responses with Cache-Control: no-store', a
         return createMockResponse('sensitive data', {
             status: 200,
             headers: {
-                'Cache-Control': 'no-store'
+                'Cache-Control': 'NO-STORE'
             }
         });
     };

@@ -21,6 +21,14 @@ self.addEventListener('install', event => {
                     ASSETS.map(url =>
                         fetch(url).then(response => {
                             if (response.ok) {
+                                // 🛡️ Sentinel: Prevent insecure caching of sensitive data during install
+                                const cacheControl = response.headers.get('Cache-Control');
+                                if (cacheControl) {
+                                    const lowerCacheControl = cacheControl.toLowerCase();
+                                    if (lowerCacheControl.includes('no-store') || lowerCacheControl.includes('private')) {
+                                        return;
+                                    }
+                                }
                                 return cache.put(url, response);
                             }
                         }).catch(err => {
@@ -84,8 +92,11 @@ self.addEventListener('fetch', event => {
                         // 🛡️ Sentinel: Prevent insecure caching of sensitive data
                         // Do not cache if the response has Cache-Control: no-store or private
                         const cacheControl = networkResponse.headers.get('Cache-Control');
-                        if (cacheControl && (cacheControl.includes('no-store') || cacheControl.includes('private'))) {
-                            return networkResponse;
+                        if (cacheControl) {
+                            const lowerCacheControl = cacheControl.toLowerCase();
+                            if (lowerCacheControl.includes('no-store') || lowerCacheControl.includes('private')) {
+                                return networkResponse;
+                            }
                         }
 
                         // Clone the response
