@@ -46,3 +46,8 @@
 **Vulnerability:** The Service Worker fetch event listener was caching all GET responses without checking for Cache-Control headers. This could lead to sensitive or user-specific data being persisted in the browser's Cache Storage.
 **Learning:** Service Workers do not automatically respect Cache-Control headers when manually using the Cache API (cache.put). Developers must explicitly check these headers to ensure sensitive data is not stored insecurely.
 **Prevention:** Always check for 'no-store' and 'private' directives in the 'Cache-Control' header before caching network responses in a Service Worker.
+
+## 2025-01-24 - Case Sensitivity and Pre-caching Vulnerabilities in Service Worker
+**Vulnerability:** Service Worker security checks for `Cache-Control: no-store` were case-sensitive and only applied during dynamic fetching, missing the installation phase (pre-caching).
+**Learning:** HTTP headers are case-insensitive. Attackers or misconfigured servers could bypass security filters using casing (e.g., `NO-STORE`). Additionally, `install` events that pre-populate the cache must be as strictly filtered as `fetch` events.
+**Prevention:** Always use `.toLowerCase()` when validating header values and ensure security mitigations are applied consistently across all Service Worker entry points, including `install` and `fetch`.
