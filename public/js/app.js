@@ -954,8 +954,9 @@ function setupTierListeners() {
             // Re-evaluate locked count since threshold changed
             const threshold = getLockThreshold();
             let newLockedCount = 0;
-            for (const key in gameState.usedCounts) {
-                if (gameState.usedCounts[key] >= threshold) {
+            const len = allStations.length;
+            for (let i = 0; i < len; i++) {
+                if ((gameState.usedCounts[allStations[i].name] || 0) >= threshold) {
                     newLockedCount++;
                 }
             }
