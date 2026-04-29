@@ -962,6 +962,9 @@ function setupTierListeners() {
                 if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
 
                 if (gameState.usedCounts[key] >= threshold) {
+            const len = allStations.length;
+            for (let i = 0; i < len; i++) {
+                if ((gameState.usedCounts[allStations[i].name] || 0) >= threshold) {
                     newLockedCount++;
                 }
             }
