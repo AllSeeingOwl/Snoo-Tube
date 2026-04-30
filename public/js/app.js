@@ -957,11 +957,6 @@ function setupTierListeners() {
             // Re-evaluate locked count since threshold changed
             const threshold = getLockThreshold();
             let newLockedCount = 0;
-            for (const key in gameState.usedCounts) {
-                // 🛡️ Sentinel: Prevent prototype pollution
-                if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
-
-                if (gameState.usedCounts[key] >= threshold) {
             const len = allStations.length;
             for (let i = 0; i < len; i++) {
                 if ((gameState.usedCounts[allStations[i].name] || 0) >= threshold) {
