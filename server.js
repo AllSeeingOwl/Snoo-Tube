@@ -89,6 +89,10 @@ app.use('/snooker/data', express.static(path.join(__dirname, 'snooker', 'data'))
 app.use('/pool', express.static(path.join(__dirname, 'pool', 'public')));
 app.use('/pool/data', express.static(path.join(__dirname, 'pool', 'data')));
 
+// Paris route
+app.use('/paris', express.static(path.join(__dirname, 'paris', 'public')));
+app.use('/paris/data', express.static(path.join(__dirname, 'paris', 'data')));
+
 
 // 🛡️ Sentinel: Generic 404 handler to prevent path disclosure and override Express default
 app.use((req, res) => {
