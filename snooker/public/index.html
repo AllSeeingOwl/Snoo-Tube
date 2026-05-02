@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snooker Tubey Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="description" content="A station tracker for the Snooker Tubey game.">
+    <!-- Referrer Policy to prevent URL leakage -->
+    <meta name="referrer" content="no-referrer">
+    <!-- Content Security Policy to prevent XSS and inline scripts -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'none'; require-trusted-types-for 'script'; form-action 'none'; upgrade-insecure-requests;">
+    <!-- iOS meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Snooker Tubey">
+</head>
+<body>
+    <header>
+        <h1>Snooker Tubey</h1>
+        <div class="header-controls">
+            <div class="tier-selector">
+                <label for="game-tier">Tier:</label>
+                <select id="game-tier" aria-controls="stations-body">
+                    <option value="Advanced">Advanced (1 use)</option>
+                    <option value="Intermediate">Intermediate (2 uses)</option>
+                    <option value="Casual">Casual (Unlimited)</option>
+                </select>
+            </div>
+            <button id="wildcard-btn" class="wildcard-btn"><span aria-hidden="true">🚇</span> Overground Wildcard</button>
+            <button id="reset-btn" class="reset-btn"><span aria-hidden="true">🔄</span> Reset Game</button>
+            <button id="how-to-play-btn" class="how-to-play-btn"><span aria-hidden="true">📖</span> How to Play</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <div class="search-input-wrapper">
+                <input type="search" id="search-input" maxlength="100" placeholder="Search station, line, or colour..." aria-label="Search stations" aria-keyshortcuts="/" aria-controls="stations-body">
+                <button type="button" id="clear-search-btn" class="clear-search-btn hidden" aria-label="Clear search" title="Clear search">&times;</button>
+                <kbd class="shortcut-hint" aria-hidden="true">/</kbd>
+            </div>
+            <div id="search-announcer" class="sr-only" aria-live="polite"></div>
+            <div class="filter-controls" role="group" aria-label="Station status filters">
+                <button class="filter-btn active" data-filter="all" aria-pressed="true" aria-controls="stations-body">All</button>
+                <button class="filter-btn" data-filter="unlocked" aria-pressed="false" aria-controls="stations-body">Unlocked</button>
+                <button class="filter-btn" data-filter="locked" aria-pressed="false" aria-controls="stations-body">Locked</button>
+            </div>
+        </section>
+
+        <section class="table-container" tabindex="0" role="region" aria-label="Stations table">
+            <table id="stations-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Station</th>
+                        <th scope="col">Lines</th>
+                        <th scope="col" class="col-colours">Colours</th>
+                        <th scope="col">Zone</th>
+                        <th scope="col">Used</th>
+                    </tr>
+                </thead>
+                <tbody id="stations-body">
+                    <!-- Stations will be populated here by JavaScript -->
+                    <tr><td colspan="5" class="loading-message">Loading stations...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Modal for Wildcard Selection -->
+    <div id="wildcard-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="wildcard-modal-title" aria-describedby="wildcard-modal-desc">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Close modal" title="Close modal">&times;</button>
+            <h2 id="wildcard-modal-title">Overground Wildcard</h2>
+            <p id="wildcard-modal-desc">Select a previously used station to unlock:</p>
+            <div class="search-input-wrapper">
+                <input type="search" id="wildcard-search" maxlength="100" placeholder="Search locked stations..." aria-label="Search locked stations" aria-controls="locked-stations-list">
+                <button type="button" id="clear-wildcard-search-btn" class="clear-search-btn hidden" aria-label="Clear wildcard search" title="Clear search">&times;</button>
+            </div>
+            <div id="wildcard-announcer" class="sr-only" aria-live="polite"></div>
+            <ul id="locked-stations-list">
+                <!-- Locked stations will populate here -->
+            </ul>
+            <button id="cancel-wildcard-btn" class="secondary-btn">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Modal for How to Play -->
+    <div id="how-to-play-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="how-to-play-modal-title">
+        <div class="modal-content how-to-play-content">
+            <button class="close-btn" aria-label="Close modal" title="Close modal">&times;</button>
+            <h2 id="how-to-play-modal-title">How to Play & Install</h2>
+            <div class="how-to-play-text" tabindex="0" role="region" aria-label="Rules and instructions">
+                <h3>What is Snooker Tubey?</h3>
+                <p>Snooker Tubey is a twist on traditional snooker, combining cue skill with geographic knowledge of London's iconic transport network. Players must call out a valid Underground, Overground, or Elizabeth Line station that corresponds with the colour of the ball potted.</p>
+
+                <h3>Basic Rules</h3>
+                <ul>
+                    <li>Pot a red, then a colour, repeat.</li>
+                    <li>After potting a colour, call out a London station matching the colour's assigned line(s).</li>
+                    <li>You have <strong>10 seconds</strong> to call a station.</li>
+                </ul>
+
+                <h3>Colour-to-Line Assignments</h3>
+                <ul class="colour-rules">
+                    <li><span class="colour-badge" style="background-color: var(--red-ball);" aria-hidden="true"></span><strong>Red:</strong> Central, Metropolitan, Weaver</li>
+                    <li><span class="colour-badge" style="background-color: var(--yellow-ball);" aria-hidden="true"></span><strong>Yellow:</strong> Circle, Lioness</li>
+                    <li><span class="colour-badge" style="background-color: var(--green-ball);" aria-hidden="true"></span><strong>Green:</strong> District, Suffragette</li>
+                    <li><span class="colour-badge" style="background-color: var(--brown-ball);" aria-hidden="true"></span><strong>Brown:</strong> Bakerloo, Windrush</li>
+                    <li><span class="colour-badge" style="background-color: var(--blue-ball);" aria-hidden="true"></span><strong>Blue:</strong> Piccadilly, Victoria</li>
+                    <li><span class="colour-badge" style="background-color: var(--pink-ball);" aria-hidden="true"></span><strong>Pink:</strong> Hammersmith & City, Elizabeth</li>
+                    <li><span class="colour-badge" style="background-color: var(--black-ball);" aria-hidden="true"></span><strong>Black:</strong> Northern, Jubilee</li>
+                </ul>
+                <p><em>Stations serving multiple lines can count for any of their associated lines.</em></p>
+
+                <h3>How to Install the App</h3>
+                <p>You can install this tracker on your device for offline use!</p>
+                <ul>
+                    <li><strong>iOS (Safari):</strong> Tap the <strong>Share</strong> button at the bottom, then scroll down and tap <strong>Add to Home Screen</strong>.</li>
+                    <li><strong>Android (Chrome):</strong> Tap the <strong>three-dot menu</strong> icon in the top right, then tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+                    <li><strong>Desktop:</strong> Look for the install icon in the URL bar of your browser.</li>
+                </ul>
+            </div>
+            <button id="close-how-to-play-btn" class="secondary-btn">Close</button>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden" role="alert" aria-live="assertive"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
