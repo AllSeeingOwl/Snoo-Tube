@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node --experimental-test-coverage --test tests/*.test.js",
+    "test": "node --experimental-test-coverage --test snooker/tests/*.test.js pool/tests/*.test.js",
     "benchmark": "node --expose-gc scripts/benchmark_memory.js"
   },
   "dependencies": {

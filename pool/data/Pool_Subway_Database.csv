@@ -1,0 +1,380 @@
+Station Name,Lines Served,Valid for Colours,Borough
+1 Av,L,Black,Manhattan
+103 St,"1, 6, B, C","Blue (Stripe), Green (Stripe), Orange (Solid), Red (Solid)",Manhattan
+103 St-Corona Plaza,7,"Purple (Solid), Purple (Stripe)",Queens
+104 St,"A, J, Z","Blue (Solid), Brown (Solid), Brown (Stripe)",Queens
+110 St,6,Green (Stripe),Manhattan
+110 St-Malcolm X Plaza,"2, 3","Red (Solid), Red (Stripe)",Manhattan
+111 St,"7, A, J","Blue (Solid), Brown (Solid), Purple (Solid), Purple (Stripe)",Queens
+116 St,"2, 3, 6, B, C","Blue (Stripe), Green (Stripe), Orange (Solid), Red (Solid), Red (Stripe)",Manhattan
+116 St-Columbia University,1,Red (Solid),Manhattan
+121 St,"J, Z","Brown (Solid), Brown (Stripe)",Queens
+125 St,"1, 2, 3, 4, 5, 6, A, B, C, D","Blue (Solid), Blue (Stripe), Green (Solid), Green (Stripe), Orange (Solid), Red (Solid), Red (Stripe)",Manhattan
+135 St,"2, 3, B, C","Blue (Stripe), Orange (Solid), Red (Solid), Red (Stripe)",Manhattan
+137 St-City College,1,Red (Solid),Manhattan
+138 St-Grand Concourse,"4, 5","Green (Solid), Green (Stripe)",Bronx
+14 St,"1, 2, 3, A, C, E, F, M","Blue (Solid), Blue (Stripe), Orange (Stripe), Red (Solid), Red (Stripe)",Manhattan
+14 St-Union Sq,"4, 5, 6, L, N, Q, R, W","Black, Green (Solid), Green (Stripe), Yellow (Solid), Yellow (Stripe)",Manhattan
+145 St,"1, 3, A, B, C, D","Blue (Solid), Blue (Stripe), Orange (Solid), Red (Solid), Red (Stripe)",Manhattan
+149 St-Grand Concourse,"2, 4, 5","Green (Solid), Green (Stripe), Red (Solid)",Bronx
+15 St-Prospect Park,"F, G","Black, Orange (Stripe)",Brooklyn
+155 St,"B, C, D","Blue (Stripe), Orange (Solid)",Manhattan
+157 St,1,Red (Solid),Manhattan
+161 St-Yankee Stadium,"4, B, D","Green (Solid), Orange (Solid)",Bronx
+163 St-Amsterdam Av,C,Blue (Stripe),Manhattan
+167 St,"4, B, D","Green (Solid), Orange (Solid)",Bronx
+168 St,"A, C","Blue (Solid), Blue (Stripe)",Manhattan
+168 St-Washington Hts,1,Red (Solid),Manhattan
+169 St,F,Orange (Stripe),Queens
+170 St,"4, B, D","Green (Solid), Orange (Solid)",Bronx
+174 St,"2, 5","Green (Stripe), Red (Solid)",Bronx
+174-175 Sts,"B, D",Orange (Solid),Bronx
+175 St,A,Blue (Solid),Manhattan
+176 St,4,Green (Solid),Bronx
+18 Av,"D, F, N","Orange (Solid), Orange (Stripe), Yellow (Solid)",Brooklyn
+18 St,1,Red (Solid),Manhattan
+181 St,"1, A","Blue (Solid), Red (Solid)",Manhattan
+182-183 Sts,"B, D",Orange (Solid),Bronx
+183 St,4,Green (Solid),Bronx
+190 St,A,Blue (Solid),Manhattan
+191 St,1,Red (Solid),Manhattan
+2 Av,F,Orange (Stripe),Manhattan
+20 Av,"D, N","Orange (Solid), Yellow (Solid)",Brooklyn
+207 St,1,Red (Solid),Manhattan
+21 St,G,Black,Queens
+21 St-Queensbridge,M,Orange (Stripe),Queens
+215 St,1,Red (Solid),Manhattan
+219 St,"2, 5","Green (Stripe), Red (Solid)",Bronx
+225 St,"2, 5","Green (Stripe), Red (Solid)",Bronx
+23 St,"1, C, E, F, M, R, W","Blue (Stripe), Orange (Stripe), Red (Solid), Yellow (Stripe)",Manhattan
+23 St-Baruch College,6,Green (Stripe),Manhattan
+231 St,1,Red (Solid),Bronx
+233 St,"2, 5","Green (Stripe), Red (Solid)",Bronx
+238 St,1,Red (Solid),Bronx
+25 Av,D,Orange (Solid),Brooklyn
+25 St,R,Yellow (Stripe),Brooklyn
+28 St,"1, 6, R, W","Green (Stripe), Red (Solid), Yellow (Stripe)",Manhattan
+3 Av,L,Black,Manhattan
+3 Av-138 St,6,Green (Stripe),Bronx
+3 Av-149 St,"2, 5","Green (Stripe), Red (Solid)",Bronx
+30 Av,"N, W","Yellow (Solid), Yellow (Stripe)",Queens
+33 St,6,Green (Stripe),Manhattan
+33 St-Rawson St,7,"Purple (Solid), Purple (Stripe)",Queens
+34 St-Herald Sq,"B, D, F, M, N, Q, R, W","Orange (Solid), Orange (Stripe), Yellow (Solid), Yellow (Stripe)",Manhattan
+34 St-Hudson Yards,7,"Purple (Solid), Purple (Stripe)",Manhattan
+34 St-Penn Station,"1, 2, 3, A, C, E","Blue (Solid), Blue (Stripe), Red (Solid), Red (Stripe)",Manhattan
+36 Av,"N, W","Yellow (Solid), Yellow (Stripe)",Queens
+36 St,"D, M, N, R","Orange (Solid), Orange (Stripe), Yellow (Solid), Yellow (Stripe)",Queens
+39 Av-Dutch Kills,"N, W","Yellow (Solid), Yellow (Stripe)",Queens
+4 Av-9 St,"F, G, R","Black, Orange (Stripe), Yellow (Stripe)",Brooklyn
+40 St-Lowery St,7,"Purple (Solid), Purple (Stripe)",Queens
+42 St-Bryant Pk,"B, D, F, M","Orange (Solid), Orange (Stripe)",Manhattan
+42 St-Port Authority Bus Terminal,"A, C, E","Blue (Solid), Blue (Stripe)",Manhattan
+45 St,R,Yellow (Stripe),Brooklyn
+46 St,"M, R","Orange (Stripe), Yellow (Stripe)",Queens
+46 St-Bliss St,7,"Purple (Solid), Purple (Stripe)",Queens
+47-50 Sts-Rockefeller Ctr,"B, D, F, M","Orange (Solid), Orange (Stripe)",Manhattan
+49 St,"N, R, W","Yellow (Solid), Yellow (Stripe)",Manhattan
+5 Av,7,"Purple (Solid), Purple (Stripe)",Manhattan
+5 Av/53 St,"E, F","Blue (Stripe), Orange (Stripe)",Manhattan
+5 Av/59 St,"N, R, W","Yellow (Solid), Yellow (Stripe)",Manhattan
+50 St,"1, C, D, E","Blue (Stripe), Orange (Solid), Red (Solid)",Manhattan
+51 St,6,Green (Stripe),Manhattan
+52 St,7,"Purple (Solid), Purple (Stripe)",Queens
+53 St,R,Yellow (Stripe),Brooklyn
+55 St,D,Orange (Solid),Brooklyn
+57 St,M,Orange (Stripe),Manhattan
+57 St-7 Av,"N, Q, R, W","Yellow (Solid), Yellow (Stripe)",Manhattan
+59 St,"4, 5, 6, N, R","Green (Solid), Green (Stripe), Yellow (Solid), Yellow (Stripe)",Manhattan
+59 St-Columbus Circle,"1, A, B, C, D","Blue (Solid), Blue (Stripe), Orange (Solid), Red (Solid)",Manhattan
+6 Av,L,Black,Manhattan
+61 St-Woodside,7,"Purple (Solid), Purple (Stripe)",Queens
+62 St,D,Orange (Solid),Brooklyn
+63 Dr-Rego Park,"M, R","Orange (Stripe), Yellow (Stripe)",Queens
+65 St,"M, R","Orange (Stripe), Yellow (Stripe)",Queens
+66 St-Lincoln Center,1,Red (Solid),Manhattan
+67 Av,"M, R","Orange (Stripe), Yellow (Stripe)",Queens
+68 St-Hunter College,6,Green (Stripe),Manhattan
+69 St,7,"Purple (Solid), Purple (Stripe)",Queens
+7 Av,"B, D, E, F, G, Q","Black, Blue (Stripe), Orange (Solid), Orange (Stripe), Yellow (Solid)",Manhattan
+71 St,D,Orange (Solid),Brooklyn
+72 St,"1, 2, 3, B, C, Q","Blue (Stripe), Orange (Solid), Red (Solid), Red (Stripe), Yellow (Solid)",Manhattan
+74 St-Broadway,7,"Purple (Solid), Purple (Stripe)",Queens
+75 Av,"E, F","Blue (Stripe), Orange (Stripe)",Queens
+75 St-Elderts Ln,"J, Z","Brown (Solid), Brown (Stripe)",Queens
+77 St,"6, R","Green (Stripe), Yellow (Stripe)",Brooklyn
+79 St,"1, D","Orange (Solid), Red (Solid)",Brooklyn
+8 Av,"L, N","Black, Yellow (Solid)",Brooklyn
+8 St-NYU,"R, W",Yellow (Stripe),Manhattan
+80 St,A,Blue (Solid),Queens
+81 St-Museum of Natural History,"B, C","Blue (Stripe), Orange (Solid)",Manhattan
+82 St-Jackson Hts,7,"Purple (Solid), Purple (Stripe)",Queens
+85 St-Forest Pkwy,J,Brown (Solid),Queens
+86 St,"1, 4, 5, 6, B, C, N, Q, R","Blue (Stripe), Green (Solid), Green (Stripe), Orange (Solid), Red (Solid), Yellow (Solid), Yellow (Stripe)",Manhattan
+88 St,A,Blue (Solid),Queens
+9 Av,D,Orange (Solid),Brooklyn
+90 St-Elmhurst Av,7,"Purple (Solid), Purple (Stripe)",Queens
+96 St,"1, 2, 3, 6, B, C, Q","Blue (Stripe), Green (Stripe), Orange (Solid), Red (Solid), Red (Stripe), Yellow (Solid)",Manhattan
+Alabama Av,"J, Z","Brown (Solid), Brown (Stripe)",Brooklyn
+Allerton Av,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Annadale,SIR,Wildcard,Staten Island
+Aqueduct Racetrack,A,Blue (Solid),Queens
+Aqueduct-N Conduit Av,A,Blue (Solid),Queens
+Arthur Kill,SIR,Wildcard,Staten Island
+Astor Pl,6,Green (Stripe),Manhattan
+Astoria Blvd,"N, W","Yellow (Solid), Yellow (Stripe)",Queens
+Astoria-Ditmars Blvd,"N, W","Yellow (Solid), Yellow (Stripe)",Queens
+Atlantic Av,L,Black,Brooklyn
+Atlantic Av-Barclays Ctr,"2, 3, 4, 5, B, D, N, Q, R","Green (Solid), Green (Stripe), Orange (Solid), Red (Solid), Red (Stripe), Yellow (Solid), Yellow (Stripe)",Brooklyn
+Avenue H,Q,Yellow (Solid),Brooklyn
+Avenue I,F,Orange (Stripe),Brooklyn
+Avenue J,Q,Yellow (Solid),Brooklyn
+Avenue M,Q,Yellow (Solid),Brooklyn
+Avenue N,F,Orange (Stripe),Brooklyn
+Avenue P,F,Orange (Stripe),Brooklyn
+Avenue U,"F, N, Q","Orange (Stripe), Yellow (Solid)",Brooklyn
+Avenue X,F,Orange (Stripe),Brooklyn
+Bay 50 St,D,Orange (Solid),Brooklyn
+Bay Pkwy,"D, F, N","Orange (Solid), Orange (Stripe), Yellow (Solid)",Brooklyn
+Bay Ridge Av,R,Yellow (Stripe),Brooklyn
+Bay Ridge-95 St,R,Yellow (Stripe),Brooklyn
+Bay Terrace,SIR,Wildcard,Staten Island
+Baychester Av,5,Green (Stripe),Bronx
+Beach 105 St,"A, S","Blue (Solid), Wildcard",Queens
+Beach 25 St,A,Blue (Solid),Queens
+Beach 36 St,A,Blue (Solid),Queens
+Beach 44 St,A,Blue (Solid),Queens
+Beach 60 St,A,Blue (Solid),Queens
+Beach 67 St,A,Blue (Solid),Queens
+Beach 90 St,"A, S","Blue (Solid), Wildcard",Queens
+Beach 98 St,"A, S","Blue (Solid), Wildcard",Queens
+Bedford Av,L,Black,Brooklyn
+Bedford Park Blvd,"B, D",Orange (Solid),Bronx
+Bedford Park Blvd-Lehman College,4,Green (Solid),Bronx
+Bedford-Nostrand Avs,G,Black,Brooklyn
+Bergen St,"2, 3, F, G","Black, Orange (Stripe), Red (Solid), Red (Stripe)",Brooklyn
+Beverley Rd,Q,Yellow (Solid),Brooklyn
+Beverly Rd,"2, 5","Green (Stripe), Red (Solid)",Brooklyn
+Bleecker St,6,Green (Stripe),Manhattan
+Borough Hall,"2, 3, 4, 5","Green (Solid), Green (Stripe), Red (Solid), Red (Stripe)",Brooklyn
+Botanic Garden,S,Wildcard,Brooklyn
+Bowery,"J, Z","Brown (Solid), Brown (Stripe)",Manhattan
+Bowling Green,"4, 5","Green (Solid), Green (Stripe)",Manhattan
+Briarwood,"E, F","Blue (Stripe), Orange (Stripe)",Queens
+Brighton Beach,"B, Q","Orange (Solid), Yellow (Solid)",Brooklyn
+Broad Channel,"A, S","Blue (Solid), Wildcard",Queens
+Broad St,"J, Z","Brown (Solid), Brown (Stripe)",Manhattan
+Broadway Junction,"A, C, J, L, Z","Black, Blue (Solid), Blue (Stripe), Brown (Solid), Brown (Stripe)",Brooklyn
+Broadway,"G, N, W","Black, Yellow (Solid), Yellow (Stripe)",Brooklyn
+Broadway-Lafayette St,"B, D, F, M","Orange (Solid), Orange (Stripe)",Manhattan
+Bronx Park East,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Brook Av,6,Green (Stripe),Bronx
+Brooklyn Bridge-City Hall,"4, 5, 6","Green (Solid), Green (Stripe)",Manhattan
+Buhre Av,6,Green (Stripe),Bronx
+Burke Av,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Burnside Av,4,Green (Solid),Bronx
+Bushwick Av-Aberdeen St,L,Black,Brooklyn
+Canal St,"1, 6, A, C, E, J, N, Q, R, W, Z","Blue (Solid), Blue (Stripe), Brown (Solid), Brown (Stripe), Green (Stripe), Red (Solid), Yellow (Solid), Yellow (Stripe)",Manhattan
+Canarsie-Rockaway Pkwy,L,Black,Brooklyn
+Carroll St,"F, G","Black, Orange (Stripe)",Brooklyn
+Castle Hill Av,6,Green (Stripe),Bronx
+Cathedral Pkwy (110 St),"1, B, C","Blue (Stripe), Orange (Solid), Red (Solid)",Manhattan
+Central Av,M,Orange (Stripe),Brooklyn
+Chambers St,"1, 2, 3, A, C, J, Z","Blue (Solid), Blue (Stripe), Brown (Solid), Brown (Stripe), Red (Solid), Red (Stripe)",Manhattan
+Chauncey St,"J, Z","Brown (Solid), Brown (Stripe)",Brooklyn
+Christopher St-Stonewall,1,Red (Solid),Manhattan
+Church Av,"2, 5, B, F, G, Q","Black, Green (Stripe), Orange (Solid), Orange (Stripe), Red (Solid), Yellow (Solid)",Brooklyn
+City Hall,"R, W",Yellow (Stripe),Manhattan
+Clark St,"2, 3","Red (Solid), Red (Stripe)",Brooklyn
+Classon Av,G,Black,Brooklyn
+Cleveland St,J,Brown (Solid),Brooklyn
+Clifton,SIR,Wildcard,Staten Island
+Clinton-Washington Avs,"C, G","Black, Blue (Stripe)",Brooklyn
+Coney Island-Stillwell Av,"D, F, N, Q","Orange (Solid), Orange (Stripe), Yellow (Solid)",Brooklyn
+Cortelyou Rd,Q,Yellow (Solid),Brooklyn
+Cortlandt St,"R, W",Yellow (Stripe),Manhattan
+Court Sq,"7, G","Black, Purple (Solid), Purple (Stripe)",Queens
+Court Sq-23 St,"E, F","Blue (Stripe), Orange (Stripe)",Queens
+Court St,R,Yellow (Stripe),Brooklyn
+Crescent St,"J, Z","Brown (Solid), Brown (Stripe)",Brooklyn
+Crown Hts-Utica Av,"3, 4","Green (Solid), Red (Stripe)",Brooklyn
+Cypress Av,6,Green (Stripe),Bronx
+Cypress Hills,J,Brown (Solid),Brooklyn
+DeKalb Av,"B, L, Q, R","Black, Orange (Solid), Yellow (Solid), Yellow (Stripe)",Brooklyn
+Delancey St-Essex St,"F, J, M, Z","Brown (Solid), Brown (Stripe), Orange (Stripe)",Manhattan
+Ditmas Av,F,Orange (Stripe),Brooklyn
+Dongan Hills,SIR,Wildcard,Staten Island
+Dyckman St,"1, A","Blue (Solid), Red (Solid)",Manhattan
+E 143 St-St Mary's St,6,Green (Stripe),Bronx
+E 149 St,6,Green (Stripe),Bronx
+E 180 St,"2, 5","Green (Stripe), Red (Solid)",Bronx
+East 105 St,L,Black,Brooklyn
+East Broadway,F,Orange (Stripe),Manhattan
+Eastchester-Dyre Av,5,Green (Stripe),Bronx
+Eastern Pkwy-Brooklyn Museum,"2, 3","Red (Solid), Red (Stripe)",Brooklyn
+Elder Av,6,Green (Stripe),Bronx
+Elmhurst Av,"M, R","Orange (Stripe), Yellow (Stripe)",Queens
+Eltingville,SIR,Wildcard,Staten Island
+Euclid Av,"A, C","Blue (Solid), Blue (Stripe)",Brooklyn
+Far Rockaway-Mott Av,A,Blue (Solid),Queens
+Flatbush Av-Brooklyn College,"2, 5","Green (Stripe), Red (Solid)",Brooklyn
+Flushing Av,"G, J, M","Black, Brown (Solid), Orange (Stripe)",Brooklyn
+Flushing-Main St,7,"Purple (Solid), Purple (Stripe)",Queens
+Fordham Rd,"4, B, D","Green (Solid), Orange (Solid)",Bronx
+Forest Av,M,Orange (Stripe),Queens
+Forest Hills-71 Av,"E, F, M, R","Blue (Stripe), Orange (Stripe), Yellow (Stripe)",Queens
+Fort Hamilton Pkwy,"D, F, G, N","Black, Orange (Solid), Orange (Stripe), Yellow (Solid)",Brooklyn
+Franklin Av,"C, S","Blue (Stripe), Wildcard",Brooklyn
+Franklin Av-Medgar Evers College,"2, 3, 4, 5","Green (Solid), Green (Stripe), Red (Solid), Red (Stripe)",Brooklyn
+Franklin St,1,Red (Solid),Manhattan
+Freeman St,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Fresh Pond Rd,M,Orange (Stripe),Queens
+Fulton St,"2, 3, 4, 5, A, C, G, J, Z","Black, Blue (Solid), Blue (Stripe), Brown (Solid), Brown (Stripe), Green (Solid), Green (Stripe), Red (Solid), Red (Stripe)",Manhattan
+Gates Av,"J, Z","Brown (Solid), Brown (Stripe)",Brooklyn
+Graham Av,L,Black,Brooklyn
+Grand Army Plaza,"2, 3","Red (Solid), Red (Stripe)",Brooklyn
+Grand Av-Newtown,"M, R","Orange (Stripe), Yellow (Stripe)",Queens
+Grand Central-42 St,"4, 5, 6, 7, S","Green (Solid), Green (Stripe), Purple (Solid), Purple (Stripe), Wildcard",Manhattan
+Grand St,"B, D, L","Black, Orange (Solid)",Brooklyn
+Grant Av,A,Blue (Solid),Brooklyn
+Grant City,SIR,Wildcard,Staten Island
+Grasmere,SIR,Wildcard,Staten Island
+Great Kills,SIR,Wildcard,Staten Island
+Greenpoint Av,G,Black,Brooklyn
+Gun Hill Rd,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Halsey St,"J, L","Black, Brown (Solid)",Queens
+Harlem-148 St,3,Red (Stripe),Manhattan
+Hewes St,"J, M","Brown (Solid), Orange (Stripe)",Brooklyn
+High St,"A, C","Blue (Solid), Blue (Stripe)",Brooklyn
+Houston St,1,Red (Solid),Manhattan
+Howard Beach-JFK Airport,A,Blue (Solid),Queens
+Hoyt St,"2, 3","Red (Solid), Red (Stripe)",Brooklyn
+Hoyt-Schermerhorn Sts,"A, C, G","Black, Blue (Solid), Blue (Stripe)",Brooklyn
+Huguenot,SIR,Wildcard,Staten Island
+Hunters Point Av,7,"Purple (Solid), Purple (Stripe)",Queens
+Hunts Point Av,6,Green (Stripe),Bronx
+Intervale Av,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Inwood-207 St,A,Blue (Solid),Manhattan
+Jackson Av,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Jackson Hts-Roosevelt Av,"E, F, M, R","Blue (Stripe), Orange (Stripe), Yellow (Stripe)",Queens
+Jamaica Center-Parsons/Archer,"E, J, Z","Blue (Stripe), Brown (Solid), Brown (Stripe)",Queens
+Jamaica-179 St,F,Orange (Stripe),Queens
+Jamaica-Van Wyck,E,Blue (Stripe),Queens
+Jay St-MetroTech,"A, C, F, R","Blue (Solid), Blue (Stripe), Orange (Stripe), Yellow (Stripe)",Brooklyn
+Jefferson Av,SIR,Wildcard,Staten Island
+Jefferson St,L,Black,Brooklyn
+Junction Blvd,7,"Purple (Solid), Purple (Stripe)",Queens
+Junius St,3,Red (Stripe),Brooklyn
+Kew Gardens-Union Tpke,"E, F","Blue (Stripe), Orange (Stripe)",Queens
+Kings Hwy,"B, F, N, Q","Orange (Solid), Orange (Stripe), Yellow (Solid)",Brooklyn
+Kingsbridge Rd,"4, B, D","Green (Solid), Orange (Solid)",Bronx
+Kingston Av,3,Red (Stripe),Brooklyn
+Kingston-Throop Avs,C,Blue (Stripe),Brooklyn
+Knickerbocker Av,M,Orange (Stripe),Brooklyn
+Kosciuszko St,J,Brown (Solid),Brooklyn
+Lafayette Av,C,Blue (Stripe),Brooklyn
+Lexington Av/53 St,"E, F","Blue (Stripe), Orange (Stripe)",Manhattan
+Lexington Av/59 St,"N, R, W","Yellow (Solid), Yellow (Stripe)",Manhattan
+Lexington Av/63 St,"M, Q","Orange (Stripe), Yellow (Solid)",Manhattan
+Liberty Av,C,Blue (Stripe),Brooklyn
+Livonia Av,L,Black,Brooklyn
+Longwood Av,6,Green (Stripe),Bronx
+Lorimer St,"J, L, M","Black, Brown (Solid), Orange (Stripe)",Brooklyn
+Marble Hill-225 St,1,Red (Solid),Manhattan
+Marcy Av,"J, M, Z","Brown (Solid), Brown (Stripe), Orange (Stripe)",Brooklyn
+Metropolitan Av,G,Black,Brooklyn
+Mets-Willets Point,7,"Purple (Solid), Purple (Stripe)",Queens
+Middle Village-Metropolitan Av,M,Orange (Stripe),Queens
+Middletown Rd,6,Green (Stripe),Bronx
+Montrose Av,L,Black,Brooklyn
+Morgan Av,L,Black,Brooklyn
+Morris Park,5,Green (Stripe),Bronx
+Morrison Av-Soundview,6,Green (Stripe),Bronx
+Mosholu Pkwy,4,Green (Solid),Bronx
+Mt Eden Av,4,Green (Solid),Bronx
+Myrtle Av,"J, M, Z","Brown (Solid), Brown (Stripe), Orange (Stripe)",Brooklyn
+Myrtle-Willoughby Avs,G,Black,Brooklyn
+Myrtle-Wyckoff Avs,"L, M","Black, Orange (Stripe)",Brooklyn
+Nassau Av,G,Black,Brooklyn
+Neck Rd,Q,Yellow (Solid),Brooklyn
+Neptune Av,F,Orange (Stripe),Brooklyn
+Nereid Av,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Nevins St,"2, 3, 4, 5","Green (Solid), Green (Stripe), Red (Solid), Red (Stripe)",Brooklyn
+New Dorp,SIR,Wildcard,Staten Island
+New Lots Av,"3, L","Black, Red (Stripe)",Brooklyn
+New Utrecht Av,N,Yellow (Solid),Brooklyn
+Newkirk Av-Little Haiti,"2, 5","Green (Stripe), Red (Solid)",Brooklyn
+Newkirk Plaza,"B, Q","Orange (Solid), Yellow (Solid)",Brooklyn
+Northern Blvd,"M, R","Orange (Stripe), Yellow (Stripe)",Queens
+Norwood Av,"J, Z","Brown (Solid), Brown (Stripe)",Brooklyn
+Norwood-205 St,D,Orange (Solid),Bronx
+Nostrand Av,"3, A, C","Blue (Solid), Blue (Stripe), Red (Stripe)",Brooklyn
+Oakwood Heights,SIR,Wildcard,Staten Island
+Ocean Pkwy,Q,Yellow (Solid),Brooklyn
+Old Town,SIR,Wildcard,Staten Island
+Ozone Park-Lefferts Blvd,A,Blue (Solid),Queens
+Park Pl,S,Wildcard,Brooklyn
+Park Place,"2, 3","Red (Solid), Red (Stripe)",Manhattan
+Parkchester,6,Green (Stripe),Bronx
+Parkside Av,Q,Yellow (Solid),Brooklyn
+Parsons Blvd,F,Orange (Stripe),Queens
+Pelham Bay Park,6,Green (Stripe),Bronx
+Pelham Pkwy,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Pennsylvania Av,3,Red (Stripe),Brooklyn
+Pleasant Plains,SIR,Wildcard,Staten Island
+President St-Medgar Evers College,"2, 5","Green (Stripe), Red (Solid)",Brooklyn
+Prince St,"R, W",Yellow (Stripe),Manhattan
+Prince's Bay,SIR,Wildcard,Staten Island
+Prospect Av,"2, 5, R","Green (Stripe), Red (Solid), Yellow (Stripe)",Bronx
+Prospect Park,"B, Q, S","Orange (Solid), Wildcard, Yellow (Solid)",Brooklyn
+Queens Plaza,"E, F, R","Blue (Stripe), Orange (Stripe), Yellow (Stripe)",Queens
+Queensboro Plaza,"7, N, W","Purple (Solid), Purple (Stripe), Yellow (Solid), Yellow (Stripe)",Queens
+Ralph Av,C,Blue (Stripe),Brooklyn
+Rector St,"1, R, W","Red (Solid), Yellow (Stripe)",Manhattan
+Richmond Valley,SIR,Wildcard,Staten Island
+Rockaway Av,"3, C","Blue (Stripe), Red (Stripe)",Brooklyn
+Rockaway Blvd,A,Blue (Solid),Queens
+Rockaway Park-Beach 116 St,"A, S","Blue (Solid), Wildcard",Queens
+Roosevelt Island,M,Orange (Stripe),Manhattan
+Saratoga Av,3,Red (Stripe),Brooklyn
+Seneca Av,M,Orange (Stripe),Queens
+Sheepshead Bay,"B, Q","Orange (Solid), Yellow (Solid)",Brooklyn
+Shepherd Av,C,Blue (Stripe),Brooklyn
+Simpson St,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Smith-9 Sts,"F, G","Black, Orange (Stripe)",Brooklyn
+South Ferry,1,Red (Solid),Manhattan
+Spring St,"6, C, E","Blue (Stripe), Green (Stripe)",Manhattan
+St George,SIR,Wildcard,Staten Island
+St Lawrence Av,6,Green (Stripe),Bronx
+Stapleton,SIR,Wildcard,Staten Island
+Steinway St,"M, R","Orange (Stripe), Yellow (Stripe)",Queens
+Sterling St,"2, 5","Green (Stripe), Red (Solid)",Brooklyn
+Sutphin Blvd,F,Orange (Stripe),Queens
+Sutphin Blvd-Archer Av-JFK Airport,"E, J, Z","Blue (Stripe), Brown (Solid), Brown (Stripe)",Queens
+Sutter Av,L,Black,Brooklyn
+Sutter Av-Rutland Rd,3,Red (Stripe),Brooklyn
+Times Sq-42 St,"1, 2, 3, 7, N, Q, R, S, W","Purple (Solid), Purple (Stripe), Red (Solid), Red (Stripe), Wildcard, Yellow (Solid), Yellow (Stripe)",Manhattan
+Tompkinsville,SIR,Wildcard,Staten Island
+Tottenville,SIR,Wildcard,Staten Island
+Tremont Av,"B, D",Orange (Solid),Bronx
+Union St,R,Yellow (Stripe),Brooklyn
+Utica Av,"A, C","Blue (Solid), Blue (Stripe)",Brooklyn
+Van Cortlandt Park-242 St,1,Red (Solid),Bronx
+Van Siclen Av,"3, C, J, Z","Blue (Stripe), Brown (Solid), Brown (Stripe), Red (Stripe)",Brooklyn
+Vernon Blvd-Jackson Av,7,"Purple (Solid), Purple (Stripe)",Queens
+W 4 St-Wash Sq,"A, B, C, D, E, F, M","Blue (Solid), Blue (Stripe), Orange (Solid), Orange (Stripe)",Manhattan
+W 8 St-NY Aquarium,"F, Q","Orange (Stripe), Yellow (Solid)",Brooklyn
+WTC Cortlandt,1,Red (Solid),Manhattan
+Wakefield-241 St,2,Red (Solid),Bronx
+Wall St,"2, 3, 4, 5","Green (Solid), Green (Stripe), Red (Solid), Red (Stripe)",Manhattan
+West Farms Sq-E Tremont Av,"2, 5","Green (Stripe), Red (Solid)",Bronx
+Westchester Sq-E Tremont Av,6,Green (Stripe),Bronx
+Whitehall St-South Ferry,"R, W",Yellow (Stripe),Manhattan
+Whitlock Av,6,Green (Stripe),Bronx
+Wilson Av,L,Black,Brooklyn
+Winthrop St,"2, 5","Green (Stripe), Red (Solid)",Brooklyn
+Woodhaven Blvd,"J, M, R, Z","Brown (Solid), Brown (Stripe), Orange (Stripe), Yellow (Stripe)",Queens
+Woodlawn,4,Green (Solid),Bronx
+World Trade Center,E,Blue (Stripe),Manhattan
+York St,F,Orange (Stripe),Brooklyn
+Zerega Av,6,Green (Stripe),Bronx

@@ -6,7 +6,7 @@ const ASSETS = [
     './css/styles.css',
     './js/app.js',
     './manifest.json',
-    '../data/Snooker Tubey Database.csv'
+    './data/Snooker Tubey Database.csv'
 ];
 
 // Install Event
