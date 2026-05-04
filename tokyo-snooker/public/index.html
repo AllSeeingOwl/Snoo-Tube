@@ -36,7 +36,7 @@
     </header>
 
     <main>
-        <section class="search-section">
+        <section class="search-section" aria-label="Search and filter stations">
             <div class="search-input-wrapper">
                 <input type="search" id="search-input" maxlength="100" placeholder="Search station, line, or colour..." aria-label="Search stations" aria-keyshortcuts="/" aria-controls="stations-body">
                 <button type="button" id="clear-search-btn" class="clear-search-btn hidden" aria-label="Clear search" title="Clear search">&times;</button>
@@ -52,6 +52,7 @@
 
         <section class="table-container" tabindex="0" role="region" aria-label="Stations table">
             <table id="stations-table">
+                <caption class="sr-only">List of stations and their uses</caption>
                 <thead>
                     <tr>
                         <th scope="col">Station</th>

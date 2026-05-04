@@ -9,11 +9,13 @@
         h1 { margin-bottom: 2rem; }
         .menu { display: flex; gap: 2rem; }
         .card { background: #333; padding: 2rem; border-radius: 8px; text-decoration: none; color: white; text-align: center; transition: transform 0.2s; width: 200px; }
-        .card:hover { transform: scale(1.05); background: #444; }
+        .card:hover,
+        .card:focus-visible { transform: scale(1.05); background: #444; outline: 2px solid white; outline-offset: 4px; }
         .card h2 { margin-top: 0; }
     </style>
 </head>
 <body>
+    <main>
     <h1>Select Your Game</h1>
     <div class="menu" style="flex-wrap: wrap; justify-content: center; max-width: 800px;">
         <a href="/snooker" class="card">
@@ -37,5 +39,6 @@
             <p>Tokyo Subway & 8-Ball rules.</p>
         </a>
     </div>
+    </main>
 </body>
 </html>
