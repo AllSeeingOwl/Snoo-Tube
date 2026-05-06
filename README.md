@@ -1,104 +1,80 @@
-# How to Play Snooker Tubey & Use the Tracker App
+# Station Tracker Apps Hub
 
-## What is Snooker Tubey?
-Snooker Tubey is a twist on traditional snooker, combining cue skill with geographic knowledge of London's iconic transport network. Players must call out a valid Underground, Overground, or Elizabeth Line station that corresponds with the colour of the ball potted, based on the official Tube map.
+This repository contains a collection of web-based companion tracker apps for various twists on traditional cue sports (snooker and pool), combining them with geographic knowledge of iconic public transport networks around the world.
 
-## How to Play
+## The Global Hub
 
-### 1. Basic Gameplay Integration
-* Play proceeds as in standard snooker: pot a red, then a colour, repeat.
-* After each coloured ball is potted, the player must immediately call out a London station that matches the colour's assigned line(s) according to the rules below.
-* Stations can only be used once per game (unless modified by Tiering or Wildcard rules).
-  * A valid station must be on the official TfL map and match the colour rules.
-  * Players have **10 seconds** to call a station after potting a colour; failure results in a forfeit of that shot's points and the end of their turn.
+The repository serves a global Hub menu from the root path (`public/index.html`), allowing you to easily navigate between the different game modes available.
 
-### 2. Colour-to-Line Assignments
-| Ball Colour | Primary Line(s) | Backup Line(s) |
-| :--- | :--- | :--- |
-| **Red** | Central | Metropolitan & Weaver |
-| **Yellow** | Circle | Lioness |
-| **Green** | District | Suffragette |
-| **Brown** | Bakerloo | Windrush |
-| **Blue** | Piccadilly | Victoria |
-| **Pink** | Hammersmith & City | Elizabeth |
-| **Black** | Northern | Jubilee |
+## Available Games
 
-* **Overground Lines:** Distributed across multiple colours to increase flexibility. Note the specific branches assigned.
-* **Interchanges:** Stations serving multiple lines can count for *any* of their associated lines, provided the line matches the colour potted.
+The repository currently includes five main game variants, each hosted in its own directory:
 
-### 3. Station Usage Rules
-* Once a station is called correctly, it is "locked" and cannot be reused (unless modified by Wildcard rules or Station Reuse Tiering).
-* **Valid stations must:**
-  * Be currently active on the official TfL map.
-  * Fall within Zones 1-6 (optional house rule).
-  * Match the colour line(s) associated with the ball potted (see Section 2).
-* **Incorrect station call** (e.g., wrong line, already used, not on TfL map, out of time) results in:
-  * 4-point penalty **OR**
-  * Ball-in-hand for opponent (decide as a house rule before starting).
-  * The player's turn ends.
+### 1. Snooker Tubey (London Underground)
+* **Location:** `snooker/`
+* **Game Type:** Snooker
+* **Concept:** Call out a valid London Underground, Overground, or Elizabeth Line station matching the colour of the ball potted.
 
-### 4. Advanced Options
-* **Station Reuse Tiering:**
-  * *Casual:* Stations are reusable.
-  * *Intermediate:* Each station may be used twice per game.
-  * *Advanced:* Strict one-time use per station per game.
-* **Out-of-Stations Rule:**
-  * If a player believes no valid, unused stations remain for a required line, they may:
-    * Use a station from an assigned Backup Line for that colour, **OR**
-    * Call an Interchange station that serves the required line (even if primarily known for other lines).
-    * If challenged and incorrect, the standard penalty applies. If correct, play continues.
-* **Overground Wildcard Feature (Optional):**
-  * Once per game, immediately after potting *any* coloured ball, a player may choose to call out a station on *any* **London Overground** line (regardless of the colour potted).
-  * If the Overground station call is valid, they **unlock one previously used station**, making it available to be called again later in the game by either player. The player must declare which station is being unlocked.
-  * This wildcard call replaces the standard requirement to name a station matching the potted colour for that shot. Points for the potted ball are still scored.
-* **Scoring Modifier (Optional):**
-  * +1 bonus point for naming a Zone 1 station.
-  * +2 bonus points for naming an interchange station served by 3 or more lines (Underground, Overground, DLR, Elizabeth Line).
+### 2. Pool Subway (New York Subway)
+* **Location:** `pool/`
+* **Game Type:** Pool (8-Ball/9-Ball)
+* **Concept:** Call out a valid New York Subway station matching the line colour associated with the solid or stripe ball being played.
 
-## How to Use the Tracker App
+### 3. Paris Pool (Paris Metro)
+* **Location:** `paris/`
+* **Game Type:** Pool (8-Ball/9-Ball)
+* **Concept:** Call out a valid Paris Metro station that matches the colour of the ball being potted.
 
-The **Snooker Tubey Tracker** is a web-based companion app designed to help you keep track of stations as you play.
+### 4. Tokyo Snooker (Tokyo Subway)
+* **Location:** `tokyo-snooker/`
+* **Game Type:** Snooker
+* **Concept:** Call out a valid Tokyo Subway station matching the colour of the ball potted.
 
-### Core Features
-- **Search & Filter:** Instantly search for stations by name, line, or colour.
-- **Difficulty Tiers:** Seamlessly switch between Advanced (1 use), Intermediate (2 uses), and Casual (Unlimited uses) rules. The app will automatically lock stations based on your tier.
-- **Locking Stations:** When a valid station is called, find it in the list and click "Record Use". It will automatically be locked and greyed out based on the tier rules.
-- **Overground Wildcard:** Easily unlock previously used stations using the built-in wildcard button.
-- **Offline Support:** Built as a Progressive Web App (PWA). You can install it on your mobile device and use it without an internet connection.
-- **Data Persistence:** Your current game state is automatically saved to your device's local storage so you won't lose your progress if you refresh the page.
+### 5. Tokyo Pool (Tokyo Subway)
+* **Location:** `tokyo-pool/`
+* **Game Type:** Pool (8-Ball/9-Ball)
+* **Concept:** Call out a valid Tokyo Subway station matching the line colour of the solid or stripe ball being played.
 
-## How to Install the App
+## Common Gameplay Rules
 
-### Running Locally on Your Computer
-Because the app needs to load the `.csv` file database and register a Service Worker, you must run it through a local web server (you cannot simply double-click the `index.html` file).
+While each city has its specific transport map, the core concept remains the same across all variants:
+* Players must call out a valid station that corresponds with the colour of the ball being potted.
+* The station must be currently active on the official transport map for that city.
+* A station can only be used once per game (unless modified by difficulty tiers or wildcard rules).
+* Players have a set time limit (typically 10 seconds) to call a station after a ball is potted.
 
-If you have Node.js and `pnpm` installed, you can easily start a server:
+## Tracker App Features
 
-1. Open your terminal/command prompt.
-2. Navigate to the root folder of this project.
-3. Install dependencies by running:
+Each game variant comes with its own Progressive Web App (PWA) tracker to help players manage the game state:
+* **Search & Filter:** Instantly search for stations by name, line, or colour.
+* **Difficulty Tiers:** Switch between Advanced (1 use), Intermediate (2 uses), and Casual (Unlimited uses) rules. The app automatically locks stations based on the active tier.
+* **Locking Stations:** Record a valid station use. The app grays it out and locks it based on the tier rules.
+* **Wildcard Features:** Unique wildcard mechanics (e.g., London Overground in Snooker Tubey) to unlock previously used stations.
+* **Offline Support:** Installable as a PWA for fully offline use.
+* **Data Persistence:** Game state is saved automatically to the device's local storage to prevent progress loss on refresh.
+
+## How to Run Locally
+
+To run the apps locally (which is required to load the station data databases and register Service Workers), you need Node.js and `pnpm`.
+
+1. Install dependencies:
    ```bash
    pnpm install
    ```
-4. Start the server by running:
+
+2. Start the Express server:
    ```bash
    pnpm start
    ```
-   *(Or `node server.js`).*
-5. Open your web browser and go to `http://localhost:3000/`.
 
-### Installing on Mobile for Offline Use
-You can add this app to your mobile device's home screen. Once added, it will behave like a native app and will work perfectly even when you have no internet connection.
+3. Open your web browser and navigate to: `http://localhost:3000/`
 
-#### For iOS (Safari):
-1. Host the app online (e.g., using GitHub Pages, Netlify, or Vercel), or navigate to the hosted URL on your iPhone/iPad.
-2. Tap the **Share** button (the square with an arrow pointing up) at the bottom of the screen.
-3. Scroll down the share sheet and tap **Add to Home Screen**.
-4. Confirm the name and tap **Add**. The app icon will now appear on your home screen.
+You will see the global Hub menu, from which you can launch any of the individual tracker apps.
 
-#### For Android (Chrome):
-1. Host the app online, or navigate to the hosted URL on your Android device.
-2. You may see a prompt at the bottom of the screen asking to "Add Snooker Tubey to Home screen". If so, tap it.
-3. If the prompt doesn't appear, tap the three-dot menu icon in the top right corner.
-4. Tap **Install app** or **Add to Home screen**.
-5. Follow the on-screen instructions.
+## Running Tests
+
+To run the full test suite and check code test coverage (across all game variants), use the following command:
+
+```bash
+pnpm test
+```
