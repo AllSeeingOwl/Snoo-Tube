@@ -35,6 +35,10 @@ let howToPlayBtn;
 let howToPlayModal;
 let closeHowToPlayBtn;
 
+// ⚡ Performance optimization: Cache focusable elements for modals to avoid repeated querySelectorAll in focus trap
+let wildcardFocusableElements = [];
+let howToPlayFocusableElements = [];
+
 // Templates
 let stationRowTemplate;
 
@@ -814,6 +818,9 @@ function renderWildcardList(stations) {
 
         // ⚡ Performance optimization: Use replaceChildren instead of textContent='' followed by appendChild
         lockedStationsList.replaceChildren(emptyLi);
+
+        // ⚡ Performance optimization: Cache focusable elements when list updates
+        wildcardFocusableElements = getFocusableElements(wildcardModal);
         return;
     }
 
@@ -846,6 +853,9 @@ function renderWildcardList(stations) {
     }
     // ⚡ Performance optimization: Use replaceChildren instead of textContent='' followed by appendChild
     lockedStationsList.replaceChildren(fragment);
+
+    // ⚡ Performance optimization: Cache focusable elements when list updates
+    wildcardFocusableElements = getFocusableElements(wildcardModal);
 }
 
 function unlockStation(stationName) {
@@ -896,12 +906,21 @@ function openHowToPlayModal() {
     if (howToPlayModal) {
         howToPlayModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+
+        // ⚡ Performance optimization: Cache focusable elements when modal opens
+        howToPlayFocusableElements = getFocusableElements(howToPlayModal);
+
         const topCloseBtn = howToPlayModal.querySelector('.close-btn');
         if (topCloseBtn) topCloseBtn.focus();
     }
 }
 
 // Utilities
+function getFocusableElements(container) {
+    if (!container) return [];
+    return Array.from(container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'));
+}
+
 function debounce(func, wait) {
     let timeout;
     return function (...args) {
@@ -1137,7 +1156,8 @@ function setupModalListeners() {
     if (wildcardModal) {
         wildcardModal.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
-                const focusableElements = wildcardModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                // ⚡ Performance optimization: Use cached focusable elements
+                const focusableElements = wildcardFocusableElements;
                 if (focusableElements.length === 0) return;
 
                 const firstElement = focusableElements[0];
@@ -1161,7 +1181,8 @@ function setupModalListeners() {
     if (howToPlayModal) {
         howToPlayModal.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
-                const focusableElements = howToPlayModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                // ⚡ Performance optimization: Use cached focusable elements
+                const focusableElements = howToPlayFocusableElements;
                 if (focusableElements.length === 0) return;
 
                 const firstElement = focusableElements[0];
@@ -1280,6 +1301,7 @@ if (typeof module !== 'undefined' && module.exports) {
         debounce,
         resetGame,
         createStationRow,
-        initDOMElements
+        initDOMElements,
+        getFocusableElements
     };
 }
