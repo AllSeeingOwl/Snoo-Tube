@@ -113,7 +113,6 @@ function optimizedPreallocatedReusingRefs() {
   return lockStatuses;
 }
 
-console.log(`Benchmarking with ${ROW_COUNT} rows, 1000 iterations...`);
 benchmark("Original (loop + push + literals)", original);
 benchmark("Optimized (preallocated + literals)", optimizedPreallocated);
 benchmark("Optimized (preallocated + reused refs)", optimizedPreallocatedReusingRefs);

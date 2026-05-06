@@ -39,8 +39,6 @@ function measureMemory(fn, iterations = 10000) {
     return end - start;
 }
 
-console.log('Running Benchmarks...');
-
 // Warmup
 for (let i = 0; i < 1000; i++) {
     currentImplementation();

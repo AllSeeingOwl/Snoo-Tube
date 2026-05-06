@@ -49,7 +49,6 @@ function updateStationRowDOM_Optimized(stationName) {
 const iterations = 100000;
 
 // Baseline
-console.log("Starting Baseline...");
 const startBaseline = performance.now();
 for (let i = 0; i < iterations; i++) {
     updateStationRowDOM_Baseline(stationNames[i % stationNames.length]);
@@ -58,7 +57,6 @@ const endBaseline = performance.now();
 const baselineTotal = endBaseline - startBaseline;
 
 // Optimized
-console.log("Starting Optimized...");
 const startOptimized = performance.now();
 for (let i = 0; i < iterations; i++) {
     updateStationRowDOM_Optimized(stationNames[i % stationNames.length]);

@@ -54,7 +54,6 @@ function memorySuggestedForLoop() {
     return count;
 }
 
-console.log('Running Benchmarks (50 used stations out of 300 total)...');
 benchmark('For...in (Current)', currentForIn);
 benchmark('Object.values().filter() (Proposed)', proposedObjectValuesFilter);
 benchmark('Object.values().reduce()', proposedObjectValuesReduce);
@@ -64,7 +63,6 @@ benchmark('For loop over allStations (Memory)', memorySuggestedForLoop);
 for (let i = 50; i < 250; i++) {
     usedCounts[`Station ${i}`] = Math.floor(Math.random() * 5);
 }
-console.log('\nRunning Benchmarks (250 used stations out of 300 total)...');
 benchmark('For...in (Current)', currentForIn);
 benchmark('Object.values().filter() (Proposed)', proposedObjectValuesFilter);
 benchmark('Object.values().reduce()', proposedObjectValuesReduce);
