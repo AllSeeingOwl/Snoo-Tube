@@ -255,22 +255,26 @@ function getPoolColor(line) {
    return "Black";
 }
 
-let snookerCSV = "Station Name,Lines Served,Valid for Colours,Zone(s),Times Used (This Game),Currently Locked?,Notes\n";
-let poolCSV = "Station Name,Lines Served,Valid for Colours,Borough,Times Used (This Game),Currently Locked?,Notes\n";
+if (require.main === module) {
+    let snookerCSV = "Station Name,Lines Served,Valid for Colours,Zone(s),Times Used (This Game),Currently Locked?,Notes\n";
+    let poolCSV = "Station Name,Lines Served,Valid for Colours,Borough,Times Used (This Game),Currently Locked?,Notes\n";
 
-stationsWithLines.forEach(st => {
-    let linesStr = `"${st.lines.join(', ')}"`;
+    stationsWithLines.forEach(st => {
+        let linesStr = `"${st.lines.join(', ')}"`;
 
-    let snookerCols = new Set(st.lines.map(getSnookerColor));
-    let snookerColStr = `"${Array.from(snookerCols).join(', ')}"`;
+        let snookerCols = new Set(st.lines.map(getSnookerColor));
+        let snookerColStr = `"${Array.from(snookerCols).join(', ')}"`;
 
-    let poolCols = new Set(st.lines.map(getPoolColor));
-    let poolColStr = `"${Array.from(poolCols).join(', ')}"`;
+        let poolCols = new Set(st.lines.map(getPoolColor));
+        let poolColStr = `"${Array.from(poolCols).join(', ')}"`;
 
-    snookerCSV += `"${st.name}",${linesStr},${snookerColStr},1,0,No,\n`;
-    poolCSV += `"${st.name}",${linesStr},${poolColStr},Tokyo,0,No,\n`;
-});
+        snookerCSV += `"${st.name}",${linesStr},${snookerColStr},1,0,No,\n`;
+        poolCSV += `"${st.name}",${linesStr},${poolColStr},Tokyo,0,No,\n`;
+    });
 
-fs.writeFileSync('tokyo-snooker/data/stations.csv', snookerCSV);
-fs.writeFileSync('tokyo-pool/data/stations.csv', poolCSV);
-console.log("Regenerated absolutely accurately.");
+    fs.writeFileSync('tokyo-snooker/data/stations.csv', snookerCSV);
+    fs.writeFileSync('tokyo-pool/data/stations.csv', poolCSV);
+    console.log("Regenerated absolutely accurately.");
+}
+
+module.exports = { getSnookerColor, getPoolColor };
