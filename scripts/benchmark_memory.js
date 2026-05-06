@@ -71,8 +71,6 @@ for (let i = 0; i < 5; i++) {
     renderWithDelegation();
 }
 
-console.log("Measuring memory allocation over 10 renders (1000 stations each)...");
-
 const memIndividual = measureMemory(() => {
     for (let i = 0; i < 10; i++) renderWithIndividual();
 });

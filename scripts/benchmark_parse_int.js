@@ -43,7 +43,6 @@ for (let i = 0; i < 1000000; i++) {
     +val;
 }
 
-console.log(`Running benchmarks with ${iterations.toLocaleString()} iterations and varying values...`);
 testParseInt();
 testNumber();
 testCoercion();
