@@ -201,19 +201,27 @@ function parseCSV(str) {
         if (line.includes('"')) {
             parsedCols = [];
             let inQuotes = false;
-            let currentVal = '';
+            let start = 0;
+            let j = 0;
 
-            for (let char of line) {
+            for (const char of line) {
                 if (char === '"') {
                     inQuotes = !inQuotes;
                 } else if (char === ',' && !inQuotes) {
-                    parsedCols.push(currentVal.trim());
-                    currentVal = '';
-                } else {
-                    currentVal += char;
+                    let val = line.substring(start, j).trim();
+                    if (val.startsWith('"') && val.endsWith('"')) {
+                        val = val.substring(1, val.length - 1).trim();
+                    }
+                    parsedCols.push(val);
+                    start = j + char.length;
                 }
+                j += char.length;
             }
-            parsedCols.push(currentVal.trim());
+            let lastVal = line.substring(start).trim();
+            if (lastVal.startsWith('"') && lastVal.endsWith('"')) {
+                lastVal = lastVal.substring(1, lastVal.length - 1).trim();
+            }
+            parsedCols.push(lastVal);
         } else {
             parsedCols = line.split(',');
             for (let j = 0; j < parsedCols.length; j++) {
