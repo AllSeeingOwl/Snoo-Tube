@@ -1280,6 +1280,19 @@ if (typeof module !== 'undefined' && module.exports) {
         debounce,
         resetGame,
         createStationRow,
-        initDOMElements
+        initDOMElements,
+        handleStationClick,
+        showToast,
+        applyFilters,
+        updateStationRowDOM,
+        get currentFilterType() { return currentFilterType; },
+        set currentFilterType(v) { currentFilterType = v; },
+        stationRowCache,
+        get allStations() { return allStations; },
+        set allStations(v) { allStations = v; },
+        get displayStations() { return displayStations; },
+        set displayStations(v) { displayStations = v; },
+        set searchInput(v) { searchInput = v; },
+        get searchInput() { return searchInput; }
     };
 }
