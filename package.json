@@ -6,12 +6,19 @@
   "scripts": {
     "start": "node server.js",
     "test": "node --experimental-test-coverage --test snooker/tests/*.test.js pool/tests/*.test.js paris/tests/*.test.js tokyo-snooker/tests/*.test.js tokyo-pool/tests/*.test.js",
-    "benchmark": "node --expose-gc scripts/benchmark_memory.js"
+    "benchmark": "node --expose-gc scripts/benchmark_memory.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "build": "echo 'No build step required'"
   },
   "dependencies": {
     "express": "^5.2.1"
   },
   "devDependencies": {
-    "jsdom": "^29.0.1"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.6.0",
+    "globals": "^17.7.0",
+    "jsdom": "^29.0.1",
+    "prettier": "^3.9.1"
   }
 }
