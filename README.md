@@ -71,6 +71,15 @@ To run the apps locally (which is required to load the station data databases an
 
 You will see the global Hub menu, from which you can launch any of the individual tracker apps.
 
+## Deploying to Render
+
+The repo includes a [Render Blueprint](https://render.com/docs/blueprint-spec) (`render.yaml`).
+
+1. In the Render dashboard, choose **New → Blueprint** and select this repository.
+2. Render installs production dependencies with pnpm, runs `node server.js`, and checks `/healthz`.
+
+The server binds to the `PORT` environment variable Render provides (defaulting to `3000` locally).
+
 ## Running Tests
 
 To run the full test suite and check code test coverage (across all game variants), use the following command:
