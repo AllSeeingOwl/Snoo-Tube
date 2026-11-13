@@ -76,7 +76,14 @@ app.use((req, res, next) => {
   next();
 });
 
-const port = 3000;
+// Render (and most hosts) inject the port to bind via the PORT env var.
+const port = Number(process.env.PORT) || 3000;
+
+// Health check endpoint for Render's zero-downtime deploys
+app.get('/healthz', (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
+  res.type('text/plain').status(200).send('OK');
+});
 
 // Hub
 app.use(express.static(path.join(__dirname, 'public')));
@@ -115,6 +122,14 @@ app.use((err, req, res, next) => {
   res.type('text/plain').status(500).send('Internal Server Error'); // Sanitized client response
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+const server = app.listen(port, '0.0.0.0', () => {
+  console.log(`Server listening on port ${port}`);
 });
+
+// Shut down cleanly when Render sends SIGTERM during deploys/restarts
+for (const signal of ['SIGTERM', 'SIGINT']) {
+  process.on(signal, () => {
+    server.close(() => process.exit(0));
+    setTimeout(() => process.exit(0), 10000).unref();
+  });
+}
