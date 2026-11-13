@@ -128,6 +128,9 @@ async function init() {
 
     try {
         await fetchStations();
+        // Initial render: applyFilters() skips rendering when the list is unchanged,
+        // and fetchStations() already populates displayStations, so render explicitly.
+        renderTable();
         applyFilters();
         updateWildcardButtonState();
         updateResetButtonState();
@@ -135,7 +138,13 @@ async function init() {
 
         // Register Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
+            // The CSP enforces Trusted Types, so the script URL must be a TrustedScriptURL.
+            const swUrl = window.trustedTypes
+                ? window.trustedTypes.createPolicy('sw-url', {
+                    createScriptURL: (url) => (url === 'sw.js' ? url : '')
+                }).createScriptURL('sw.js')
+                : 'sw.js';
+            navigator.serviceWorker.register(swUrl)
                 .then(() => console.log('Service Worker registered'))
                 .catch(err => console.log('Service Worker registration failed.'));
         }

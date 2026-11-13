@@ -127,6 +127,9 @@ async function init() {
 
     try {
         await fetchStations();
+        // Initial render: applyFilters() skips rendering when the list is unchanged,
+        // and fetchStations() already populates displayStations, so render explicitly.
+        renderTable();
         applyFilters();
         updateWildcardButtonState();
         updateResetButtonState();
@@ -134,7 +137,13 @@ async function init() {
 
         // Register Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
+            // The CSP enforces Trusted Types, so the script URL must be a TrustedScriptURL.
+            const swUrl = window.trustedTypes
+                ? window.trustedTypes.createPolicy('sw-url', {
+                    createScriptURL: (url) => (url === 'sw.js' ? url : '')
+                }).createScriptURL('sw.js')
+                : 'sw.js';
+            navigator.serviceWorker.register(swUrl)
                 .then(() => console.log('Service Worker registered'))
                 .catch(err => console.log('Service Worker registration failed.'));
         }
@@ -163,7 +172,7 @@ async function fetchStations() {
     const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-        const response = await fetch('../data/Snooker Tubey Database.csv', { signal: controller.signal });
+        const response = await fetch('./data/Snooker Tubey Database.csv', { signal: controller.signal });
         if (!response.ok) throw new Error('Failed to fetch CSV');
 
         const csvText = await response.text();
