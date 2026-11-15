@@ -13,3 +13,6 @@ services:
         value: production
       - key: NODE_VERSION
         value: "22"
+      # Sentry error reporting; set in the Render dashboard.
+      - key: SENTRY_DSN
+        sync: false
