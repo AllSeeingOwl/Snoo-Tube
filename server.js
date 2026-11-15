@@ -1,3 +1,5 @@
+// Sentry must load before Express so it can instrument it.
+const { Sentry, browserConfig, ingestOrigin } = require('./instrument');
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -62,13 +64,18 @@ app.use((req, res, next) => {
   next();
 });
 
+// Browsers may only send requests to this site, plus Sentry's error-report
+// endpoint when Sentry is on.
+const connectSrc = ingestOrigin ? `connect-src 'self' ${ingestOrigin}; ` : '';
+const contentSecurityPolicy = `default-src 'self'; ${connectSrc}style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'none'; require-trusted-types-for 'script'; form-action 'none'; upgrade-insecure-requests; frame-ancestors 'none';`;
+
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
   res.setHeader('Referrer-Policy', 'no-referrer');
-  res.setHeader('Content-Security-Policy', "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'none'; require-trusted-types-for 'script'; form-action 'none'; upgrade-insecure-requests; frame-ancestors 'none';");
+  res.setHeader('Content-Security-Policy', contentSecurityPolicy);
   // 🛡️ Sentinel: Cross-Origin Isolation headers to mitigate XS-Leaks and Spectre attacks
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
   res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
@@ -84,6 +91,16 @@ app.get('/healthz', (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   res.type('text/plain').status(200).send('OK');
 });
+
+// Sentry settings for the trackers' browser code. Never cached, so a changed
+// SENTRY_DSN takes effect on the next page load.
+app.get('/shared/sentry-config.js', (req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
+  res.type('application/javascript').send(`window.SNOO_TUBE_SENTRY = ${JSON.stringify(browserConfig)};\n`);
+});
+
+// Files shared by every tracker (the Sentry browser SDK)
+app.use('/shared', express.static(path.join(__dirname, 'shared')));
 
 // Hub
 app.use(express.static(path.join(__dirname, 'public')));
@@ -114,6 +131,9 @@ app.use((req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   res.type('text/plain').status(404).send('Not Found');
 });
+
+// Report errors to Sentry before the handler below hides them from players.
+Sentry.setupExpressErrorHandler(app);
 
 // 🛡️ Sentinel: Global error handler to prevent stack trace leakage
 app.use((err, req, res, next) => {
