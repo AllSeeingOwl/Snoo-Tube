@@ -11,8 +11,15 @@ if (config && config.dsn) {
     dsn: config.dsn,
     environment: config.environment,
     release: config.release,
-    // Players' IP addresses stay out of Sentry.
-    sendDefaultPii: false,
+    // Sentry v11 collects user info (including IP addresses), cookies, headers,
+    // query strings and request bodies by default. All of it stays out of Sentry.
+    dataCollection: {
+      userInfo: false,
+      cookies: false,
+      httpHeaders: false,
+      httpBodies: [],
+      urlQueryParams: false,
+    },
   });
 
   // Tag each error with the tracker it came from, e.g. "snooker" or "paris".

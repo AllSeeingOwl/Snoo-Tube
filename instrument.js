@@ -10,6 +10,18 @@ const environment = process.env.NODE_ENV || 'development';
 // commit it came from.
 const release = process.env.RENDER_GIT_COMMIT || undefined;
 
+// Sentry v11 ignores sendDefaultPii and collects request headers, cookies, query
+// strings, request bodies, user info (including IP addresses) and local variables
+// by default. Every category is switched off; errors keep their stack traces.
+const PRIVATE_DATA_COLLECTION = {
+  userInfo: false,
+  cookies: false,
+  httpHeaders: false,
+  httpBodies: [],
+  urlQueryParams: false,
+  stackFrameVariables: false,
+};
+
 if (dsn) {
   Sentry.init({
     dsn,
@@ -18,8 +30,7 @@ if (dsn) {
     // The server only serves static files, so performance tracing is off by
     // default. Set SENTRY_TRACES_SAMPLE_RATE (0 to 1) to turn it on.
     tracesSampleRate: Number(process.env.SENTRY_TRACES_SAMPLE_RATE) || 0,
-    // Players' IP addresses and request details stay out of Sentry.
-    sendDefaultPii: false,
+    dataCollection: PRIVATE_DATA_COLLECTION,
   });
 }
 
